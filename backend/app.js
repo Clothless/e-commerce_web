@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
-const route = require('./src/routes/productsRoute.js');
+const productsRoute = require('./src/routes/productsRoute.js');
 
 
 app.use(express.json());
@@ -19,7 +19,6 @@ app.get("/", (req, res) => {
   res.json({ message: "ok" });
 });
 
-app.use("/products", route);
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
@@ -27,6 +26,11 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
+
+
+// Products route
+app.use("/products", productsRoute);
+
 
 app.listen(port, () => {
   console.log(`Server runing at http://localhost:${port}`);
