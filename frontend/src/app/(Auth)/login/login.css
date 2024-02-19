@@ -1,0 +1,81 @@
+header{
+    padding-block: 10px;
+    border-bottom: 1px solid #c2c2c224;
+    text-align: center;
+    img {
+        height: 60px;
+        width: auto;
+    }
+} 
+
+main {
+    margin-top: 10px;
+    /* text-align: center; */
+    h1 {
+        color: var(--main-orange-color);
+        font-size: clamp(1.5rem, 5vw, 2em);
+        margin-bottom: 5px;
+    }
+    p:not(:has(a)) {
+        color: var(--dark-gray-color);
+        text-wrap: balance;
+    }
+    .text {
+        text-align: center;
+    }
+    form {
+        width: 400px;
+        margin: 28px auto;
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+        > div {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 10px;
+            text-wrap: balance;
+        }
+        input {
+            border-radius: 7px;
+            font-size: 1.03rem;
+            &[type="submit"]{
+                width: 100%;
+                padding-block: 10px;
+                color: white;
+                font-weight: bold;
+                font-size: 16px;
+                border: none;
+                background-color: var(--main-orange-color);
+                cursor: pointer;
+            }
+            &:not([type="submit"]){
+                border: 1px solid gray;
+                padding: 10px;
+            }
+        }
+        .pass {
+            flex-direction: row;
+            justify-content: space-between;
+            a {
+                font-size: 15px;
+                color: var(--main-blue-color);
+                text-decoration: underline;
+            }
+        }
+        .final {
+            text-align: center;
+            margin-top: 20px;
+            a{
+                color: var(--main-blue-color);
+                text-decoration: underline;
+            }
+        }
+        @media (max-width: 500px) {
+            width: 100%;
+        }
+    }
+}
