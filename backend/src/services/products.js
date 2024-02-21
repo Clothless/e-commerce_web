@@ -17,6 +17,35 @@ async function getAllProducts(page = 1) {
   };
 }
 
+// Get products by category
+async function getProductsByCategory(category) {
+  const rows = await db.query(
+    `SELECT * FROM product WHERE category='${category}'`
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {
+    data,
+  };
+}
+
+// Get specific product
+async function getProductById(id) {
+  const productRows = await db.query(
+    `SELECT * FROM product WHERE product_id=${id}`
+  );
+  const commentsRows = await db.query(
+    `SELECT * FROM comment WHERE posted_for=${id}`
+  );
+  const product = helper.emptyOrRows(productRows);
+  const comments = helper.emptyOrRows(commentsRows);
+
+  return {
+    product,
+    comments,
+  };
+}
+
 // Add new product
 async function addProduct(product) {
   const result = await db.query(
@@ -75,4 +104,6 @@ module.exports = {
   addProduct,
   updateProduct,
   deleteProduct,
+  getProductById,
+  getProductsByCategory
 };

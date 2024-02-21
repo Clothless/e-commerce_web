@@ -12,8 +12,18 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+// Get specific user
+router.get('/:id', async function(req, res, next) {
+  try {
+    res.json(await users.getSpecificUser(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting user`, err.message);
+    next(err);
+  }
+});
+
 // Add a user
-router.post('/', async function(req, res, next) {
+router.post('/add', async function(req, res, next) {
   try {
     res.json(await users.addUser(req.body));
   } catch (err) {
@@ -23,7 +33,7 @@ router.post('/', async function(req, res, next) {
 });
 
 // Update a user
-router.put('/:id', async function(req, res, next) {
+router.put('/edit/:id', async function(req, res, next) {
   try {
     res.json(await users.updateUser(req.params.id, req.body));
   } catch (err) {
@@ -41,3 +51,5 @@ router.delete('/:id', async function(req, res, next) {
     next(err);
   }
 });
+
+module.exports = router;

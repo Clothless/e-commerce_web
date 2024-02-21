@@ -12,8 +12,28 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+// Get products by category
+router.get('/category/:category', async function(req, res, next) {
+  try {
+    res.json(await products.getProductsByCategory(req.params.category));
+  } catch (err) {
+    console.error(`Error while getting products by category `, err.message);
+    next(err);
+  }
+});
+
+// Get specific product
+router.get('/:id', async function(req, res, next) {
+  try {
+    res.json(await products.getProductById(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting product `, err.message);
+    next(err);
+  }
+});
+
 // Add a product
-router.post('/', async function(req, res, next) {
+router.post('/add', async function(req, res, next) {
   try {
     res.json(await products.addProduct(req.body));
   } catch (err) {
@@ -23,7 +43,7 @@ router.post('/', async function(req, res, next) {
 });
 
 // Update a product
-router.put('/:id', async function(req, res, next) {
+router.put('/edit/:id', async function(req, res, next) {
   try {
     res.json(await products.updateProduct(req.params.id, req.body));
   } catch (err) {
