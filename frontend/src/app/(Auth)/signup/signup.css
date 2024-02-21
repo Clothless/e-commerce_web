@@ -1,0 +1,93 @@
+header{
+    padding-block: 10px;
+    border-bottom: 1px solid #c2c2c224;
+    text-align: center;
+    img {
+        height: 60px;
+        width: auto;
+    }
+} 
+
+main {
+    margin-top: 10px;
+    /* text-align: center; */
+    h1 {
+        color: var(--main-orange-color);
+        font-size: clamp(1.5rem, 5vw, 2em);
+        margin-bottom: 5px;
+    }
+    p {
+        color: var(--dark-gray-color);
+        text-wrap: balance;
+    }
+    .text {
+        text-align: center;
+    }
+    form {
+        width: 400px;
+        margin: 28px auto;
+        & > div:first-child {
+            flex-direction: row;
+            justify-content: space-between;
+            div {
+                width: 48%;
+            }
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+        > div {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: 500;
+            font-size: 15px;
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+            text-wrap: balance;
+        }
+        div:has(input[type="checkbox"]){
+            flex-direction: row;
+            align-items: center;
+            input[type="checkbox"]{
+                margin-right: 10px;
+            }
+            a {
+                color: var(--main-blue-color);
+                text-decoration: underline;
+            }
+        }
+        input {
+            border-radius: 7px;
+            font-size: 1.03rem;
+            &[type="submit"]{
+                width: 100%;
+                padding-block: 10px;
+                color: white;
+                font-weight: bold;
+                font-size: 16px;
+                border: none;
+                background-color: var(--main-orange-color);
+                cursor: pointer;
+            }
+            &:not([type="submit"]){
+                border: 1px solid gray;
+                padding: 10px;
+            }
+        }
+        @media (max-width: 500px) {
+            width: 100%;
+            & > div:first-child {
+                flex-direction: column;
+                div {
+                    width: 100%;
+                }
+                div:first-child {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
