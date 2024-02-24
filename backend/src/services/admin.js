@@ -1,19 +1,14 @@
 const db = require("./db.js");
 const helper = require("./helper.js");
+const bcrypt = require("bcrypt");
 
 // Get all admins
 async function getAllAdmins(page = 1) {
-  const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM admin LIMIT ${offset},${listPerPage}`
+    `SELECT * FROM admin`
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
-
-  return {
-    data,
-    meta,
-  };
 }
 
 // Get specific admin
@@ -28,13 +23,27 @@ async function getAdminById(id) {
   };
 }
 
+// Get admin by email
+async function getAdminByEmail(email) {
+  const rows = await db.query(
+    `SELECT * FROM admin WHERE email='${email}'`
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return data;
+}
+
 // Add new admin
 async function addAdmin(admin) {
+  const hashedPassword = await bcrypt.hash(admin.password, 10);
+  const checkUser = await getAdminByEmail(admin.email);
+  if (checkUser.length) {
+    return { message: "User already exists" };
+  }
   const result = await db.query(
-    `INSERT INTO admin 
-    (first_name, last_name, email, password, role) 
+    `INSERT INTO admin (first_name, last_name, email, password, role) 
     VALUES 
-    ('${admin.first_name}', '${admin.last_name}', '${admin.email}', '${admin.password}, '${admin.role})`
+    ('${admin.first_name}', '${admin.last_name}', '${admin.email}', '${hashedPassword}', '${admin.role}')`
   );
 
   let message = "Error in adding admin";
@@ -48,10 +57,11 @@ async function addAdmin(admin) {
 
 // Update existing admin
 async function updateAdmin(id, admin) {
+  const hashedPassword = await bcrypt.hash(admin.password, 10);
   const result = await db.query(
     `UPDATE admin 
     SET first_name='${admin.first_name}', last_name='${admin.last_name}',
-    email='${admin.email}', password='${admin.password}', role='${admin.role}'
+    email='${admin.email}', password='${hashedPassword}', role='${admin.role}'
     WHERE admin_id=${id}`
   );
 
@@ -84,5 +94,6 @@ module.exports = {
   getAdminById,
   addAdmin,
   updateAdmin,
-  deleteAdmin
+  deleteAdmin,
+  getAdminByEmail
 };
