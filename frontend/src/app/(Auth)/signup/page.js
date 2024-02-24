@@ -1,7 +1,13 @@
+"use client";
 import Image from "next/image";
 import "./signup.css"
+import { useState } from "react";
+
+import { signup } from "../actions";
 
 export default function signupPage(){
+    const [disabled, setDisabled] = useState(true);
+
     return (
         <>
             <header>
@@ -15,34 +21,34 @@ export default function signupPage(){
                         <h1>Create an account</h1>
                         <p>Enter your information to create an account</p>
                     </div>
-                    <form>
+                    <form action={signup} method="POST">
                         <div className="fullName">
                             <div>
                                 <label htmlFor="fname">First name</label>
-                                <input type="text" name="" placeholder="john" id="fname"/>
+                                <input type="text" name="first_name" placeholder="john" id="fname"/>
                             </div>
                             <div>
                                 <label htmlFor="lname">Last name</label>
-                                <input type="text" name="" placeholder="doe" id="lname"/>
+                                <input type="text" name="last_name" placeholder="doe" id="lname"/>
                             </div>
                         </div>
                         <div>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="" id="email" placeholder="m@example.com"/>
+                            <input type="email" name="email" id="email" placeholder="m@example.com"/>
                         </div>
                         <div>
                             <label htmlFor="pwd">Password</label>
-                            <input type="password" name="" id="pwd" />
+                            <input type="password" name="password" id="pwd" />
                         </div>
                         <div>
                             <label htmlFor="cpwd">Confirm Password</label>
-                            <input type="password" name="" id="cpwd" />
+                            <input type="password" id="cpwd" />
                         </div>
                         <div>
-                            <input type="checkbox" name="" id="" />
+                            <input type="checkbox" id="" onChange={()=>setDisabled(!disabled)}/>
                             <label htmlFor="">I agree to the <a href="">Terms and Conditions</a></label>
                         </div>
-                        <input type="submit" value="Sign up" />
+                        <input type="submit" value="Sign up" disabled={disabled}/>
                     </form>
                 </div>
             </main>
