@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 
 const ngrok = require("@ngrok/ngrok");
 
@@ -13,6 +14,9 @@ dotenv.config(
   const port = process.env.PORT;
   const productsRoute = require('./src/routes/productsRoute.js');
   const userRoute = require('./src/routes/usersRoute.js');
+  const categoryRoute = require('./src/routes/categoryRoute.js');
+  const commentRoute = require('./src/routes/commentRoute.js');
+  const adminRoute = require('./src/routes/adminRoute.js');
 
 app.use(express.json());
 app.use(
@@ -37,17 +41,13 @@ app.use((err, req, res, next) => {
 
 // Products route
 app.use("/products", productsRoute);
-app.use("/account", userRoute);
-
-(async function() {
-  // Establish connectivity
-  const listener = await ngrok.forward({ addr: 8080, authtoken: process.env.AUTH_TOKEN });
-
-  // Output ngrok url to console
-  console.log(`Ingress established at: ${listener.url()}`);
-})();
+app.use("/users", userRoute);
+app.use("/categories", categoryRoute);
+app.use("/comments", commentRoute);
+app.use("/admins", adminRoute);
 
 
-// app.listen(port, () => {
-//   console.log(`Server runing at http://localhost:${port}`);
-// });
+
+app.listen(port, () => {
+  console.log(`Server runing at http://localhost:${port}`);
+});

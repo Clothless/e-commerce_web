@@ -48,11 +48,12 @@ async function getProductById(id) {
 
 // Add new product
 async function addProduct(product) {
+  const imagesJson = JSON.stringify(product.images); // Convert images array to JSON string
   const result = await db.query(
     `INSERT INTO product 
     (name, description, price, posted_by, category, images) 
     VALUES 
-    ('${product.name}', '${product.description}', '${product.price}', '${product.posted_by}', '${product.category}', '${product.images}')`
+    ('${product.name}', '${product.description}', '${product.price}', '${product.posted_by}', '${product.category}', '${imagesJson}')`
   );
 
   let message = "Error in adding product";
@@ -64,14 +65,16 @@ async function addProduct(product) {
   return { message };
 }
 
+
 // Update existing product
 async function updateProduct(id, product) {
+  const imagesJson = JSON.stringify(product.images); 
   const result = await db.query(
     `UPDATE product 
     SET name='${product.name}', description='${product.description}',
     price='${product.price}',
-    category='${product.category}', images='${product.images}'
-    WHERE id=${id}`
+    category='${product.category}', images='${imagesJson}'
+    WHERE product_id=${id}`
   );
 
   let message = "Error in updating product";
@@ -86,7 +89,7 @@ async function updateProduct(id, product) {
 // Delete existing product
 async function deleteProduct(id) {
   const result = await db.query(
-    `DELETE FROM product WHERE id=${id}`
+    `DELETE FROM product WHERE product_id=${id}`
     );
 
   let message = "Error in deleting product";

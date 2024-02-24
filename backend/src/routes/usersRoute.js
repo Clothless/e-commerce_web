@@ -52,4 +52,14 @@ router.delete('/:id', async function(req, res, next) {
   }
 });
 
+//Login a user
+router.post('/login', async function(req, res, next) {
+  try {
+    res.json(await users.loginUser(req.body));
+  } catch (err) {
+    console.error(`Error while logging in user`, err.message);
+    next(err);
+  }
+});
+
 module.exports = router;

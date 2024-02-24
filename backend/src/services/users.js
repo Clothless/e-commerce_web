@@ -58,7 +58,7 @@ async function updateUser(id, user) {
     SET first_name='${user.first_name}', last_name='${user.last_name}',
     address='${user.address}',
     phone_number='${user.phone_number}', email='${user.email}', password='${user.password}'
-    WHERE id=${id}`
+    WHERE user_id=${id}`
   );
 
   let message = "Error in updating user";
@@ -73,7 +73,7 @@ async function updateUser(id, user) {
 // Delete existing user
 async function deleteUser(id) {
   const result = await db.query(
-    `DELETE FROM user WHERE id=${id}`
+    `DELETE FROM user WHERE user_id=${id}`
   );
 
   let message = "Error in deleting user";
@@ -92,15 +92,6 @@ async function getUserByEmail(email) {
   );
   const data = helper.emptyOrRows(rows);
   return data;
-}
-
-// Get user by id
-async function getUserById(id) {
-  const rows = await db.query(
-    `SELECT * FROM user WHERE id=${id}`
-  );
-    const data = helper.emptyOrRows(rows);
-    return data;
 }
 
 // Log in user
@@ -125,7 +116,6 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserByEmail,
-  getUserById,
   loginUser
 };
 

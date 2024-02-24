@@ -3,18 +3,13 @@ const helper = require("./helper.js");
 
 
 // Get all categories
-async function getAllCategories(page = 1) {
-  const offset = helper.getOffset(page, listPerPage);
+async function getAllCategories() {
   const rows = await db.query(
-    `SELECT * FROM category LIMIT ${offset},${listPerPage}`
+    `SELECT * FROM category`
   );
-  const data = helper.emptyOrRows(rows);
-  const meta = { page };
 
-  return {
-    data,
-    meta,
-  };
+  const data = helper.emptyOrRows(rows);
+  return { data };
 }
 
 // Add new category
