@@ -22,7 +22,7 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
-// Add a admin
+// Add an admin
 router.post('/add', async function(req, res, next) {
   try {
     res.json(await adminService.addAdmin(req.body));
@@ -32,7 +32,7 @@ router.post('/add', async function(req, res, next) {
   }
 });
 
-// Update a admin
+// Update an admin
 router.put('/edit/:id', async function(req, res, next) {
   try {
     res.json(await adminService.updateAdmin(req.params.id, req.body));
@@ -42,7 +42,7 @@ router.put('/edit/:id', async function(req, res, next) {
   }
 });
 
-// Delete a admin
+// Delete an admin
 router.delete('/:id', async function(req, res, next) {
   try {
     res.json(await adminService.deleteAdmin(req.params.id));
