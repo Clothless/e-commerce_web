@@ -1,6 +1,7 @@
+import "./index.css"
 
 export default function Home() {
   return (
-    <h1>hello world from my new project</h1>
+    <h1>hello world </h1>
   );
 }
