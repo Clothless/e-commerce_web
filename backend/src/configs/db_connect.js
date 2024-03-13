@@ -1,18 +1,13 @@
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
-dotenv.config(
-  {
-    path: '../.env'
-  }
-)
 
 const connection = {
   db: {
-    host: process.env.HOST,
-    user: process.env.USER,
+    user: process.env.USER_NAME,
     password: process.env.PASSWORD,
+    host: process.env.HOST,
     database: process.env.DB_NAME,
-    connectTimeout: 60000
+    connectTimeout: 60000,
   },
   listPerPage: 10
 };
