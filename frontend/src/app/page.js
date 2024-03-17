@@ -2,6 +2,12 @@ import "./index.css"
 
 export default function Home() {
   return (
-    <h1>hello world </h1>
+    <div className="hero">
+      <div className="text">
+        <h1>E-Sog</h1>
+        <p>A whole store, in front of your door !</p>
+        <button>Learn more</button>
+      </div>
+    </div>
   );
 }
