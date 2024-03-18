@@ -14,7 +14,7 @@ const options = {
     createDatabaseTable: true,
     host: process.env.HOST,
     port: process.env.DB_PORT,
-    user: process.env.USER,
+    user: process.env.USER_NAME,
     password: process.env.PASSWORD,
     database: process.env.DB_NAME
     };
