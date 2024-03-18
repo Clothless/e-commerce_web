@@ -49,3 +49,13 @@
         }
     }
 }
+.categories {
+    padding-block: 30px;
+    .title {
+        font-size: 32px;
+        margin-bottom: 40px;
+        hr {
+            margin-top: 15px;
+        }
+    }
+}

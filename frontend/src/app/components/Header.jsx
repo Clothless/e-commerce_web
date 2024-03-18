@@ -63,7 +63,7 @@ export default function Header({children}) {
                 <button>Sign out</button>
               </div>
             </nav>
-            <div className={isOpen&&"open"} id="burger" onClick={()=>setIsOpen(!isOpen)}>
+            <div className={isOpen?"open":undefined} id="burger" onClick={()=>setIsOpen(!isOpen)}>
               <span></span>
               <span></span>
               <span></span>
