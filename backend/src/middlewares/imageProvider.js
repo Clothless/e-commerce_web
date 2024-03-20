@@ -1,19 +1,11 @@
-const { Router } = require("express");
-const router = Router();
 const dotenv = require("dotenv");
 const multer = require("multer");
 const upload = multer();
 const imgbbUploader = require("imgbb-uploader");
 
-dotenv.config({
-  path: "./.env",
-});
-
-router.post("/upload", upload.array('images'), async (req, res, next) => {
+async function imageProvider(req, res, next) {
   try {
     const { files } = req;
-
-    console.log(files);
 
     if (files.length === 0) {
       return res.status(400).json({ message: "No image data provided" });
@@ -34,6 +26,6 @@ router.post("/upload", upload.array('images'), async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+}
 
-module.exports = router;
+module.exports = imageProvider;

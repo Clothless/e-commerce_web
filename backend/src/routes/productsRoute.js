@@ -1,9 +1,9 @@
-const {Router} = require('express');
+const { Router } = require("express");
 const router = Router();
-const products = require('../services/products.js');
+const products = require("../services/products.js");
 
 // Get all products
-router.get('/', async function(req, res, next) {
+router.get("/", async function (req, res, next) {
   try {
     res.json(await products.getAllProducts(req.query.page));
   } catch (err) {
@@ -13,7 +13,7 @@ router.get('/', async function(req, res, next) {
 });
 
 // Get products by category
-router.get('/category/:category', async function(req, res, next) {
+router.get("/category/:category", async function (req, res, next) {
   try {
     res.json(await products.getProductsByCategory(req.params.category));
   } catch (err) {
@@ -23,7 +23,7 @@ router.get('/category/:category', async function(req, res, next) {
 });
 
 // Get specific product
-router.get('/:id', async function(req, res, next) {
+router.get("/:id", async function (req, res, next) {
   try {
     res.json(await products.getProductById(req.params.id));
   } catch (err) {
@@ -32,9 +32,34 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
+const multer = require("multer");
+const upload = multer();
+const imgbbUploader = require("imgbb-uploader");
+
 // Add a product
-router.post('/add', async function(req, res, next) {
+router.post("/add", upload.array("images"), async function (req, res, next) {
   try {
+    const { files } = req;
+
+    
+    if (files.length === 0) {
+      return res.status(400).json({ message: "No image data provided" });
+    }
+    
+    const urls = [];
+    for (const file of files) {
+      const options = {
+        apiKey: process.env.IMGBB_KEY,
+        base64string: file.buffer.toString("base64"),
+      };
+      const result = await imgbbUploader(options);
+      urls.push(result.url);
+    }
+    
+    req.body.images = urls;
+
+
+
     res.json(await products.addProduct(req.body));
   } catch (err) {
     console.error(`Error while adding product`, err.message);
@@ -43,7 +68,7 @@ router.post('/add', async function(req, res, next) {
 });
 
 // Update a product
-router.put('/edit/:id', async function(req, res, next) {
+router.put("/edit/:id", async function (req, res, next) {
   try {
     res.json(await products.updateProduct(req.params.id, req.body));
   } catch (err) {
@@ -53,7 +78,7 @@ router.put('/edit/:id', async function(req, res, next) {
 });
 
 // Delete a product
-router.delete('/:id', async function(req, res, next) {
+router.delete("/:id", async function (req, res, next) {
   try {
     res.json(await products.deleteProduct(req.params.id));
   } catch (err) {
