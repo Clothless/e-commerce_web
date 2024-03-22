@@ -88,6 +88,32 @@ LOCK TABLES `comment` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `favorite_products`
+--
+
+DROP TABLE IF EXISTS `favorite_products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `favorite_products` (
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  PRIMARY KEY (`user_id`,`product_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `favorite_products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `favorite_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `favorite_products`
+--
+
+LOCK TABLES `favorite_products` WRITE;
+/*!40000 ALTER TABLE `favorite_products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `favorite_products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `product`
 --
 
@@ -144,7 +170,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('Ip3kB0XeRyvEa6tbMdd0qPGJ0J_YCEV5',1711550563,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-27T14:42:42.523Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('VzSKpbD6ua05pXp4-fyEQ4z0mBYKMAZM',1711482640,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T17:24:01.919Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('lUkI72PR0yFcjKElIEkXRVfUjN4tmP9G',1711457229,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T15:11:24.676Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('piPTWMxl1RE-ct7LbSLClQlZuSAHFfFj',1711473832,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T13:11:24.885Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('wQ14yY5y4FgSZ4wzo_TE0iz_gIk2vQut',1711388880,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T17:48:00.396Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('zMUGlKcOvZJyEi9xWi34xEZnc_-MnP7q',1711551119,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T19:51:42.790Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}');
+INSERT INTO `sessions` VALUES ('Ip3kB0XeRyvEa6tbMdd0qPGJ0J_YCEV5',1711550563,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-27T14:42:42.523Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('VzSKpbD6ua05pXp4-fyEQ4z0mBYKMAZM',1711482640,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T17:24:01.919Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('lUkI72PR0yFcjKElIEkXRVfUjN4tmP9G',1711457229,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T15:11:24.676Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('piPTWMxl1RE-ct7LbSLClQlZuSAHFfFj',1711473832,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T13:11:24.885Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('qYkXk4fmuUSN-ksOWtIz9dJU3348sH_a',1711724942,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-29T14:53:08.491Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":16}}'),('wQ14yY5y4FgSZ4wzo_TE0iz_gIk2vQut',1711723252,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T17:48:00.396Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,7 +219,7 @@ CREATE TABLE `user` (
   `password` varchar(250) DEFAULT NULL,
   `role` varchar(20) DEFAULT 'user',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,13 +228,9 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'John','Doe','123 Main St','555-123-4567','john.doe@example.com','password123','user'),(2,'Jane','Smith','456 Elm St','555-987-6543','jane.smith@example.com','securepassword','user'),(3,'Alice','Johnson','789 Oak St','555-555-5555','alice.johnson@example.com','strongpassword','user'),(4,'Michael','Brown','101 Pine St','555-111-2222','michael.brown@example.com','pass1234','user'),(5,'Emily','Davis','202 Maple St','555-333-4444','emily.davis@example.com','qwerty123','user'),(6,'James','Wilson','303 Cedar St','555-555-6666','james.wilson@example.com','letmein','user'),(7,'Sarah','Martinez','404 Birch St','555-777-8888','sarah.martinez@example.com','password1','user'),(8,'David','Anderson','505 Walnut St','555-999-0000','david.anderson@example.com','abc123','user'),(9,'Jessica','Taylor','606 Oak St','555-121-2121','jessica.taylor@example.com','welcome123','user'),(11,'John','Doe','123 Main St','555-123-4567','john.doe1@example.com','$2b$10$qeRvLFNxMkTJKNyV.yDZnezmT3jVe7CsjQj.OZfVvGUrVdFUtCfGq','user'),(12,'John','Doe','123 Main St','555-123-4567','john.dojjd@example.com','$2b$10$rcyZ.qMsNZf1LjKtNwsaxu1mIpEGpxj88Btp4LG/cVsUdWH7qUIjq','user'),(13,'hamani','deraji','','','droj@gmail.com','$2b$10$pW6wVGzNmfwzO6viXAXfP.gB2YwVXXARKfoh6qit0tQH6avM4Hgea','user'),(14,'Issam','Hosni','','','IssamHosni@gmail.com','$2b$10$7AByJhYGO/he1img3E8yQulENXXrareQ3GVzh2K5.TldM8P46TAae','user'),(15,'Belalia','Anis','','','anis@gmail.com','$2b$10$/dCMgcE.1vKJA9wCue0HFO4YzAOuG.pcP2Cqduwma6F1wg86r6c02','user'),(16,'Ibrahim','Chaibedraa','','','ibradzm@gmail.com','$2b$10$XX4tYP83IVoJRbZLup/0xuA5Uel4EukG81n.dkQ8Fk4geCH4AQtze','admin');
+INSERT INTO `user` VALUES (1,'John','Doe','123 Main St','555-123-4567','john.doe@example.com','password123','user'),(2,'Jane','Smith','456 Elm St','555-987-6543','jane.smith@example.com','securepassword','user'),(3,'Alice','Johnson','789 Oak St','555-555-5555','alice.johnson@example.com','strongpassword','user'),(4,'Michael','Brown','101 Pine St','555-111-2222','michael.brown@example.com','pass1234','user'),(5,'Emily','Davis','202 Maple St','555-333-4444','emily.davis@example.com','qwerty123','user'),(6,'James','Wilson','303 Cedar St','555-555-6666','james.wilson@example.com','letmein','user'),(7,'Sarah','Martinez','404 Birch St','555-777-8888','sarah.martinez@example.com','password1','user'),(8,'David','Anderson','505 Walnut St','555-999-0000','david.anderson@example.com','abc123','user'),(9,'Jessica','Taylor','606 Oak St','555-121-2121','jessica.taylor@example.com','welcome123','user'),(11,'John','Doe','123 Main St','555-123-4567','john.doe1@example.com','$2b$10$qeRvLFNxMkTJKNyV.yDZnezmT3jVe7CsjQj.OZfVvGUrVdFUtCfGq','user'),(12,'John','Doe','123 Main St','555-123-4567','john.dojjd@example.com','$2b$10$rcyZ.qMsNZf1LjKtNwsaxu1mIpEGpxj88Btp4LG/cVsUdWH7qUIjq','user'),(13,'hamani','deraji','','','droj@gmail.com','$2b$10$pW6wVGzNmfwzO6viXAXfP.gB2YwVXXARKfoh6qit0tQH6avM4Hgea','user'),(14,'Issam','Hosni','','','IssamHosni@gmail.com','$2b$10$7AByJhYGO/he1img3E8yQulENXXrareQ3GVzh2K5.TldM8P46TAae','user'),(15,'Belalia','Anis','','','anis@gmail.com','$2b$10$/dCMgcE.1vKJA9wCue0HFO4YzAOuG.pcP2Cqduwma6F1wg86r6c02','user'),(16,'Ibrahim','Chaibedraa','','','ibradzm@gmail.com','$2b$10$XX4tYP83IVoJRbZLup/0xuA5Uel4EukG81n.dkQ8Fk4geCH4AQtze','admin'),(17,'Ibrahim','Chaibedraa','','','ibrahim@gmail.com','$2b$10$/VaNRI//GhXMvT192cKfneU1eHGieVd4OTBQLF9ERSYaPs4XuWaE2','user');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'e_commerce'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -219,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-20 16:19:31
+-- Dump completed on 2024-03-22 16:25:11
