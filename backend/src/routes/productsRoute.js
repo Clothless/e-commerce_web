@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const products = require("../services/products.js");
+const { isAuthenticated } = require("../controllers/auth.js");
 
 // Get all products
 router.get("/", async function (req, res, next) {
@@ -8,6 +9,16 @@ router.get("/", async function (req, res, next) {
     res.json(await products.getAllProducts(req.query.page));
   } catch (err) {
     console.error(`Error while getting products `, err.message);
+    next(err);
+  }
+});
+
+// get number of products
+router.get("/count", async function (req, res, next) {
+  try {
+    res.json(await products.getProductsCount());
+  } catch (err) {
+    console.error(`Error while getting number of products `, err.message);
     next(err);
   }
 });
@@ -22,15 +33,17 @@ router.get("/category/:category", async function (req, res, next) {
   }
 });
 
-// Get specific product
-router.get("/:id", async function (req, res, next) {
+// get user favorite products
+router.get('/favorite', isAuthenticated, async function(req, res, next) {
   try {
-    res.json(await products.getProductById(req.params.id));
+    res.json(await products.getFavoriteProducts(req.user.user_id));
   } catch (err) {
-    console.error(`Error while getting product `, err.message);
+    console.error(`Error while getting favorite products`, err.message);
     next(err);
   }
 });
+
+
 
 const multer = require("multer");
 const upload = multer();
@@ -67,9 +80,21 @@ router.post("/add", upload.array("images"), async function (req, res, next) {
   }
 });
 
-// Update a product
-router.put("/edit/:id", async function (req, res, next) {
+
+// Update Product
+router.put("/edit/:id", upload.array("images"), async function (req, res, next) {
   try {
+    const { files } = req;
+    const urls = [];
+    for (const file of files) {
+      const options = {
+        apiKey: process.env.IMGBB_KEY,
+        base64string: file.buffer.toString("base64"),
+      };
+      const result = await imgbbUploader(options);
+      urls.push(result.url);
+    }
+    req.body.images = urls;
     res.json(await products.updateProduct(req.params.id, req.body));
   } catch (err) {
     console.error(`Error while updating product`, err.message);
@@ -77,12 +102,65 @@ router.put("/edit/:id", async function (req, res, next) {
   }
 });
 
+// Update a product
+// router.put("/edit/:id", async function (req, res, next) {
+//   try {
+//     res.json(await products.updateProduct(req.params.id, req.body));
+//   } catch (err) {
+//     console.error(`Error while updating product`, err.message);
+//     next(err);
+//   }
+// });
+
 // Delete a product
 router.delete("/:id", async function (req, res, next) {
   try {
     res.json(await products.deleteProduct(req.params.id));
   } catch (err) {
     console.error(`Error while deleting product`, err.message);
+    next(err);
+  }
+});
+
+
+
+// Get user favorite products
+router.get('/favorite', isAuthenticated, async function(req, res, next) {
+  try {
+    res.json(await products.getFavoriteProducts(req.user.user_id));
+  } catch (err) {
+    console.error(`Error while getting favorite products`, err.message);
+    next(err);
+  }
+});
+
+
+// add product to user favorite list
+router.post('/favorite/:id', isAuthenticated, async function(req, res, next) {
+  try {
+    res.json(await products.addFavoriteProduct(req.user.user_id, req.params.id));
+  } catch (err) {
+    console.error(`Error while adding favorite product`, err.message);
+    next(err);
+  }
+});
+
+// remove product from user favorite list
+router.delete('/favorite/:id', isAuthenticated, async function(req, res, next) {
+  try {
+    res.json(await products.removeFavoriteProduct(req.user.user_id, req.params.id));
+  } catch (err) {
+    console.error(`Error while removing favorite product`, err.message);
+    next(err);
+  }
+});
+
+// Get specific product
+router.get("/:id", async function (req, res, next) {
+  try {
+    res.json(await products.getProductById(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting product `, err.message);
     next(err);
   }
 });

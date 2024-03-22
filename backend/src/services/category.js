@@ -62,11 +62,21 @@ async function deleteCategory(id) {
   return { message };
 }
 
-
+// count products in a category
+async function countProductsInCategory(category_name) {
+  const rows = await db.query(
+    `SELECT COUNT(*) as count FROM product WHERE category=(
+      SELECT category_id FROM category WHERE name="${category_name}"
+    )`
+  );
+  const count = rows[0].count;
+  return count;
+}
 
 module.exports = {
   getAllCategories,
   addCategory,
   updateCategory,
   deleteCategory,
+  countProductsInCategory
 };

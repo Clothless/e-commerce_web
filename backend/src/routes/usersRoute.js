@@ -59,6 +59,17 @@ router.put('/edit/:id', async function(req, res, next) {
   }
 });
 
+// Number of users
+router.get('/count', async function(req, res, next) {
+  try {
+    res.json(await users.countUsers());
+  } catch (err) {
+    console.error(`Error while getting number of users`, err.message);
+    next(err);
+  }
+});
+
+
 // Get specific user
 router.get('/:id', async function(req, res, next) {
   try {
@@ -78,6 +89,7 @@ router.delete('/:id', async function(req, res, next) {
     next(err);
   }
 });
+
 
 
 

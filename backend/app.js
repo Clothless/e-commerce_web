@@ -9,6 +9,7 @@ const adminRoute = require('./src/routes/adminRoute.js');
 const imageRoute = require('./src/routes/imageRoute.js');
 const session = require("./src/configs/session.js");
 const auth = require('./src/controllers/auth.js');
+const authenticated = require('./src/middlewares/authRoute.js');
 
 
 // const bodyParser = require('body-parser');
@@ -74,6 +75,7 @@ app.use("/categories", categoryRoute);
 app.use("/comments", commentRoute);
 app.use("/admins", adminRoute); 
 app.use("/images", imageRoute);
+app.use("/auth", authenticated);
 
 
 

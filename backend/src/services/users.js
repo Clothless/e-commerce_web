@@ -108,6 +108,14 @@ async function loginUser(user) {
   return checkUser;
 }
 
+// count all users
+async function countUsers() {
+  const rows = await db.query(
+    `SELECT COUNT(*) as count FROM user`
+  );
+  const count = rows[0].count;
+  return count;
+}
 
 module.exports = {
   getAllUsers,
@@ -116,7 +124,8 @@ module.exports = {
   updateUser,
   deleteUser,
   getUserByEmail,
-  loginUser
+  loginUser,
+  countUsers
 };
 
 

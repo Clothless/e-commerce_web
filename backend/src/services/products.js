@@ -65,7 +65,6 @@ async function addProduct(product) {
   return { message };
 }
 
-
 // Update existing product
 async function updateProduct(id, product) {
   const imagesJson = JSON.stringify(product.images); 
@@ -102,11 +101,72 @@ async function deleteProduct(id) {
 }
 
 
+// add product to user favorite list
+async function addFavoriteProduct(user_id, product_id) {
+  const result = await db.query(
+    `INSERT INTO favorite_products 
+    (user_id, product_id) 
+    VALUES 
+    ('${user_id}', '${product_id}')`
+  );
+
+  let message = "Error in adding product to favorite list";
+
+  if (result.affectedRows) {
+    message = "Product added to favorite list successfully";
+  }
+
+  return { message };
+}
+
+
+// remove product from user favorite list
+async function removeFavoriteProduct(user_id, product_id) {
+  const result = await db.query(
+    `DELETE FROM favorite_products 
+    WHERE user_id=${user_id} AND product_id=${product_id}`
+  );
+
+  let message = "Error in removing product from favorite list";
+
+  if (result.affectedRows) {
+    message = "Product removed from favorite list successfully";
+  }
+
+  return { message };
+}
+
+
+// get user favorite products
+async function getFavoriteProducts(user_id) {
+  const rows = await db.query(
+    `SELECT * FROM favorite_products WHERE user_id=${user_id}`
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {
+    data,
+  };
+}
+
+// get products count
+async function getProductsCount() {
+  const rows = await db.query(
+    `SELECT COUNT(*) AS count FROM product`
+  );
+  const count = rows[0].count;
+  return count;
+}
+
 module.exports = {
   getAllProducts,
   addProduct,
   updateProduct,
   deleteProduct,
   getProductById,
-  getProductsByCategory
+  getProductsByCategory,
+  addFavoriteProduct,
+  removeFavoriteProduct,
+  getFavoriteProducts,
+  getProductsCount
 };

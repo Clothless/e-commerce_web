@@ -22,6 +22,18 @@ router.post('/add', async function(req, res, next) {
   }
 });
 
+
+// count products in a category
+router.get('/count/:name', async function(req, res, next) {
+  try {
+    res.json(await products.countProductsInCategory(req.params.name));
+  } catch (err) {
+    console.error(`Error while getting number of categories `, err.message);
+    next(err);
+  }
+});
+
+
 // update a category
 router.put('/edit/:id', async function(req, res, next) {
   try {
