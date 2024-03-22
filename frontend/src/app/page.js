@@ -1,11 +1,8 @@
-import Category from "./components/Category";
-import SpecialTitle from "./components/SpecialTitle";
+import Categories from "@/sections/landing/Categories";
 import "./index.css"
+import New from "@/sections/landing/New";
 
 export default async function Home() {
-  const res = await fetch("http://localhost:3080/categories");
-  const categories = await res.json();
-  console.log(categories);
   return (
     <>
       <div className="hero">
@@ -15,12 +12,8 @@ export default async function Home() {
           <button>Learn more</button>
         </div>
       </div>
-      <div className="categories">
-        <div className="container">
-          <SpecialTitle title={"Categories"}/>
-          <Category img={"jsdfklsd.svg"} category={"bachir"} stock={100}/>
-        </div>
-      </div>
+      <Categories/>
+      <New/>
     </>
   );
 }
