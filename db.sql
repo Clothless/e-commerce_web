@@ -123,20 +123,20 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL,
-  `price` double(5,2) DEFAULT NULL,
   `posted_by` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `category` int DEFAULT NULL,
   `images` json DEFAULT NULL,
   `pending` tinyint(1) DEFAULT '1',
   `old_price` double(5,2) DEFAULT NULL,
+  `description` varchar(2200) DEFAULT NULL,
+  `price` double(10,2) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `posted_by` (`posted_by`),
   KEY `category` (`category`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`posted_by`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
   CONSTRAINT `product_ibfk_2` FOREIGN KEY (`category`) REFERENCES `category` (`category_id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +145,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Laptop','High-performance laptop with SSD storage',999.99,2,'2024-02-17 10:43:22',1,'[{\"url\": \"laptop_image1.jpg\"}, {\"url\": \"laptop_image2.jpg\"}]',0,NULL),(2,'T-shirt','Cotton t-shirt with a stylish design',19.99,1,'2024-02-17 10:43:22',2,'[{\"url\": \"tshirt_image1.jpg\"}, {\"url\": \"tshirt_image2.jpg\"}]',1,NULL),(3,'Cookbook','Collection of delicious recipes',29.99,3,'2024-02-17 10:43:22',3,'[{\"url\": \"cookbook_image1.jpg\"}, {\"url\": \"cookbook_image2.jpg\"}]',0,NULL),(4,'Gardening Tools Set','Complete set of gardening tools',49.99,1,'2024-02-17 10:43:22',4,'[{\"url\": \"gardening_image1.jpg\"}, {\"url\": \"gardening_image2.jpg\"}]',1,NULL),(5,'Running Shoes','Comfortable running shoes for athletes',79.99,2,'2024-02-17 10:43:22',5,'[{\"url\": \"runningshoes_image1.jpg\"}, {\"url\": \"runningshoes_image2.jpg\"}]',0,NULL),(6,'Kach haja','High-performance laptop with SSD storage',999.99,2,'2024-03-20 14:51:59',1,'[\"https://i.ibb.co/WnhHtBq/a15e1177161d.png\", \"https://i.ibb.co/SfRyzCx/05e326bfc777.png\", \"https://i.ibb.co/ckYNmFP/b7c448c7e6fe.png\", \"https://i.ibb.co/kM1SVV7/adecf26fa08b.png\", \"https://i.ibb.co/BNv2gsX/eaf4bd234917.png\"]',1,NULL);
+INSERT INTO `product` VALUES (7,'SAMSUNG Galaxy Tab A9+',2,'2024-03-23 14:51:51',1,'[\"https://i.ibb.co/7CWLQsK/024e4b13d36d.webp\", \"https://i.ibb.co/1Z6Z9BZ/339b141d3a23.webp\", \"https://i.ibb.co/D7YJSFn/1a01f9e9ec37.png\"]',1,NULL,'SAMSUNG Galaxy Tab A9+ Tablet 11” 64GB Android Tablet, Big Screen, Quad Speakers, Upgraded Chipset, Multi Window Display, Slim, Light, Durable Design, US Version, 2023, Graphite ',45000.00),(8,'Sceptre 24-inch Professional',2,'2024-03-23 14:56:09',1,'[\"https://i.ibb.co/KxsVdSd/c1d2dbe38d6f.jpg\", \"https://i.ibb.co/CzRfDx9/55aac08cc995.jpg\", \"https://i.ibb.co/fvMhhwR/e3cd9eea6d94.jpg\"]',1,NULL,'Sceptre 24-inch Professional Thin 1080p LED Monitor 99% sRGB 2x HDMI VGA Build-in Speakers, Machine Black (E248W-19203R Series) ',53500.00),(9,'SAMSUNG 990 PRO Series',2,'2024-03-23 14:59:15',1,'[\"https://i.ibb.co/xsb59wW/028fdf06f68d.jpg\", \"https://i.ibb.co/9WrX4Cr/16c43470b1d1.jpg\"]',1,NULL,'SAMSUNG 990 PRO Series - 2TB PCIe Gen4. X4 NVMe 2.0c - M.2 Internal SSD (MZ-V9P2T0B/AM) ',32000.00),(10,'Jerzees Men Dri-Power Cotton Blend Long Sleeve Tees',1,'2024-03-23 15:02:42',2,'[\"https://i.ibb.co/HFPh2Hd/145990a8ba82.jpg\", \"https://i.ibb.co/N9cHS7f/c1df8ce89d4f.jpg\", \"https://i.ibb.co/2n8cfDV/bee3a3ae4117.jpg\"]',1,NULL,'Jerzees Men Dri-Power Cotton Blend Long Sleeve Tees, Moisture Wicking, Odor Protection, UPF 30+, Sizes S-3x',3200.00),(11,'Leg Duck Carpenter Jean ',1,'2024-03-23 15:05:47',2,'[\"https://i.ibb.co/j5jnhk2/0a4c674ce282.jpg\", \"https://i.ibb.co/qM51Rqt/4fa9805d9f71.jpg\"]',1,NULL,' Dickies Men Relaxed Fit Straight-Leg Duck Carpenter Jean ',2800.00),(12,'Men Crewneck Sweater',1,'2024-03-23 15:16:02',2,'[\"https://i.ibb.co/j5jnhk2/0a4c674ce282.jpg\", \"https://i.ibb.co/qM51Rqt/4fa9805d9f71.jpg\"]',1,NULL,'Amazon Essentials Men Crewneck Sweater (Available in Big & Tall) ',2800.00),(13,'The idiot brain',1,'2024-03-23 15:17:41',3,'[\"https://i.ibb.co/WKWsDKc/4a52597b1d2a.jpg\"]',1,NULL,'The idiot brain',1800.00),(14,'Atomic habits',1,'2024-03-23 15:18:02',3,'[\"https://i.ibb.co/d7DxsDk/6ea73472671d.jpg\"]',1,NULL,'Atomic Habits',1800.00),(15,'Rich dad poor dad',1,'2024-03-23 15:18:45',3,'[\"https://i.ibb.co/0hQSsLz/690d532c87cc.jpg\"]',1,NULL,'Rich dad poor dad',1800.00),(16,'Stéphan Armchair',1,'2024-03-23 15:20:35',4,'[\"https://i.ibb.co/b7wjRBd/4d57d78f8dfe.jpg\"]',1,NULL,'Stéphan Armchair | ARTFUL LIVING DESIGN-BLACK',4800.00),(18,'Yaris 2002',1,'2024-03-23 15:24:01',5,'[\"https://i.ibb.co/w05d0Qn/9b99fffccd08.jpg\"]',1,NULL,'Yaris 2002',1200000.00);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -170,7 +170,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('Ip3kB0XeRyvEa6tbMdd0qPGJ0J_YCEV5',1711550563,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-27T14:42:42.523Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('VzSKpbD6ua05pXp4-fyEQ4z0mBYKMAZM',1711482640,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T17:24:01.919Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('lUkI72PR0yFcjKElIEkXRVfUjN4tmP9G',1711457229,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T15:11:24.676Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('piPTWMxl1RE-ct7LbSLClQlZuSAHFfFj',1711473832,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T13:11:24.885Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('qYkXk4fmuUSN-ksOWtIz9dJU3348sH_a',1711724942,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-29T14:53:08.491Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":16}}'),('wQ14yY5y4FgSZ4wzo_TE0iz_gIk2vQut',1711723252,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T17:48:00.396Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}');
+INSERT INTO `sessions` VALUES ('Ip3kB0XeRyvEa6tbMdd0qPGJ0J_YCEV5',1711550563,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-27T14:42:42.523Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('VzSKpbD6ua05pXp4-fyEQ4z0mBYKMAZM',1711482640,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T17:24:01.919Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('lUkI72PR0yFcjKElIEkXRVfUjN4tmP9G',1711457229,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T15:11:24.676Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('piPTWMxl1RE-ct7LbSLClQlZuSAHFfFj',1711473832,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-26T13:11:24.885Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}'),('qYkXk4fmuUSN-ksOWtIz9dJU3348sH_a',1711812241,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-29T14:53:08.491Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":16}}'),('wQ14yY5y4FgSZ4wzo_TE0iz_gIk2vQut',1711723252,'{\"cookie\":{\"originalMaxAge\":604800000,\"expires\":\"2024-03-25T17:48:00.396Z\",\"secure\":false,\"httpOnly\":true,\"path\":\"/\"}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-22 16:25:11
+-- Dump completed on 2024-03-23 16:25:33
