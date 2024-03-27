@@ -1,6 +1,8 @@
 import Categories from "@/sections/landing/Categories";
 import "./index.css"
 import ShowProducts from "@/sections/landing/ShowProducts";
+import AboutUs from "@/sections/landing/AboutUs";
+import Contact from "@/sections/landing/Contact";
 
 export default async function Home() {
   return (
@@ -15,6 +17,8 @@ export default async function Home() {
       <Categories/>
       <ShowProducts type="electronics"/>
       <ShowProducts type="clothing"/>
+      <AboutUs />
+      <Contact/>
     </>
   );
 }

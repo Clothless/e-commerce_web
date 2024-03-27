@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+li {
+    list-style-type: none;
+  }
+  a {
+    text-decoration: none;
+  }
+
+body,input {
+  font-family: var(--font-inter);
+}
+
+h1,h2,h3,h4,h5 {
+  font-family: var(--font-poppins);
+}
+  
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Small */
+  @media (min-width: 768px) {
+    .container {
+      width: 750px;
+    }
+  }
+  /* Medium */
+  @media (min-width: 992px) {
+    .container {
+      width: 970px;
+    }
+  }
+  /* Large */
+  @media (min-width: 1200px) {
+    .container {
+      width: 1200px;
+    }
+  }
+  /* extra-large */
+  @media (min-width: 1400px) {
+    .container {
+      width: 1400px;
+    }
+  }
+
+:root {
+    --main-orange-color: rgb(255, 146, 0);
+    --main-blue-color: #5AC9F4;
+    --second-blue-color: rgb(40, 146, 215);
+    --second-orange-color: rgb(255, 180, 43);
+    --dark-gray-color: #595959;
+    --dark-black-color: #363635;
+}
+
+input:focus {
+  border: 1px solid red;
+}
+
+.mainHeader {
+  padding-block: 10px;
+  border-bottom: 1px solid #c2c2c224;
+  text-align: center;
+  img {
+      height: 60px;
+      width: auto;
+      @media (max-width:991px) {
+        height: 50px;
+      }
+  }
+  img + button {
+    font-weight: bold;
+  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .link {
+    color: black;
+    transition: 0.2s ease;
+    font-size: 1rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    &:hover {
+      color: var(--main-orange-color);
+    }
+  }
+  input[name="searchField"]{
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    width: 300px;
+    border-radius: 50px;
+    border: 1px solid rgb(209, 209, 209);
+    position: relative;
+  }
+
+  .link + span {
+    /* height: fit-content;
+    width: fit-content; */
+    position: relative;
+    img {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      translate: 0 -50%;
+    }
+  }
+
+  .content .label {
+    font-family: var(--font-inter);
+    text-transform: capitalize;
+    color: black;
+    font-weight: normal;
+    font-size: 1rem;
+    transition: 0.2s ease;
+    font-weight: 500;
+    &:hover,
+    &:hover + span .MuiSvgIcon-root {
+      color: var(--main-orange-color);
+    }
+  }
+  .menuBtn .MuiSvgIcon-root {
+    transition: 0.2s ease;
+    color: black;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;
+  }
+}
+.mainHeader [name="searchField"]::placeholder {
+  color: rgb(186, 186, 186);
+}
+
+#burger {
+  display: none;
+  width: 30px;
+  height: 23px;
+  position: relative;
+  transform: rotate(0deg);
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+#burger span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: black;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+#burger span:nth-child(1) {
+  top: 0px;
+  transform-origin: left center;
+}
+
+#burger span:nth-child(2) {
+  top: 10px;
+  transform-origin: left center;
+}
+
+#burger span:nth-child(3) {
+  top: 20px;
+  transform-origin: left center;
+}
+
+#burger.open span:nth-child(1) {
+  transform: rotate(45deg);
+  top: -3px;
+  left: 8px;
+}
+
+#burger.open span:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+}
+
+#burger.open span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 18px;
+  left: 8px;
+}
+
+.mainHeader .login ,
+.mainHeader .loggedIn {
+  display: none;
+}  
+
+@media (max-width:768px) {
+  .mainHeader {
+    position: relative;
+  }
+  .mainHeader nav {
+    position: absolute;
+    top: 100%;
+    left: -100%;
+    flex-direction: column;
+    transition: 0.2s ease-out;
+    width: 100%;
+    padding-block: 20px 40px;
+    background-color: white;
+    z-index: 100;
+    justify-content: flex-start;
+    box-shadow: 0px 10px 12px 0 #0000001a;
+  }
+  .mainHeader .link,
+  .mainHeader .menuBtn {
+    border-bottom: 1px solid #0000000d;
+    border-radius: 0;
+    width: 100%;
+    padding-block: 10px;
+  }
+  .mainHeader nav div:has(.menuBtn){
+    width: 100%;
+  }
+  .mainHeader:has(#burger.open) nav {
+    left: 0;
+  }
+  #burger {
+    display: block;
+  }
+  .dropDownMenu .MuiMenu-list {
+    width: 100vw;
+    li {
+      padding-left: 20px;
+    }
+    li:not(:last-child){
+      border-bottom: 1px solid #0000000d;
+    }
+  }
+  input[name="searchField"] {
+    width: calc(100% - 40px) !important;
+    margin-top: 25px;
+  }
+  .userImg {
+    display: none;
+    user-select: none;
+  }
+  .mainHeader .login ,
+  .mainHeader .loggedIn {
+    display: block;
+  }  
+  .mainHeader .login button,
+  .mainHeader .loggedIn button {
+    font-weight: 500;
+    padding: 5px 20px;
+    border: 2px solid black;
+    border-radius: 40px;
+    transition: 0.2s ease-in;
+    margin-top: 20px;
+    &:hover {
+      background-color: var(--second-orange-color);
+      color: white;
+      border-color: var(--second-orange-color);
+    }
+  }
+  .mainHeader .login button:nth-of-type(2),
+  .mainHeader .loggedIn button{
+    margin-left: 20px;
+  }
+  .mainHeader .loggedIn.hide {
+    display: none;
+  }
+  .mainHeader .link + span {
+      /* height: fit-content;
+      width: fit-content; */
+      width: 100vw;
+      img {
+        translate: 0 -3px;
+        right: 35px;
+      }
+  }
+}
+
