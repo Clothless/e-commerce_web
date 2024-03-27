@@ -117,6 +117,18 @@ async function countUsers() {
   return count;
 }
 
+
+// Get all products posted by specific user
+async function getProductsByUser(id) {
+  const rows = await db.query(
+    `SELECT * FROM product WHERE posted_by=${id}`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data;
+}
+
+
+
 module.exports = {
   getAllUsers,
   getSpecificUser,
@@ -125,7 +137,8 @@ module.exports = {
   deleteUser,
   getUserByEmail,
   loginUser,
-  countUsers
+  countUsers,
+  getProductsByUser
 };
 
 

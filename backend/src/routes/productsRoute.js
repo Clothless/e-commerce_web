@@ -33,16 +33,6 @@ router.get("/category/:category", async function (req, res, next) {
   }
 });
 
-// get user favorite products
-router.get('/favorite', isAuthenticated, async function(req, res, next) {
-  try {
-    res.json(await products.getFavoriteProducts(req.user.user_id));
-  } catch (err) {
-    console.error(`Error while getting favorite products`, err.message);
-    next(err);
-  }
-});
-
 
 
 const multer = require("multer");
@@ -123,6 +113,39 @@ router.delete("/:id", async function (req, res, next) {
 });
 
 
+//Approve product
+router.get("/approve/:id", async function(req, res, next) {
+  try {
+    res.json(await products.approveProduct(req.params.id))
+  } catch (error) {
+    console.error(`Error while getting approved products`, err.message);
+    next(err);
+  }
+})
+
+
+// Get all approved products
+router.get("/approved", async function(req, res, next) {
+  try {
+    res.json(await products.getApprovedProducts())
+  } catch (error) {
+    console.error(`Error while getting approved products`, err.message);
+    next(err);
+  }
+})
+
+
+// Get all pending products
+router.get("/pending", async function(req, res, next) {
+  try {
+    res.json(await products.getPendingProducts())
+  } catch (error) {
+    console.error(`Error while getting pending products`, err.message);
+    next(err);
+  }
+})
+
+
 
 // Get user favorite products
 router.get('/favorite', isAuthenticated, async function(req, res, next) {
@@ -130,6 +153,17 @@ router.get('/favorite', isAuthenticated, async function(req, res, next) {
     res.json(await products.getFavoriteProducts(req.user.user_id));
   } catch (err) {
     console.error(`Error while getting favorite products`, err.message);
+    next(err);
+  }
+});
+
+
+//count how many user added a specific product to their favorites
+router.get('/favorite/count/:id', async function(req, res, next) {
+  try {
+    res.json(await products.getFavoriteCount(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting favorite count`, err.message);
     next(err);
   }
 });

@@ -91,6 +91,15 @@ router.delete('/:id', async function(req, res, next) {
 });
 
 
+// Get user's products
+router.get('/:id/products', async function(req, res, next) {
+  try {
+    res.json(await users.getProductsByUser(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting user's products`, err.message);
+    next(err);
+  }
+});
 
 
 

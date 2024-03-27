@@ -67,7 +67,7 @@ async function addProduct(product) {
 
 // Update existing product
 async function updateProduct(id, product) {
-  const imagesJson = JSON.stringify(product.images); 
+  const imagesJson = JSON.stringify(product.images);
   const result = await db.query(
     `UPDATE product 
     SET name='${product.name}', description='${product.description}',
@@ -87,9 +87,7 @@ async function updateProduct(id, product) {
 
 // Delete existing product
 async function deleteProduct(id) {
-  const result = await db.query(
-    `DELETE FROM product WHERE product_id=${id}`
-    );
+  const result = await db.query(`DELETE FROM product WHERE product_id=${id}`);
 
   let message = "Error in deleting product";
 
@@ -99,7 +97,6 @@ async function deleteProduct(id) {
 
   return { message };
 }
-
 
 // add product to user favorite list
 async function addFavoriteProduct(user_id, product_id) {
@@ -119,7 +116,6 @@ async function addFavoriteProduct(user_id, product_id) {
   return { message };
 }
 
-
 // remove product from user favorite list
 async function removeFavoriteProduct(user_id, product_id) {
   const result = await db.query(
@@ -136,7 +132,6 @@ async function removeFavoriteProduct(user_id, product_id) {
   return { message };
 }
 
-
 // get user favorite products
 async function getFavoriteProducts(user_id) {
   const rows = await db.query(
@@ -151,12 +146,60 @@ async function getFavoriteProducts(user_id) {
 
 // get products count
 async function getProductsCount() {
+  const rows = await db.query(`SELECT COUNT(*) AS count FROM product`);
+  const count = rows[0].count;
+  return {
+    count
+  };
+}
+
+//count how many user added a specific product to their favorites
+async function getFavoriteCount(product_id) {
   const rows = await db.query(
-    `SELECT COUNT(*) AS count FROM product`
+    `SELECT COUNT(*) AS count FROM favorite_products WHERE product_id=${product_id}`
   );
   const count = rows[0].count;
-  return count;
+  return {
+    count
+  };
 }
+
+//Get approved products only
+async function getApprovedProducts() {
+  const rows = await db.query(`SELECT * FROM product WHERE pending = 0`);
+  const data = helper.emptyOrRows(rows);
+  return {
+    data
+  };
+}
+
+//Get pending products only
+async function getPendingProducts() {
+  const rows = await db.query(`SELECT * FROM product WHERE pending <> 0`);
+  const data = helper.emptyOrRows(rows);
+  return {
+    data
+  };
+}
+
+
+//Approve product
+async function approveProduct(id) {
+  const rows = await db.query(`UPDATE product SET pending = 0 WHERE product_id=${id}`);
+  const data = helper.emptyOrRows(rows);
+
+  let message = "Error while approving product";
+
+  if (data.affectedRows) {
+    message = "Product approved successfully";
+  }
+
+  return {
+    message
+  };
+}
+
+
 
 module.exports = {
   getAllProducts,
@@ -168,5 +211,9 @@ module.exports = {
   addFavoriteProduct,
   removeFavoriteProduct,
   getFavoriteProducts,
-  getProductsCount
+  getProductsCount,
+  getFavoriteCount,
+  getApprovedProducts,
+  getPendingProducts,
+  approveProduct
 };
