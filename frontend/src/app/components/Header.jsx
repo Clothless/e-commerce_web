@@ -42,7 +42,7 @@ export default function Header({children}) {
             <nav>
               <CatDropdown label="Categories" content={catgories}/>
               <Link className="link" title="favorites" href="/categories/favorites">Favorites</Link>
-              <Link className="link" title="what's new" href="/categories/new">What's new</Link>
+              <Link className="link" title="about" href="#about-us">About us</Link>
               <Link className="link" title="contact" href="#contact">Contact</Link>
               <span>
                 <input type="text" placeholder="Search Product" name="searchField"/>

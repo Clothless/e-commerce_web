@@ -55,7 +55,7 @@ h1,h2,h3,h4,h5 {
   }
 
 :root {
-    --main-orange-color: #FF9200;
+    --main-orange-color: rgb(255, 146, 0);
     --main-blue-color: #5AC9F4;
     --second-blue-color: rgb(40, 146, 215);
     --second-orange-color: #FFB42B;
