@@ -47,7 +47,6 @@ export async function login(formdata){
       formBody.push(encodedKey + "=" + encodedValue);
     }
     formBody = formBody.join("&");
-    console.log(formBody)
     
     let senddata = await fetch("http://localhost:3080/users/login",{
         method:"post",
