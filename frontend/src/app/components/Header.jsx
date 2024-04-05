@@ -20,19 +20,11 @@ function CatDropdown({label, content}) {
   )
 }
 
-export default function Header({children}) {
+export default function Header({children, categories}) {
   const [isOpen, setIsOpen] = useState(false);
-  const catgories = [
-    {
-      label:"one"
-    },
-    { 
-      label:"two"
-    },
-    {
-      label:"three"
-    }
-  ]
+  const categoriesList = [...categories.map(category => {
+    return {label:<Link href={`/categories/${category.category_id}`}>{category.name}</Link>}
+  })]
   return (
     <>
     <header className="mainHeader">
@@ -40,9 +32,9 @@ export default function Header({children}) {
           <div className="content">
             <Image src="/logo.svg" width={100} height={100}/>
             <nav>
-              <CatDropdown label="Categories" content={catgories}/>
+              <CatDropdown label="Categories" content={categoriesList}/>
               <Link className="link" title="favorites" href="/categories/favorites">Favorites</Link>
-              <Link className="link" title="what's new" href="/categories/new">What's new</Link>
+              <Link className="link" title="about" href="#about-us">About us</Link>
               <Link className="link" title="contact" href="#contact">Contact</Link>
               <span>
                 <input type="text" placeholder="Search Product" name="searchField"/>

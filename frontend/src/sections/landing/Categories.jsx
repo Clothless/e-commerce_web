@@ -1,5 +1,6 @@
 import Category from "@/app/components/Category";
 import SpecialTitle from "@/app/components/SpecialTitle";
+import Link from "next/link";
 
 
 export default async function Categories() {
@@ -14,15 +15,15 @@ export default async function Categories() {
             categories.data.map((category,id)=>{
                 switch(category.name){
                     case "Electronics":
-                        return <Category img={"/electronics.webp"} category={category.name} stock={100}/>
+                        return <Link className="link" href={`categories/electronics`}><Category img={"/electronics.webp"} category={category.name} stock={100}/></Link>
                     case "Clothing":
-                        return <Category img={"/clothing.webp"} category={category.name} stock={100}/>
+                        return <Link className="link" href={`categories/clothing`}><Category img={"/clothing.webp"} category={category.name} stock={100}/></Link>
                     case "Books":
-                        return <Category img={"/books.webp"} category={category.name} stock={100}/>
+                        return <Link className="link" href={`categories/books`}><Category img={"/books.webp"} category={category.name} stock={100}/></Link>
                     case "Home and Furniture":
-                        return <Category img={"/furniture.webp"} category={category.name} stock={100}/>
+                        return <Link className="link" href={`categories/furniture`}><Category img={"/furniture.webp"} category={category.name} stock={100}/></Link>
                     case "Vehicles":
-                        return <Category img={"/vehicles.webp"} category={category.name} stock={100}/>
+                        return <Link className="link" href={`categories/vehicles`}><Category img={"/vehicles.webp"} category={category.name} stock={100}/></Link>
                 }
             })
         }

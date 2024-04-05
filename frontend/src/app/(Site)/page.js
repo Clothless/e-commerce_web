@@ -1,6 +1,9 @@
 import Categories from "@/sections/landing/Categories";
 import "./index.css"
-import New from "@/sections/landing/New";
+import ShowProducts from "@/sections/landing/ShowProducts";
+import AboutUs from "@/sections/landing/AboutUs";
+import Contact from "@/sections/landing/Contact";
+import Footer from "@/app/components/Footer"
 
 export default async function Home() {
   return (
@@ -13,7 +16,11 @@ export default async function Home() {
         </div>
       </div>
       <Categories/>
-      <New/>
+      <ShowProducts type="electronics"/>
+      <ShowProducts type="clothing"/>
+      <AboutUs />
+      <Contact/>
+      <Footer/>
     </>
   );
 }
