@@ -9,6 +9,8 @@ async function getAllAdmins(page = 1) {
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
+
+  return data;
 }
 
 // Get specific admin
@@ -18,9 +20,7 @@ async function getAdminById(id) {
   );
   const data = helper.emptyOrRows(rows);
 
-  return {
-    data,
-  };
+  return data;
 }
 
 // Get admin by email

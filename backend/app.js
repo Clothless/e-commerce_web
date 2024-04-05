@@ -1,6 +1,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 const productsRoute = require('./src/routes/productsRoute.js');
 const userRoute = require('./src/routes/usersRoute.js');
 const categoryRoute = require('./src/routes/categoryRoute.js');
@@ -28,6 +30,28 @@ dotenv.config(
   }
   );
   
+
+const options = {
+    definition: {
+      openapi: "3.1.0",
+      info: {
+        title: "E-Commerce API",
+        version: "0.1.0",
+        description:
+          "This is a CRUD API application for the E-Commerce application. It is a RESTful API and follows the REST architecture.",
+        license: {
+          name: "MIT",
+          url: "https://spdx.org/licenses/MIT.html",
+        },
+        contact: {
+          name: "I&I",
+          url: "https://example.com",
+          email: "info@email.com",
+        },
+      },
+    },
+    apis: ["./src/routes/*.js"],
+  };
 
 const port = process.env.PORT;
 
@@ -67,6 +91,13 @@ app.get("/", auth.isAuthenticated, async (req, res) => {
 
 
 
+
+const specs = swaggerJsdoc(options);
+app.use(
+  "/api/v1/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs)
+);
 
 // Products route
 app.use("/products", productsRoute);

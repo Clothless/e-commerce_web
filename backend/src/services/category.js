@@ -9,7 +9,7 @@ async function getAllCategories() {
   );
 
   const data = helper.emptyOrRows(rows);
-  return { data };
+  return data;
 }
 
 // Add new category
