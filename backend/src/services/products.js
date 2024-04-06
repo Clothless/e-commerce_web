@@ -20,7 +20,7 @@ async function getAllProducts(page = 1) {
 // Get products by category
 async function getProductsByCategory(category) {
   const rows = await db.query(
-    `SELECT * FROM product WHERE category='${category}'`
+    `SELECT * FROM product WHERE category=(SELECT category_id FROM category WHERE name='${category}')`
   );
   const data = helper.emptyOrRows(rows);
 
