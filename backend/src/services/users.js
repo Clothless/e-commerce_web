@@ -13,10 +13,7 @@ async function getAllUsers(page = 1) {
   const data = helper.emptyOrRows(rows);
   const meta = { page };
 
-  return {
-    data,
-    meta,
-  };
+  return data;
 }
 
 // Get specific user

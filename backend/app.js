@@ -12,6 +12,7 @@ const imageRoute = require('./src/routes/imageRoute.js');
 const session = require("./src/configs/session.js");
 const auth = require('./src/controllers/auth.js');
 const authenticated = require('./src/middlewares/authRoute.js');
+const subCategory = require('./src/routes/sub_categoryRoute.js');
 
 
 // const bodyParser = require('body-parser');
@@ -50,7 +51,7 @@ const options = {
         },
       },
     },
-    apis: ["./src/routes/*.js"],
+    apis: ["./src/docs/*.js"],
   };
 
 const port = process.env.PORT;
@@ -103,6 +104,7 @@ app.use(
 app.use("/products", productsRoute);
 app.use("/users", userRoute);
 app.use("/categories", categoryRoute);
+app.use("/sub_categories", subCategory);
 app.use("/comments", commentRoute);
 app.use("/admins", adminRoute); 
 app.use("/images", imageRoute);
