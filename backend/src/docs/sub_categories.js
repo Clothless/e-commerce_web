@@ -1,5 +1,5 @@
 // Swagger API model for sub_categories
-//sub_id | name     | image | category_id
+
 /**
  * @swagger
  *  components:
@@ -51,4 +51,38 @@
  *        type: array
  *        items:
  *         $ref: '#/components/schemas/Sub_Category'
+ * 
+ * 
+ * /sub_categories/add:
+ *   post:
+ *     summary: Add new sub_category
+ *     tags: [Sub_Category]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the sub_category
+ *               image:
+ *                 type: string
+ *                 description: The image path of the sub_category
+ *               category_id:
+ *                 type: integer
+ *                 description: The category id of the sub_category
+ *     responses:
+ *       200:
+ *         description: Sub_Category added successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The message of the response
+ *               example:
+ *                 message: Sub_Category added successfully
  */  

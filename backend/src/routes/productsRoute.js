@@ -37,6 +37,27 @@ router.get("/category/:category", async function (req, res, next) {
 });
 
 
+// Get products by sub_category
+router.get("/sub_category/:sub_category", async function (req, res, next) {
+  try {
+    res.json(await products.getProductsBySubCategory(req.params.sub_category));
+  } catch (err) {
+    console.error(`Error while getting products by sub_category `, err.message);
+    next(err);
+  }
+});
+
+
+// Get product by wilaya
+router.get("/wilaya/:wilaya", async function (req, res, next) {
+  try {
+    res.json(await products.getProductsByWilaya(req.params.wilaya));
+  } catch (err) {
+    console.error(`Error while getting products by wilaya `, err.message);
+    next(err);
+  }
+});
+
 
 const multer = require("multer");
 const upload = multer();

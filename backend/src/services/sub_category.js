@@ -12,6 +12,26 @@ async function getSubCategories(category_name) {
 
 }
 
+
+// Add new sub_category
+async function addSubCategory(sub_category) {
+    const result = await db.query(
+      `INSERT INTO sub_category 
+      (name) 
+      VALUES 
+      ('${sub_category.name}')`
+    );
+  
+    let message = "Error in adding category";
+  
+    if (result.affectedRows) {
+      message = "Sub_Category added successfully";
+    }
+  
+    return { message };
+  }
+
 module.exports = {
-    getSubCategories
+    getSubCategories,
+    addSubCategory
 }

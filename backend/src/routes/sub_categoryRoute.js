@@ -13,4 +13,16 @@ router.get('/:category_name', async function (req, res, next) {
     }
 });
 
+
+// Add new sub_category
+router.post('/add', async function (req, res, next) {
+    try {
+        res.json(await products.addSubCategory(req.body));
+    } catch (err) {
+        console.error(`Error while adding sub_category`, err.message);
+        next(err);
+    }
+});
+
+
 module.exports = router;

@@ -29,6 +29,37 @@ async function getProductsByCategory(category) {
   };
 }
 
+
+// Get products by sub_category
+async function getProductsBySubCategory(sub_category) {
+  const rows = await db.query(
+    `SELECT * FROM product WHERE sub_category=
+        (SELECT sub_id FROM sub_category WHERE name='${sub_category}')`
+  );
+  const data = helper.emptyOrRows(rows);
+  return {
+    data,
+  };
+}
+
+
+// Get product by Wilaya
+async function getProductsByWilaya(wilaya) {
+  const rows = await db.query(
+    `SELECT * FROM product WHERE posted_by IN
+        (SELECT user_id FROM user WHERE wilaya IN
+            (SELECT wilaya_code FROM algeria_cities WHERE wilaya_name="${wilaya}")
+        )
+    `
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {
+    data,
+  };
+}
+
+
 // Get specific product
 async function getProductById(id) {
   const productRows = await db.query(
@@ -201,6 +232,7 @@ async function approveProduct(id) {
 
 
 
+
 module.exports = {
   getAllProducts,
   addProduct,
@@ -215,5 +247,7 @@ module.exports = {
   getFavoriteCount,
   getApprovedProducts,
   getPendingProducts,
-  approveProduct
+  approveProduct,
+  getProductsByWilaya,
+  getProductsBySubCategory
 };

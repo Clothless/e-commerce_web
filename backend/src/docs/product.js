@@ -128,6 +128,53 @@
  *                 $ref: '#/components/schemas/Product'
  *
  * 
+ * /products/sub_category/{sub_category_name}:
+ *   get:
+ *     summary: Get all products in a specific sub category
+ *     tags: [Product]
+ *     description: Retrieve a list of all products in a specific sub category
+ *     parameters:
+ *       - in: path
+ *         name: sub_category_name
+ *         required: true
+ *         description: The name of the sub category
+ *         schema:
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: A list of products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ * 
+ * 
+ * /products/wilaya/{wilaya_name}:
+ *   get:
+ *     summary: Get all products in a specific wilaya
+ *     tags: [Product]
+ *     description: Retrieve a list of all products in a specific wilaya
+ *     parameters:
+ *       - in: path
+ *         name: wilaya_name
+ *         required: true
+ *         description: The name of the wilaya
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A list of products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ * 
+ * 
+ * 
  * 
  * /products/add:
  *   post:
