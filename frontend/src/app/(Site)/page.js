@@ -20,7 +20,7 @@ export default async function Home() {
       <ShowProducts type="clothing"/>
       <AboutUs />
       <Contact/>
-      <Footer/>
+
     </>
   );
 }

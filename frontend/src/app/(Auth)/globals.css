@@ -67,9 +67,6 @@ h1,h2,h3,h4,h5 {
     --dark-black-color: #363635;
 }
 
-input:focus {
-  border: 1px solid red;
-}
 
 .mainHeader {
   padding-block: 10px;

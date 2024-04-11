@@ -1,6 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Footer() {
+export default function Footer({categories}) {
   return (
     <div className="footer">
         <div className="container">
@@ -11,10 +12,15 @@ export default function Footer() {
                 </div>
                 <div className="categoriess">
                     <h3>Categories</h3>
-                    <span>Electronics</span>
+                    {
+                        categories.map((category=>{
+                            return <span key={category.category_id}><Link href={`/categories/${category.name.toLowerCase()}`}>{category.name}</Link></span>
+                        }))
+                    }
+                    {/* <span>Electronics</span>
                     <span>Clothing</span>
                     <span>Home and furniture</span>
-                    <span>shoes</span>
+                    <span>shoes</span> */}
                 </div>
                 <div className="contacts">
                     <h3>Contact us</h3>

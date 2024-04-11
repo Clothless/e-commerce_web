@@ -1,0 +1,93 @@
+.category_p {
+    margin-block: 40px 50px;
+    nav.breadcrumb {
+        li.active a {
+            color: var(--main-blue-color);
+        }
+    }
+    .products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px 20px;
+        margin-bottom: 70px;
+        .product {
+            text-align: start;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            /* justify-content: space-between; */
+            .img {
+                border-radius: 10px;
+                margin-bottom: 10px;
+                height: 300px;
+                /* box-shadow: 0 0 0 0 black; */
+                border: 1px solid #dcdcdc;
+                position: relative;
+                .heart {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    padding: 7px 6px 6px 6px;
+                    background-color: white;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    border: 1px solid #dcdcdc;
+                    transition: 0.2s ease-out;
+                    &:hover {
+                        background-color: rgba(255, 0, 0, 0.131);
+                    }
+                }
+            }
+            p {
+                font-size: 13px;
+                width: 100%;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                /* margin-block: 10px; */
+                line-height: 1.3;
+                color: #707070;
+                /* translate: 0 -10px; */
+                margin-top: 45px;
+                /* margin-bottom: px; */
+            }
+            .front {
+                translate: 0 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                h3:first-child{
+                    line-height: 1.25;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+                h3:nth-child(2){
+                    translate: 0 -1px;
+                    color: var(--main-orange-color);
+                }
+            }
+            button {
+                translate: 0 10px;
+                /* z-index: 10; */
+                width: fit-content;
+                font-size: 16px;
+                font-weight: 600;
+                padding: 8px 15px;
+                border: 2px solid black;
+                border-radius: 50px;
+                /* vertical-align: bottom; */
+                margin-top: auto;
+                transition: 0.2s ease-out;
+                &:hover {
+                    background-color: var(--second-blue-color);
+                    color: white;
+                    border-color: var(--second-blue-color);
+                }
+            }
+        }
+    }
+}

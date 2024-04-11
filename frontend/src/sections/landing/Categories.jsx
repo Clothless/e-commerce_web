@@ -6,13 +6,14 @@ import Link from "next/link";
 export default async function Categories() {
     const res = await fetch("http://localhost:3080/categories");
     const categories = await res.json();
+    console.log(categories);
   return (
     <div className="categories">
         <div className="container">
         <SpecialTitle title={"Categories"}/>
         <div className="cont">
         {
-            categories.data.map((category,id)=>{
+            categories.map((category,id)=>{
                 switch(category.name){
                     case "Electronics":
                         return <Link className="link" href={`categories/electronics`}><Category img={"/electronics.webp"} category={category.name} stock={100}/></Link>

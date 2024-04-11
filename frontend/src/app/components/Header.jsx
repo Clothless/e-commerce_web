@@ -4,6 +4,7 @@ import { Dropdown } from 'flowbite-react';
 import Link from "next/link";
 import { NestedDropdown } from "mui-nested-menu";
 import { useState } from "react";
+import Footer from "./Footer";
 
 function CatDropdown({label, content}) {
   const menuItemsData = {
@@ -23,14 +24,14 @@ function CatDropdown({label, content}) {
 export default function Header({children, categories}) {
   const [isOpen, setIsOpen] = useState(false);
   const categoriesList = [...categories.map(category => {
-    return {label:<Link href={`/categories/${category.category_id}`}>{category.name}</Link>}
+    return {label:<Link href={`/categories/${category.name.toLowerCase()}`}>{category.name}</Link>}
   })]
   return (
     <>
     <header className="mainHeader">
         <div className="container">
           <div className="content">
-            <Image src="/logo.svg" width={100} height={100}/>
+            <Link href={"/"}><Image src="/logo.svg" width={100} height={100} priority/></Link>
             <nav>
               <CatDropdown label="Categories" content={categoriesList}/>
               <Link className="link" title="favorites" href="/categories/favorites">Favorites</Link>
@@ -64,6 +65,7 @@ export default function Header({children, categories}) {
         </div>
     </header>
     {children}
+    <Footer categories={categories}/>
     </>
   )
 }
