@@ -31,7 +31,20 @@ async function addSubCategory(sub_category) {
     return { message };
   }
 
+
+// Count products in a sub categories
+async function countProducts(sub_category) {
+    const rows = await db.query(
+        `SELECT COUNT(*) as data FROM product WHERE sub_category=(
+            SELECT sub_id FROM sub_category WHERE name='${sub_category}'
+        )`
+    );
+    const data = helper.emptyOrRows(rows);
+    return data[0];
+
+}
 module.exports = {
     getSubCategories,
-    addSubCategory
+    addSubCategory,
+    countProducts
 }

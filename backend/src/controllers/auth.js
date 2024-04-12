@@ -28,12 +28,12 @@ module.exports.isAdmin = (req, res, next) => {
   if (req.isAuthenticated() && req.user.role === "admin") {
     return next();
   }
-  res.status(403).json({ message: "Not authorized" });
+  res.status(403).json({ message: "You are not an Admin, not authorized" });
 };
 
 module.exports.isSubAdmin = (req, res, next) => {
   if (req.isAuthenticated() && req.user.role === "moderator") {
     return next();
   }
-  res.status(403).json({ message: "Not authorized" });
+  res.status(403).json({ message: "You are not a Moderator, not authorized" });
 };

@@ -85,4 +85,32 @@
  *                   description: The message of the response
  *               example:
  *                 message: Sub_Category added successfully
+ * 
+ * 
+ * /sub_categories/count/{sub_category}:
+ *   get:
+ *     summary: Count products in a sub category
+ *     tags: [Sub_Category]
+ *     parameters:
+ *       - in: path
+ *         name: sub_category
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The id of the sub_category
+ *     responses:
+ *       200:
+ *         description: The product count of the sub_category
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 count:
+ *                   type: integer
+ *                   description: The product count of the sub_category
+ *               example:
+ *                 count: 10
+ * 
+ *          
  */  

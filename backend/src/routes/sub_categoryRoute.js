@@ -25,4 +25,15 @@ router.post('/add', async function (req, res, next) {
 });
 
 
+// Count products in a sub category
+router.get('/count/:sub_category', async function (req, res, next) {
+    try {
+        res.json(await products.countProducts(req.params.sub_category));
+    } catch (err) {
+        console.error(`Error while getting product count`, err.message);
+        next(err);
+    }
+});
+
+
 module.exports = router;
