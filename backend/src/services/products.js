@@ -6,7 +6,7 @@ const listPerPage = require("../configs/db_connect.js").listPerPage;
 async function getAllProducts(page = 1) {
   const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM product LIMIT ${offset},${listPerPage}`
+    `SELECT * FROM product ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
@@ -20,7 +20,7 @@ async function getAllProducts(page = 1) {
 // Get products by category
 async function getProductsByCategory(category) {
   const rows = await db.query(
-    `SELECT * FROM product WHERE category=(SELECT category_id FROM category WHERE name='${category}')`
+    `SELECT * FROM product WHERE category=(SELECT category_id FROM category WHERE name='${category}') ORDER BY created_at DESC`
   );
   const data = helper.emptyOrRows(rows);
 
@@ -34,7 +34,7 @@ async function getProductsByCategory(category) {
 async function getProductsBySubCategory(sub_category) {
   const rows = await db.query(
     `SELECT * FROM product WHERE sub_category=
-        (SELECT sub_id FROM sub_category WHERE name='${sub_category}')`
+        (SELECT sub_id FROM sub_category WHERE name='${sub_category}') ORDER BY created_at DESC`
   );
   const data = helper.emptyOrRows(rows);
   return {
@@ -49,7 +49,7 @@ async function getProductsByWilaya(wilaya) {
     `SELECT * FROM product WHERE posted_by IN
         (SELECT user_id FROM user WHERE wilaya IN
             (SELECT wilaya_code FROM algeria_cities WHERE wilaya_name="${wilaya}")
-        )
+        ) ORDER BY created_at DESC
     `
   );
   const data = helper.emptyOrRows(rows);
@@ -166,7 +166,7 @@ async function removeFavoriteProduct(user_id, product_id) {
 // get user favorite products
 async function getFavoriteProducts(user_id) {
   const rows = await db.query(
-    `SELECT * FROM favorite_products WHERE user_id=${user_id}`
+    `SELECT * FROM favorite_products WHERE user_id=${user_id} ORDER BY created_at DESC`
   );
   const data = helper.emptyOrRows(rows);
 
@@ -197,7 +197,7 @@ async function getFavoriteCount(product_id) {
 
 //Get approved products only
 async function getApprovedProducts() {
-  const rows = await db.query(`SELECT * FROM product WHERE pending = 0`);
+  const rows = await db.query(`SELECT * FROM product WHERE pending = 0 ORDER BY created_at DESC`);
   const data = helper.emptyOrRows(rows);
   return {
     data
@@ -206,7 +206,7 @@ async function getApprovedProducts() {
 
 //Get pending products only
 async function getPendingProducts() {
-  const rows = await db.query(`SELECT * FROM product WHERE pending <> 0`);
+  const rows = await db.query(`SELECT * FROM product WHERE pending <> 0 ORDER BY created_at DESC`);
   const data = helper.emptyOrRows(rows);
   return {
     data
@@ -231,6 +231,45 @@ async function approveProduct(id) {
 }
 
 
+// Filter products by date, wilaya, price, category, sub_category
+async function filterProducts(filter) {
+  let date = "";
+  let wilaya = "";
+  let price = "";
+  let category = "";
+  let sub_category = "";
+  if (filter.from && filter.to){
+    date = `created_at BETWEEN "${filter.from}" AND "${filter.to}" AND`;
+  }
+  console.log(date);
+  if (filter.wilaya){
+    wilaya = `posted_by IN
+        (SELECT user_id FROM user WHERE wilaya IN
+            (SELECT wilaya_code FROM algeria_cities WHERE wilaya_name="${filter.wilaya}")
+        ) AND`;
+  }
+  if (filter.priceFrom && filter.priceTo){
+    price = `price >= "${filter.priceFrom}" AND price <= "${filter.priceTo}" AND`;
+  }
+  if (filter.category){
+    category = `category=(SELECT category_id FROM category WHERE name="${filter.category}") AND`;
+  }
+  if (filter.sub_category){
+    sub_category = `sub_category=(SELECT sub_id FROM sub_category WHERE name="${filter.sub_category}") AND`;
+  }
+  
+  const rows = await db.query(
+    `SELECT * FROM product WHERE ${date} ${wilaya} ${price} ${category} ${sub_category} product_id > 0 ORDER BY created_at DESC`
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {
+    data,
+  };
+}
+
+
+
 
 
 module.exports = {
@@ -249,5 +288,6 @@ module.exports = {
   getPendingProducts,
   approveProduct,
   getProductsByWilaya,
-  getProductsBySubCategory
+  getProductsBySubCategory,
+  filterProducts
 };

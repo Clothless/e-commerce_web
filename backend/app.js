@@ -21,6 +21,7 @@ const subCategory = require('./src/routes/sub_categoryRoute.js');
 
 const error = require('./src/middlewares/errorHandler.js');
 const passport = require('passport');
+const apiKey = require('./src/middlewares/apiKey.js');
 
 const app = express();
 

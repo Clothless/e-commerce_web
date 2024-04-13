@@ -223,4 +223,20 @@ router.get("/:id", async function (req, res, next) {
   }
 });
 
+
+// Filter products
+router.post("/filter", async function (req, res, next) {
+  try {
+    res.json(await products.filterProducts(req.query));
+  } catch (err) {
+    console.error(`Error while filtering products `, err.message);
+    next(err);
+  }
+});
+
+
+
+
+
+
 module.exports = router;

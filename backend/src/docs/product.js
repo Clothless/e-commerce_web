@@ -349,5 +349,57 @@
  * 
  * 
  * 
+ * /products/filter:
+ *   post:
+ *    summary: Filter products
+ *    tags: [Product]
+ *    description: Filter products by date, wilaya, price, category, sub_category
+ *    parameters:
+ *      - in: query
+ *        name: from
+ *        schema:
+ *          type: string
+ *          format: date-time
+ *        description: The start date
+ *      - in: query
+ *        name: to
+ *        schema:
+ *          type: string
+ *          format: date-time
+ *        description: The end date
+ *      - in: query
+ *        name: wilaya
+ *        schema:
+ *          type: string
+ *        description: The wilaya name
+ *      - in: query
+ *        name: priceFrom
+ *        schema:
+ *          type: double
+ *        description: The minimum price
+ *      - in: query
+ *        name: priceTo
+ *        schema:
+ *          type: double
+ *        description: The maximum price
+ *      - in: query
+ *        name: category
+ *        schema:
+ *          type: string
+ *        description: The category name
+ *      - in: query
+ *        name: sub_category
+ *        schema:
+ *          type: string
+ *        description: The sub category name
+ *    responses:
+ *      200:
+ *        description: A list of products
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Product'
  * 
  */
