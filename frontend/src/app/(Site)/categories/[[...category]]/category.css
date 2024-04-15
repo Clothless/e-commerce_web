@@ -1,9 +1,21 @@
 .category_p {
     margin-block: 40px 50px;
+    position: relative;
+    min-height: 55.5vh;
     nav.breadcrumb {
         li.active a {
             color: var(--main-blue-color);
         }
+    }
+    .container .container {
+        padding: 0;
+        margin: 0;
+    }
+    .not-found {
+        padding-block: 40px;
+        color: #707070;
+        text-align: center;
+        margin: 0 auto;
     }
     .products {
         display: grid;
@@ -88,6 +100,104 @@
                     border-color: var(--second-blue-color);
                 }
             }
+        }
+    }
+    .title {
+        font-size: 20px;
+        margin-bottom: 40px;
+        hr {
+            margin-top: 15px;
+        }
+        margin-bottom: 40px;
+    }
+    .categories {
+        margin-block: 30px 50px;
+        .cont {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(387px, 1fr));
+            gap: 20px;
+        }
+        .link {
+            &:hover .cat {
+                background-color: rgb(255 146 0 / 50%);
+            }
+        }
+        .cat {
+            transition: 0.2s ease-in;
+            border-radius: 10px;
+            padding: 10px 10px 10px 30px;
+            @media (max-width: 450px) {
+                padding: 10px;
+            }
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            .holder {
+                height: 100px;
+                width: 100px;
+                background-color: white;
+                border-radius: 50%;
+                position: relative;
+            }
+            .text {
+                margin-left: 20px;
+                h3 {
+                    font-size: 20px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    
+    }
+    .filter {
+        margin-bottom: 40px;
+        overflow: hidden;
+        form {
+            transition: 0.2s ease-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            row-gap: 20px;
+            label {
+                font-weight: 600;
+                margin-right: 10px;
+            }
+            div {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            input {
+                border-radius: 7px;
+                font-size: 1.03rem;
+                &[name="min"],
+                &[name="max"]{
+                    width: 100px;
+                }
+                &:nth-of-type(1){
+                    margin-right: 10px;
+                }
+                &[type="checkbox"]{
+                    border-radius: 50%;
+                }
+                &[type="submit"]{
+                    width: 100px;
+                    padding-block: 10px;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 16px;
+                    border: none;
+                    background-color: var(--second-blue-color);
+                    cursor: pointer;
+                }
+            }
+        }
+        &.hide form {
+            translate: -100%;
+        }
+        &.show form {
+            translate: 0;
         }
     }
 }
