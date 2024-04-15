@@ -13,6 +13,7 @@ const session = require("./src/configs/session.js");
 const auth = require('./src/controllers/auth.js');
 const authenticated = require('./src/middlewares/authRoute.js');
 const subCategory = require('./src/routes/sub_categoryRoute.js');
+const moderatorRoute = require('./src/routes/moderatorRoute.js');
 
 
 // const bodyParser = require('body-parser');
@@ -112,6 +113,7 @@ app.use("/categories", categoryRoute);
 app.use("/sub_categories", subCategory);
 app.use("/comments", commentRoute);
 app.use("/admins", adminRoute); 
+app.use("/moderators", moderatorRoute);
 app.use("/images", imageRoute);
 app.use("/auth", authenticated);
 

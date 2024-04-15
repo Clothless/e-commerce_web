@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = Router();
 const moderatorService = require("../services/moderator.js");
-const { ismoderator } = require("../controllers/auth.js");
 
 
 
@@ -46,13 +45,6 @@ router.delete("/:id", async function (req, res, next) {
   }
 });
 
-// protected route for testing
-router.get("/protected", ismoderator, (req, res) => {
-  res.json({
-    message: "This is a protected route",
-    user: req.user,
-  });
-});
 
 // Get specific moderator
 router.get("/:id", async function (req, res, next) {
