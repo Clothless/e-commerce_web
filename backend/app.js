@@ -22,7 +22,7 @@ const subCategory = require('./src/routes/sub_categoryRoute.js');
 const error = require('./src/middlewares/errorHandler.js');
 const passport = require('passport');
 const apiKey = require('./src/middlewares/apiKey.js');
-
+const cors = require('cors')
 const app = express();
 
 
@@ -56,7 +56,11 @@ const options = {
   };
 
 const port = process.env.PORT;
-
+var corsOptions = {
+  origin: '127.0.0.1',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(
   express.urlencoded({
