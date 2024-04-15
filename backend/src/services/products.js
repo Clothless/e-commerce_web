@@ -17,6 +17,8 @@ async function getAllProducts(page = 1) {
   };
 }
 
+
+
 // Get products by category
 async function getProductsByCategory(category) {
   const rows = await db.query(

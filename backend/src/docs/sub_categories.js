@@ -112,5 +112,78 @@
  *               example:
  *                 count: 10
  * 
+ * 
+ * /sub_categories/update:
+ *   put:
+ *     summary: Update sub_category
+ *     tags: [Sub_Category]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             properties:
+ *               sub_id:
+ *                 type: integer
+ *                 description: The id of the sub_category
+ *               name:
+ *                 type: string
+ *                 description: The name of the sub_category
+ *     responses:
+ *       200:
+ *         description: Sub_Category updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The message of the response
+ *                   example:
+ *                     message: Sub_Category updated successfully
+ * 
+ * 
+ * /sub_categories/delete/{sub_id}:
+ *   delete:
+ *     summary: Delete sub_category
+ *     tags: [Sub_Category]
+ *     parameters:
+ *       - in: path
+ *         name: sub_id
+ *         schema:
+ *           type: integer
+ *           required: true
+ *         description: The id of the sub_category
+ *     responses:
+ *       200:
+ *         description: Sub_Category deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The message of the response
+ *               example:
+ *                 message: Sub_Category deleted successfully
+ * 
+ * 
+ * /sub_categories:
+ *   get:
+ *     summary: Get all sub_categories
+ *     tags: [Sub_Category]
+ *     responses:
+ *       200:
+ *         description: The list of all sub_categories
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Sub_Category'
+ * 
+ *         
  *          
  */  

@@ -3,6 +3,17 @@ const router = Router();
 const products = require('../services/sub_category.js');
 
 
+// Get all sub_categories
+router.get('/', async function (req, res, next) {
+    try {
+        res.json(await products.getSubCategories());
+    } catch (err) {
+        console.error(`Error while getting sub_categories `, err.message);
+        next(err);
+    }
+});
+
+
 // Get sub_categories of a category
 router.get('/:category_name', async function (req, res, next) {
     try {
@@ -20,6 +31,28 @@ router.post('/add', async function (req, res, next) {
         res.json(await products.addSubCategory(req.body));
     } catch (err) {
         console.error(`Error while adding sub_category`, err.message);
+        next(err);
+    }
+});
+
+
+// Update sub_category
+router.put('/update', async function (req, res, next) {
+    try {
+        res.json(await products.updateSubCategory(req.body));
+    } catch (err) {
+        console.error(`Error while updating sub_category`, err.message);
+        next(err);
+    }
+});
+
+
+// Delete sub_category
+router.delete('/delete/:sub_id', async function (req, res, next) {
+    try {
+        res.json(await products.deleteSubCategory(req.params.sub_id));
+    } catch (err) {
+        console.error(`Error while deleting sub_category`, err.message);
         next(err);
     }
 });

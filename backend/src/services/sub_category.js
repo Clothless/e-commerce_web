@@ -43,8 +43,56 @@ async function countProducts(sub_category) {
     return data[0];
 
 }
+
+
+// Update sub_category
+async function updateSubCategory(sub_category) {
+    const result = await db.query(
+      `UPDATE sub_category SET name='${sub_category.name}' WHERE sub_id=${sub_category.sub_id}`
+    );
+  
+    let message = "Error in updating sub_category";
+  
+    if (result.affectedRows) {
+      message = "Sub_Category updated successfully";
+    }
+  
+    return { message };
+}
+
+
+// Delete sub_category
+async function deleteSubCategory(sub_id) {
+    const result = await db.query(
+      `DELETE FROM sub_category WHERE sub_id=${sub_id}`
+    );
+  
+    let message = "Error in deleting sub_category";
+  
+    if (result.affectedRows) {
+      message = "Sub_Category deleted successfully";
+    }
+  
+    return { message };
+}
+
+
+// Get all sub categories
+async function getSubCategories() {
+    const rows = await db.query(
+        `SELECT * FROM sub_category`
+    );
+    const data = helper.emptyOrRows(rows);
+    return data;
+
+}
+
+
 module.exports = {
     getSubCategories,
     addSubCategory,
-    countProducts
+    countProducts,
+    updateSubCategory,
+    deleteSubCategory,
+    getSubCategories
 }
