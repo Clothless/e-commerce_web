@@ -68,14 +68,6 @@
         &:hover .cat {
             background-color: rgb(255 146 0 / 50%);
         }
-        &:nth-last-child(1){
-            @media (min-width: 1024px) {
-                grid-column: auto / span 2;
-                justify-self: center;
-                align-self: center;
-                width: 50%;
-            }
-        }
     }
     .cat {
         transition: 0.2s ease-in;

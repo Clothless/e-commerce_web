@@ -15,12 +15,11 @@ export default async function Home() {
           <button>Learn more</button>
         </div>
       </div>
-      <Categories/>
+      <Categories link={"/categories/"} title={"Categories"} route={"/categories"}/>
       <ShowProducts type="electronics"/>
       <ShowProducts type="clothing"/>
       <AboutUs />
       <Contact/>
-
     </>
   );
 }

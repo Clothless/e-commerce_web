@@ -2,7 +2,7 @@ import SpecialTitle from "@/app/components/SpecialTitle";
 import ProductSwiper from "@/app/components/ProductSwiper";
 
 export default async function ShowProducts({type}) {
-    const res = await fetch(`http://localhost:3080/products/category/${type==="electronics"?"1":"2"}`)
+    const res = await fetch(`http://localhost:3080/products/category/${type}`)
     const products = await res.json();
   return (
     <div className="showProducts">
