@@ -243,7 +243,6 @@ async function filterProducts(filter) {
   if (filter.from && filter.to){
     date = `created_at BETWEEN "${filter.from}" AND "${filter.to}" AND`;
   }
-  console.log(date);
   if (filter.wilaya){
     wilaya = `posted_by IN
         (SELECT user_id FROM user WHERE wilaya IN
@@ -271,7 +270,17 @@ async function filterProducts(filter) {
 }
 
 
+// Search for product by name
+async function searchProductByName(name) {
+  const rows = await db.query(
+    `SELECT * FROM product WHERE name LIKE '%${name}%' ORDER BY created_at DESC`
+  );
+  const data = helper.emptyOrRows(rows);
 
+  return {
+    data,
+  };
+}
 
 
 module.exports = {
@@ -291,5 +300,6 @@ module.exports = {
   approveProduct,
   getProductsByWilaya,
   getProductsBySubCategory,
-  filterProducts
+  filterProducts,
+  searchProductByName
 };

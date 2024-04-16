@@ -4,7 +4,15 @@ const products = require("../services/products.js");
 const { isAuthenticated } = require("../controllers/auth.js");
 
 
-
+// Search route
+router.get("/search", async function (req, res, next) {
+  try {
+    res.json(await products.searchProductByName(req.query.name));
+  } catch (err) {
+    console.error(`Error while searching products `, err.message);
+    next(err);
+  }
+});
 
 // Get all products
 router.get("/", async function (req, res, next) {

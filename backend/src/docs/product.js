@@ -402,4 +402,31 @@
  *              items:
  *                $ref: '#/components/schemas/Product'
  * 
+ * 
+ * /products/search:
+ *   get:
+ *     summary: Search for product by name
+ *     tags: [Product]
+ *     description: Search for product by name
+ *     parameters:
+ *     - in: query
+ *       name: name
+ *       schema:
+ *         type: string
+ *       description: The name of the product
+ *       example: book
+ *     responses:
+ *       200:
+ *         description: A list of products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ * 
+ * 
+ * 
+ * 
+ * 
  */
