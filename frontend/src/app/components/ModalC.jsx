@@ -19,7 +19,7 @@ function Modal({ openModal, closeModal, children }) {
       onCancel={closeModal}
     >
       {children}
-      <button onClick={closeModal}>
+      <button onClick={closeModal} style={{float: "right",translate:"0 -43px", fontSize:"16px", fontWeight:"bold",padding:"10px",borderRadius:"7px",border:"2px solid #202020", color:"#202020",width:"100px"}}>
         Close
       </button>
     </dialog>
@@ -33,19 +33,20 @@ export default function ModalC({type, component,theeId}) {
   console.log(component);
   // const [openModal, setOpenModal] = useState(false);
   const [modal, setModal] = useState(false);
+
+  function handleClose(value){
+    setModal(value);
+  }
+
   return (
     <>
-      <button
-    onClick={() => setModal(true)}
-  >
-    {type}
-  </button>
+      <button onClick={() => setModal(true)}>{type}</button>
   <Modal
     openModal={modal}
     closeModal={() => setModal(false)}
   >
     {component==="editusers" && (
-      <EditUser theeeId={theeId}/>
+      <EditUser theeeId={theeId} handleClose={handleClose}/>
     )}
   </Modal>
 
