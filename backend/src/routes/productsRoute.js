@@ -116,6 +116,8 @@ router.put("/edit/:id", upload.array("images"), async function (req, res, next) 
       const result = await imgbbUploader(options);
       urls.push(result.url);
     }
+    // Turn req.body into json
+    req.body.product = JSON.parse(req.body.product);
     req.body.images = urls;
     res.json(await products.updateProduct(req.params.id, req.body));
   } catch (err) {
@@ -123,6 +125,19 @@ router.put("/edit/:id", upload.array("images"), async function (req, res, next) 
     next(err);
   }
 });
+
+
+// Delete an image from a product
+router.delete("/deleteImage/:id", async function (req, res, next) {
+  try {
+    res.json(await products.deleteImage(req.params.id, req.query.image));
+  } catch (err) {
+    console.error(`Error while deleting image`, err.message);
+    next(err);
+  }
+});
+
+
 
 // Update a product
 // router.put("/edit/:id", async function (req, res, next) {

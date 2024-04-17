@@ -207,14 +207,33 @@
  *         name: product_id
  *         required: true
  *         description: The ID of the product to update
- *         schema:
- *           type: integer
  *     requestBody:
- *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Product'
+ *             type: object
+ *             properties:
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *               product:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                     description: The name of the product
+ *                   category:
+ *                     type: integer
+ *                     description: The ID of the category the product belongs to
+ *                   description:
+ *                     type: string
+ *                     description: The description of the product
+ *                   price:
+ *                     type: number
+ *                     format: double
+ *                     description: The current price of the product
  *     responses:
  *       200:
  *         description: The updated product
@@ -222,6 +241,33 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Product'
+ * 
+ * 
+ * /products/deleteImage/{product_id}:
+ *   delete:
+ *     summary: Delete an image from a product
+ *     tags: [Product]
+ *     description: Delete an image from a product by its ID
+ *     parameters:
+ *       - in: path
+ *         name: product_id
+ *         required: true
+ *         description: The ID of the product
+ *         schema:
+ *           type: integer
+ *         example: 1
+ *       - in: query
+ *         name: image
+ *         schema:
+ *           type: string
+ *           description: The image URL
+ *         example: https://i.ibb.co/LxpSDND/examplessss.png
+ * 
+ *     responses:
+ *       200:
+ *         description: The image was successfully deleted
+ * 
+ * 
  * 
  * 
  * /products/{prod_id}:

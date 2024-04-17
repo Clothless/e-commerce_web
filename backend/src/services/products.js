@@ -100,12 +100,17 @@ async function addProduct(product) {
 
 // Update existing product
 async function updateProduct(id, product) {
-  const imagesJson = JSON.stringify(product.images);
+  const productData = await getProductById(id);
+  const images = JSON.parse(productData.product[0].images);
+  const imagesJs = images.concat((product.images));
+  const imagesJson = JSON.stringify(imagesJs); // Convert images array to JSON string
+
+
   const result = await db.query(
     `UPDATE product 
-    SET name='${product.name}', description='${product.description}',
-    price='${product.price}',
-    category='${product.category}', images='${imagesJson}'
+    SET name='${product.product.name}', description='${product.product.description}',
+    price=${product.product.price},
+    category='${product.product.category}', images='${imagesJson}'
     WHERE product_id=${id}`
   );
 
@@ -113,6 +118,29 @@ async function updateProduct(id, product) {
 
   if (result.affectedRows) {
     message = "Product updated successfully";
+  }
+
+  return { message };
+}
+
+
+// Delete given image from product
+async function deleteImage(id, image) {
+  const productData = await getProductById(id);
+  const images = JSON.parse(productData.product[0].images);
+  const imagesJs = images.filter((img) => img !== image);
+  const imagesJson = JSON.stringify(imagesJs); // Convert images array to JSON string
+
+  const result = await db.query(
+    `UPDATE product 
+    SET images='${imagesJson}'
+    WHERE product_id=${id}`
+  );
+
+  let message = "Error in deleting image";
+
+  if (result.affectedRows) {
+    message = "Image deleted successfully";
   }
 
   return { message };
@@ -301,5 +329,6 @@ module.exports = {
   getProductsByWilaya,
   getProductsBySubCategory,
   filterProducts,
-  searchProductByName
+  searchProductByName,
+  deleteImage,
 };
