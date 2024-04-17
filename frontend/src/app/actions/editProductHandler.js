@@ -1,7 +1,7 @@
 "use server";
-export async function editUserHandler(formData){
+export async function editProductHandler(formData){
     "use server";
-    let id = formData.get("userId");
+    let id = formData.get("productId");
     const rawData = {
         first_name: formData.get("first_name"),
         last_name:formData.get("last_name"),
@@ -14,7 +14,7 @@ export async function editUserHandler(formData){
     }
     console.log(rawData);
   try {
-    const response = await fetch(`http://localhost:3080/users/edit/${id}`, {
+    const response = await fetch(`http://localhost:3080/products/edit/${id}`, {
       method: "put",
       headers: {
         "Content-Type": "application/json"
@@ -25,6 +25,6 @@ export async function editUserHandler(formData){
     const msg = await response.json();
     console.log(msg.message);
   } catch (err) {
-    console.error("Error updating user:", err);
+    console.error("Error updating product:", err);
   }
 }

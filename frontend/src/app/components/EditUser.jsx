@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { editUserHandler } from '../actions/editUserHandler';
 
-export default function EditUser({theeeId,handleClose}) {
+
+export default function EditUser({theeeId}) {
     console.log(theeeId);
     const [data, setData] = useState({});
     useEffect(()=>{
@@ -18,29 +19,22 @@ export default function EditUser({theeeId,handleClose}) {
 
     // const editUserHandlerWithId = editUserHandler.bind(null, Object.keys(data)[0])
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-      };
 
 
   return (
     <div className="edit editUser">
-        <h2 className="header">Edit User</h2>
         <form action={editUserHandler} method='dialog'>
             {Object.keys(data).length>0&&(
                 Object.keys(data).map((key,index)=>{
                     return (
                         <div key={index}>
                             <label htmlFor="">{key.split("_").join(" ")}:</label>
-                            <input type="text" defaultValue={data[key]} name={key} onChange={handleInputChange}/>
+                            <input type="text" defaultValue={data[key]} name={key} disabled={key==="user_id"&&true}/>
                         </div>
                     )
                 })
             )}
+            <input type="hidden" name='userId' value={data["user_id"]} />
             <div className="btns">
                 <input type="submit" value={"Edit"} />
                 {/* <button onClick={()=>handleClose(false)}>closeeeee</button> */}
