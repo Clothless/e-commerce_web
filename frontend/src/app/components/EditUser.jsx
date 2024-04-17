@@ -19,13 +19,6 @@ export default function EditUser({theeeId}) {
 
     // const editUserHandlerWithId = editUserHandler.bind(null, Object.keys(data)[0])
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setData((prevData) => ({
-          ...prevData,
-          [name]: value,
-        }));
-      };
 
 
   return (
@@ -36,11 +29,12 @@ export default function EditUser({theeeId}) {
                     return (
                         <div key={index}>
                             <label htmlFor="">{key.split("_").join(" ")}:</label>
-                            <input type="text" defaultValue={data[key]} name={key} onChange={handleInputChange}/>
+                            <input type="text" defaultValue={data[key]} name={key} disabled={key==="user_id"&&true}/>
                         </div>
                     )
                 })
             )}
+            <input type="hidden" name='userId' value={data["user_id"]} />
             <div className="btns">
                 <input type="submit" value={"Edit"} />
                 {/* <button onClick={()=>handleClose(false)}>closeeeee</button> */}

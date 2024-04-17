@@ -5,6 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 
 
 export default async function page({params}) {
     let {tab} = params;
+    console.log(tab);
     tab = tab === "sub-categories"?"sub_categories" : tab;
     const res = await fetch(`http://localhost:3080/${tab}`)
     let data = await res.json();
@@ -49,7 +50,7 @@ export default async function page({params}) {
                   <TableCell className="text-nowrap py-2" key={headerIndex}>{order[header]===""?"N/A":order[header]}</TableCell>
                 ))}
                 <TableCell>
-                  <ActionsC tab={tab} theId={order[headers[0]]} header={"Edit User"}/>
+                  <ActionsC tab={tab} theId={order[headers[0]]} header={`Edit ${headers[0].at(0).toUpperCase()+headers[0].slice(1).split("_")[0]}`}/>
                 </TableCell>
               </TableRow>
           ))}

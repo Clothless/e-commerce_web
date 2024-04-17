@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
 import EditUser from './EditUser';
+import EditProducts from './EditProducts';
 
 const DropdownMenu = ({ EditModal, DeleteModal }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +49,7 @@ const DropdownMenu = ({ EditModal, DeleteModal }) => {
       </div>
 
       {isOpen && (
-        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <div className="z-10 origin-top-right absolute right-0 mt-2 w-[100px] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             <button
               type="button"
@@ -145,6 +146,7 @@ const ActionsC = ({tab,theId,header}) => {
     setDeleteModalOpen(false);
   };
 
+
   return (
     <div>
       <DropdownMenu
@@ -159,7 +161,17 @@ const ActionsC = ({tab,theId,header}) => {
       />
 
       <Modal isOpen={editModalOpen} onClose={handleEditModalClose} header={header}>
-        <EditUser theeeId={theId}/>
+        {
+          tab === "users"
+          ?
+          (<EditUser theeeId={theId}/>)
+          :
+          tab === "products"
+          ?
+          (<EditProducts theeeId={theId}/>)
+          :
+          <h1>hello</h1>
+        }
         {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
           onClick={handleEditModalClose}
