@@ -226,20 +226,26 @@ async function getFavoriteCount(product_id) {
 }
 
 //Get approved products only
-async function getApprovedProducts() {
-  const rows = await db.query(`SELECT * FROM product WHERE pending = 0 ORDER BY created_at DESC`);
+async function getApprovedProducts(page=1) {
+  const offset = helper.getOffset(page, listPerPage);
+  const rows = await db.query(`SELECT * FROM product WHERE pending = 0 ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`);
   const data = helper.emptyOrRows(rows);
+  const meta = { page };
   return {
-    data
+    data,
+    meta,
   };
 }
 
 //Get pending products only
-async function getPendingProducts() {
-  const rows = await db.query(`SELECT * FROM product WHERE pending <> 0 ORDER BY created_at DESC`);
+async function getPendingProducts(page=1) {
+  const offset = helper.getOffset(page, listPerPage);
+  const rows = await db.query(`SELECT * FROM product WHERE pending <> 0 ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`);
   const data = helper.emptyOrRows(rows);
+  const meta = { page };
   return {
-    data
+    data,
+    meta,
   };
 }
 
