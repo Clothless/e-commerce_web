@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { editUserHandler } from '../actions/editUserHandler';
 
-export default function EditUser({theeeId,handleClose}) {
+
+export default function EditUser({theeeId}) {
     console.log(theeeId);
     const [data, setData] = useState({});
     useEffect(()=>{
@@ -29,7 +30,6 @@ export default function EditUser({theeeId,handleClose}) {
 
   return (
     <div className="edit editUser">
-        <h2 className="header">Edit User</h2>
         <form action={editUserHandler} method='dialog'>
             {Object.keys(data).length>0&&(
                 Object.keys(data).map((key,index)=>{

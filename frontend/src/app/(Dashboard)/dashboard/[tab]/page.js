@@ -49,7 +49,7 @@ export default async function page({params}) {
                   <TableCell className="text-nowrap py-2" key={headerIndex}>{order[header]===""?"N/A":order[header]}</TableCell>
                 ))}
                 <TableCell>
-                  <ActionsC tab={tab} theId={order[headers[0]]}/>
+                  <ActionsC tab={tab} theId={order[headers[0]]} header={"Edit User"}/>
                 </TableCell>
               </TableRow>
           ))}
