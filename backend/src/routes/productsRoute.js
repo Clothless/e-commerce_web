@@ -108,6 +108,7 @@ router.put("/edit/:id", upload.array("images"), async function (req, res, next) 
   try {
     const { files } = req;
     const urls = [];
+    console.log(req.body);
     for (const file of files) {
       const options = {
         apiKey: process.env.IMGBB_KEY,

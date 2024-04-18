@@ -3,23 +3,32 @@ export async function editProductHandler(formData){
     "use server";
     let id = formData.get("productId");
     const rawData = {
-        first_name: formData.get("first_name"),
-        last_name:formData.get("last_name"),
-        address:formData.get("address"),
-        phone_number:formData.get("phone_number"),
-        email:formData.get("email"),
-        password:formData.get("password"),
-        role:formData.get("role"),
-        wilaya:formData.get("wilaya")
+        product:{
+          name: formData.get("name"),
+          description:formData.get("description"),
+          price:formData.get("price"),
+          category:formData.get("category")
+        },
+        Images: [formData.get("images")]
     }
-    console.log(rawData);
+    console.log(formData.get("images"));
+    const formmData = new FormData();
+    formmData.append("product", JSON.stringify({
+      name: formData.get("name"),
+      description:formData.get("description"),
+      price:formData.get("price"),
+      category:1
+    }))
+    formmData.append("images", [formData.get("images")])
+    // console.log(rawData);
   try {
     const response = await fetch(`http://localhost:3080/products/edit/${id}`, {
       method: "put",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(rawData)
+      // headers: {
+      //   "Content-Type": "application/json"
+      // },
+      body: formmData
+
     });
 
     const msg = await response.json();
