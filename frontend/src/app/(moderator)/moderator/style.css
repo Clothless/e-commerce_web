@@ -1,0 +1,10 @@
+header{
+    padding-block: 10px;
+    border-bottom: 1px solid #c2c2c224;
+    text-align: center;
+    img {
+        height: 60px;
+        width: auto;
+        margin: 0 auto;
+    }
+} 

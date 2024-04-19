@@ -12,7 +12,7 @@ export async function editUserHandler(formData){
         role:formData.get("role"),
         wilaya:formData.get("wilaya")
     }
-    console.log(rawData);
+
   try {
     const response = await fetch(`http://localhost:3080/users/edit/${id}`, {
       method: "put",

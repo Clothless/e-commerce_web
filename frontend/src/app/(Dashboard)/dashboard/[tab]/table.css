@@ -134,6 +134,7 @@
         border: 2px solid var(--second-orange-color);
         color: white;
         background-color: var(--second-orange-color);
+        margin: 0 auto;
       }
     }
   }

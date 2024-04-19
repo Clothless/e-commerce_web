@@ -1,0 +1,99 @@
+header{
+    padding-block: 10px;
+    border-bottom: 1px solid #c2c2c224;
+    text-align: center;
+    img {
+        height: 60px;
+        width: auto;
+        margin: 0 auto;
+    }
+} 
+.prod {
+    margin-top: 40px;
+    .content{
+        /* display: flex;
+        justify-content: center; */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 60px;
+        .imgHolder{
+            .productImg{
+                width: 100%;
+                border: 1px solid #e3e3e3;
+                border-radius: 20px;
+            }
+            .imgs{
+                margin-top: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .oproductImg{
+                    height: 100px;
+                    width: 100px;
+                    object-fit: contain;
+                    border: 1px solid #e3e3e3;
+                    border-radius: 20px;
+                }
+            }
+        }
+        .first{
+            h1{
+                font-size: clamp(25px, 5vw, 30px);
+            }
+            .description{
+                margin-top: 15px;
+                color: #707070;
+                font-size: clamp(12px, 5vw, 14px);
+            }
+            .price{
+                margin-top: 20px;
+                display: flex;
+                p{
+                    font-weight: 500;
+                    margin-left: 10px;
+                    color: var(--second-orange-color);
+                }
+            }
+            .ship{
+                margin-top: 10px;
+                display: flex;
+                span{
+                    margin-left: 10px;
+                    font-weight: 500;
+                    color: rgb(22, 202, 22);
+                }
+            }
+            padding-block: 20px 30px;
+            border-bottom: 1px solid #e3e3e3;
+        }
+        .second{
+            > div{
+                margin-bottom: 10px;
+                display: flex;
+                :last-child{
+                    margin-left: 10px;
+                }
+            }
+            padding-block: 20px;
+            border-bottom: 1px solid #e3e3e3;
+        }
+        .third{
+            margin-top: 20px;
+            button{
+                font-weight: bold;
+                border-radius: 7px;
+                padding-block: 10px;
+                width: 100px;
+                color: white;
+            }
+            .accept{
+                background-color: rgb(22, 202, 22);
+            }
+            .reject{
+                margin-left: 10px;
+                background-color: rgb(226, 64, 46);
+            }
+        }
+    }
+  }
+  
