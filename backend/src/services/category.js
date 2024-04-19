@@ -12,6 +12,16 @@ async function getAllCategories() {
   return data;
 }
 
+
+//Get category
+async function getCategory(id) {
+  const rows = await db.query(
+    `SELECT * FROM category WHERE category_id=${id}`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data;
+}
+
 // Add new category
 async function addCategory(category) {
   const result = await db.query(
@@ -78,5 +88,6 @@ module.exports = {
   addCategory,
   updateCategory,
   deleteCategory,
-  countProductsInCategory
+  countProductsInCategory,
+  getCategory
 };

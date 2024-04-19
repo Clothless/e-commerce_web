@@ -24,6 +24,17 @@ router.get('/:category_name', async function (req, res, next) {
     }
 });
 
+// Get sub_category by id
+router.get('/:sub_id', async function (req, res, next) {
+    try {
+        res.json(await products.getSubCategory(req.params.sub_id));
+    } catch (err) {
+        console.error(`Error while getting sub_category `, err.message);
+        next(err);
+    }
+});
+
+
 
 // Add new sub_category
 router.post('/add', async function (req, res, next) {

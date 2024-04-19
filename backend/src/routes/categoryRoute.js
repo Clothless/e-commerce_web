@@ -16,12 +16,26 @@ router.get('/', async function(req, res, next) {
   }
 });
 
+
+
+
 // add a category
 router.post('/add', async function(req, res, next) {
   try {
     res.json(await products.addCategory(req.body));
   } catch (err) {
     console.error(`Error while adding category`, err.message);
+    next(err);
+  }
+});
+
+
+// Get a category
+router.get('/:id', async function(req, res, next) {
+  try {
+    res.json(await products.getCategory(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting category `, err.message);
     next(err);
   }
 });

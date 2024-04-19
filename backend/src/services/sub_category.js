@@ -12,6 +12,14 @@ async function getSubCategories(category_name) {
 
 }
 
+// Get Sub category by id
+async function getSubCategory(sub_id) {
+    const rows = await db.query(
+        `SELECT * FROM sub_category WHERE sub_id=${sub_id}`
+    );
+    const data = helper.emptyOrRows(rows);
+    return data;
+}
 
 // Add new sub_category
 async function addSubCategory(sub_category) {
@@ -95,5 +103,6 @@ module.exports = {
     updateSubCategory,
     deleteSubCategory,
     getSubCategories,
-    getAllSubCategories
+    getAllSubCategories,
+    getSubCategory
 }
