@@ -12,8 +12,9 @@ import Link from "next/link"
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation";
+import { acceptProduct } from "@/app/actions/acceptProduct";
 
-export function Submissions({data}) {
+export function Submissions({data,updatePending}) {
   const router = useRouter()
   return (
     (<Card className="w-full max-w-3xl mx-auto">
@@ -51,11 +52,19 @@ export function Submissions({data}) {
                         <TableCell>{product.posted_by}</TableCell>
                         <TableCell className="hidden md:table-cell">{product.created_at.replace("T"," | ").split("Z").join(" ").slice(0,-5)}</TableCell>
                         <TableCell className="flex items-center">
-                          <button className="z-10">
-                            <Image src={"/approve.png"} width={22} height={22}/>
+                          <button className="z-10" onClick={async(e)=>{
+                                e.stopPropagation();
+                                await acceptProduct(product.product_id);
+                                await updatePending("pending")
+                              }}>
+                              <Image src={"/approve.png"} width={22} height={22}/>
                           </button>
-                          <button className="ml-4 z-10">
-                            <Image src={"/reject.png"} width={22} height={22}/>
+                          <button className="ml-4 z-10" onClick={async(e)=>{
+                            e.stopPropagation();
+                            await rejectProduct(product.product_id);
+                            await updatePending("pending")
+                              }}>
+                              <Image src={"/reject.png"} width={22} height={22}/>
                           </button>
                         </TableCell>
                           {/* <Link href={`/moderator/product/${product.product_id}`} style={{width:"100%"}}>
