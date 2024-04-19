@@ -6,7 +6,7 @@ const products = require('../services/sub_category.js');
 // Get all sub_categories
 router.get('/', async function (req, res, next) {
     try {
-        res.json(await products.getSubCategories());
+        res.json(await products.getAllSubCategories());
     } catch (err) {
         console.error(`Error while getting sub_categories `, err.message);
         next(err);

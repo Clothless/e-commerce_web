@@ -78,7 +78,7 @@ async function deleteSubCategory(sub_id) {
 
 
 // Get all sub categories
-async function getSubCategories() {
+async function getAllSubCategories() {
     const rows = await db.query(
         `SELECT * FROM sub_category`
     );
@@ -94,5 +94,6 @@ module.exports = {
     countProducts,
     updateSubCategory,
     deleteSubCategory,
-    getSubCategories
+    getSubCategories,
+    getAllSubCategories
 }
