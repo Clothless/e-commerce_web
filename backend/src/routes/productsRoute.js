@@ -14,6 +14,17 @@ router.get("/search", async function (req, res, next) {
   }
 });
 
+
+// Pending Search route
+router.get("/search/pending", async function (req, res, next) {
+  try {
+    res.json(await products.searchPendingProductByName(req.query.name));
+  } catch (err) {
+    console.error(`Error while searching products `, err.message);
+    next(err);
+  }
+});
+
 // Get all products
 router.get("/", async function (req, res, next) {
   try {
