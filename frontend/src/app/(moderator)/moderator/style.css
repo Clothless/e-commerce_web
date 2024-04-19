@@ -1,4 +1,9 @@
 header{
+    .headerContent{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     padding-block: 10px;
     border-bottom: 1px solid #c2c2c224;
     text-align: center;
@@ -6,5 +11,20 @@ header{
         height: 60px;
         width: auto;
         margin: 0 auto;
+    }
+    .logout{
+        margin-left: 10px;
+        padding: 5px 10px;
+        border: 2px solid #191919;
+        color: #191919;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 7px;
+        transition: 0.2s ease-out;
+        cursor: pointer;
+        &:hover{
+          color: #fafbfb;
+          background-color: #191919;
+        }
     }
 } 

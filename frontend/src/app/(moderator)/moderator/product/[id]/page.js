@@ -2,6 +2,8 @@ import ClientImage from "@/app/components/ClientImage";
 import "./product.css"
 import Image from "next/image"
 import ImgHolder from "@/app/components/ImgHolder";
+import { redirect } from 'next/navigation'
+import HandleProduct from "@/app/components/HandleProduct";
 
 export default async function page({params}) {
     const {id} = params;
@@ -12,6 +14,8 @@ export default async function page({params}) {
     const res2 = await fetch(`http://localhost:3080/users/${product.posted_by}`);
     let user = await res2.json();
     user = user[0];
+
+
     return (
         <>
             <header>
@@ -51,10 +55,7 @@ export default async function page({params}) {
                                     <span>{user.phone_number}</span>
                                 </div>
                             </div>
-                            <div className="third">
-                                <button className="accept">accept</button>
-                                <button className="reject">reject</button>
-                            </div>
+                            <HandleProduct productId={id}/>
                         </div>
                     </div>
                 </div>
