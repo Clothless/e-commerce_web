@@ -31,10 +31,7 @@ router.post("/add", async function (req, res, next) {
 
 //Login success
 router.get("/login-success", async function (req, res, next) {
-  try {
-    const user = await users.getUserByEmail(req.user.email);
-    return res.json(user[0]);
-  } catch (error) {}
+  res.json({ message: "Login success" });
 });
 
 //Login failure
@@ -70,10 +67,7 @@ router.put("/edit/:id", async function (req, res, next) {
 });
 
 // Add profile image
-router.put(
-  "/addProfileImage/:id",
-  upload.single("image"),
-  async function (req, res, next) {
+router.put("/addProfileImage/:id", upload.single("image"), async function (req, res, next) {
     try {
       const { file } = req;
 
