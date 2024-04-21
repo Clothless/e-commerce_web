@@ -97,6 +97,8 @@ async function loginUser(user) {
   if (!checkUser.length) {
     return { message: "User does not exist" };
   }
+  console.log(checkUser);
+  console.log(checkUser[0]);
   const hashedPassword = checkUser[0].password;
   const match = await bcrypt.compare(user.password, hashedPassword);
   if (!match) {
@@ -125,6 +127,25 @@ async function getProductsByUser(id) {
 }
 
 
+// Add profile image
+async function addProfileImage(user_id, image) {
+  const result = await db.query(
+    `UPDATE user 
+    SET image='${image}'
+    WHERE user_id=${user_id}`
+  );
+
+  let message = "Error in adding profile image";
+
+  if (result.affectedRows) {
+    message = "Profile image added successfully";
+  }
+
+  return { message };
+}
+
+
+
 
 module.exports = {
   getAllUsers,
@@ -135,7 +156,8 @@ module.exports = {
   getUserByEmail,
   loginUser,
   countUsers,
-  getProductsByUser
+  getProductsByUser,
+  addProfileImage
 };
 
 

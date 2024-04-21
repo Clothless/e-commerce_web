@@ -3,10 +3,11 @@ const router = Router();
 const users = require("../services/users.js");
 const passport = require("passport");
 const auth = require("../controllers/auth.js");
+const multer = require("multer");
+const upload = multer();
+const imgbbUploader = require("imgbb-uploader");
 
 require("../configs/passport.js");
-
-
 
 // Get all users
 router.get("/", async function (req, res, next) {
@@ -30,7 +31,10 @@ router.post("/add", async function (req, res, next) {
 
 //Login success
 router.get("/login-success", async function (req, res, next) {
-  res.json({ message: "Login successful" });
+  try {
+    const user = await users.getUserByEmail(req.user.email);
+    return res.json(user[0]);
+  } catch (error) {}
 });
 
 //Login failure
@@ -64,6 +68,33 @@ router.put("/edit/:id", async function (req, res, next) {
     next(err);
   }
 });
+
+// Add profile image
+router.put(
+  "/addProfileImage/:id",
+  upload.single("image"),
+  async function (req, res, next) {
+    try {
+      const { file } = req;
+
+      if (file.length === 0) {
+        return res.status(400).json({ message: "No image data provided" });
+      }
+
+      const options = {
+        apiKey: process.env.IMGBB_KEY,
+        base64string: file.buffer.toString("base64"),
+      };
+      const result = await imgbbUploader(options);
+
+      req.imageUrl = result.url;
+      res.json(await users.addProfileImage(req.params.id, req.imageUrl));
+    } catch (err) {
+      console.error(`Error while adding profile image`, err.message);
+      next(err);
+    }
+  }
+);
 
 // Number of users
 router.get("/count", async function (req, res, next) {
@@ -103,6 +134,11 @@ router.get("/:id/products", async function (req, res, next) {
     console.error(`Error while getting user's products`, err.message);
     next(err);
   }
+});
+
+// Get the logged in user
+router.get("/profile/me", auth.isAuthenticated, async (req, res) => {
+  res.json(req.user);
 });
 
 module.exports = router;
