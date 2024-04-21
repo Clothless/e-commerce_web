@@ -1,13 +1,14 @@
 import Image from "next/image";
 import "./login.css"
-import { login } from "../actions";
+import { login } from "../logInAction";
+import Link from 'next/link'
 
 export default function loginPage(){
     return (
         <>
             <header>
                 <div className="container">
-                    <Image src={"/logo.svg"} height={100} width={100} alt="logo"/>
+                <Link href="/"><Image src={"/logo.svg"} height={100} width={100} alt="logo"/></Link>
                 </div>
             </header>
             <main>

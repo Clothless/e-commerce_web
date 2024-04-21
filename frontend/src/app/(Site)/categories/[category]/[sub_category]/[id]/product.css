@@ -1,0 +1,153 @@
+.prodd {
+    margin-block: 40px 50px;
+    nav.breadcrumb {
+        @media (max-width:599px) {
+            display: none;
+        }
+        margin-bottom: 30px;
+        li.active a {
+            color: var(--main-blue-color);
+        }
+    }
+    .content{
+        /* display: flex;
+        justify-content: center; */
+        display: grid;
+        @media (min-width:790px) {
+            grid-template-columns: 1fr 1fr;
+            column-gap: 60px;
+        }
+        .imgHolder{
+            .productImg{
+                width: 100%;
+                border: 1px solid #e3e3e3;
+                border-radius: 20px;
+                height: 400px;
+                object-fit: contain;
+            }
+            .imgs{
+                margin-top: 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .oproductImg{
+                    height: 100px;
+                    width: 100px;
+                    object-fit: contain;
+                    border: 1px solid #e3e3e3;
+                    border-radius: 20px;
+                }
+            }
+        }
+        .first{
+            h1{
+                font-size: clamp(25px, 5vw, 30px);
+            }
+            .description{
+                margin-top: 15px;
+                color: #707070;
+                font-size: clamp(12px, 5vw, 14px);
+            }
+            .price{
+                margin-top: 20px;
+                display: flex;
+                p{
+                    font-weight: 500;
+                    margin-left: 10px;
+                    color: var(--second-orange-color);
+                }
+            }
+            .ship{
+                margin-top: 10px;
+                display: flex;
+                span{
+                    margin-left: 10px;
+                    font-weight: 500;
+                    color: rgb(22, 202, 22);
+                }
+            }
+            padding-block: 20px 30px;
+            border-bottom: 1px solid #e3e3e3;
+        }
+        .second{
+            > div{
+                margin-bottom: 10px;
+                display: flex;
+                :last-child{
+                    margin-left: 10px;
+                }
+            }
+            padding-block: 20px;
+            border-bottom: 1px solid #e3e3e3;
+        }
+        .third{
+            margin-top: 20px;
+            button{
+                font-weight: bold;
+                border-radius: 7px;
+                padding-block: 10px;
+                width: 100px;
+                color: white;
+            }
+            .accept{
+                background-color: var(--second-orange-color);
+            }
+            .reject{
+                margin-left: 10px;
+                background-color: var(--second-blue-color);
+            }
+        }
+        .mySwiperr {
+            width: 100%;
+            @media (max-width:1119px) {
+                height: 485px;
+            }
+            overflow-x: hidden;
+            overflow-y: visible;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            border: 1px solid #e3e3e3;
+            border-radius: 20px;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+          
+            /* Center slide text vertically */
+            /* display: flex;
+            justify-content: center; */
+            /* align-items: center; */
+        } 
+          
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          } 
+          
+          .swiper-slide {
+            width: 60%;
+          }
+          
+          .swiper-slide:nth-child(2n) {
+            width: 40%;
+          }
+          
+          .swiper-slide:nth-child(3n) {
+            width: 20%;
+          }
+          .swiper-button-next:after{
+            color: var(--main-blue-color);
+          }
+          
+        .swiper-button-prev:after{
+            color: var(--main-blue-color);
+        }
+        .swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets .swiper-pagination-bullet{
+              background-color: var(--main-blue-color);
+          }
+    }
+  }

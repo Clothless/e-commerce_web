@@ -180,7 +180,7 @@
                         color: var(--main-orange-color);
                     }
                 }
-                button {
+                .button {
                     translate: 0 10px;
                     /* z-index: 10; */
                     width: fit-content;

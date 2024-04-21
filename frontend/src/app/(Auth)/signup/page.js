@@ -2,17 +2,23 @@
 import Image from "next/image";
 import "./signup.css"
 import { useState } from "react";
+import Link from 'next/link'
 
-import { signup } from "../actions";
+import { signup } from "../signUpAction";
+import TermModal from "@/app/components/TermModal";
 
 export default function signupPage(){
     const [disabled, setDisabled] = useState(true);
+
+    function handleDisable(value){
+        setDisabled(value);
+    }
 
     return (
         <>
             <header>
                 <div className="container">
-                    <Image src={"/logo.svg"} height={100} width={100} alt="logo"/>
+                    <Link href="/"><Image src={"/logo.svg"} height={100} width={100} alt="logo"/></Link>
                 </div>
             </header>
             <main>
@@ -21,7 +27,7 @@ export default function signupPage(){
                         <h1>Create an account</h1>
                         <p>Enter your information to create an account</p>
                     </div>
-                    <form action={signup} method="POST">
+                    <form action={signup}>
                         <div className="fullName">
                             <div>
                                 <label htmlFor="fname">First name</label>
@@ -45,10 +51,11 @@ export default function signupPage(){
                             <input type="password" id="cpwd" />
                         </div>
                         <div>
-                            <input type="checkbox" id="" onChange={()=>setDisabled(!disabled)}/>
-                            <label htmlFor="">I agree to the <a href="">Terms and Conditions</a></label>
+                            <input type="checkbox" id="" onChange={()=>setDisabled(!disabled)} checked={!disabled}/>
+                            <label htmlFor="">I agree to the <TermModal handleDisable={handleDisable}/></label>
                         </div>
                         <input type="submit" value="Sign up" disabled={disabled}/>
+                        <p className="final">Already have an account? <a href="/login">Login</a></p>
                     </form>
                 </div>
             </main>

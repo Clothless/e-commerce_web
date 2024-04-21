@@ -1,9 +1,9 @@
 "use server"
 
 import { redirect } from "next/navigation";
+import { NextResponse } from 'next/server'
 
 export async function signup(formdata){
-    'use server';
     const data = {
         "first_name" :  formdata.get("first_name"),
         "last_name" :  formdata.get("last_name"),
@@ -29,33 +29,10 @@ export async function signup(formdata){
         },  
         body:formBody
     })
-    // console.log(senddata.ok);
-    redirect("/");
-}
-
-export async function login(formdata){
-    'use server';
-    const data = {
-        "email" : formdata.get("email"),
-        "password" : formdata.get("password")
+    let msg = await senddata.json();
+    console.log(msg);
+    if(msg.message === 'User added successfully'){
+        redirect('http://localhost:3000/')
     }
-    
-    var formBody = [];
-    for (var property in data) {
-      var encodedKey = encodeURIComponent(property);
-      var encodedValue = encodeURIComponent(data[property]);
-      formBody.push(encodedKey + "=" + encodedValue);
-    }
-    formBody = formBody.join("&");
-    
-    let senddata = await fetch("http://localhost:3080/users/login",{
-        method:"post",
-        headers:{
-            "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"
-        },  
-        body:formBody
-    }).then(res => res.json())
-    .then(user => console.log(user))
     // console.log(senddata.ok);
-    redirect("/");
 }

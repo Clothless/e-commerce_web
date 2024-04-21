@@ -17,6 +17,7 @@ export default function ProoductSwiper({images}) {
         slidesPerView={1}
         navigation={true}
         spaceBetween={30}
+        loop={true}
         pagination={{
           clickable: true,
         }}

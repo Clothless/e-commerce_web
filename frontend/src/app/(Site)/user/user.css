@@ -1,0 +1,74 @@
+.profile {
+    .title {
+        font-size: 32px;
+        margin-bottom: 40px;
+        hr {
+            margin-top: 15px;
+        }
+        margin-block: 30px 50px;
+    }
+    .content{
+        margin-bottom: 70px;
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        column-gap: 25px;
+        .side {
+            border-radius: 20px;
+            background-color: rgb(249, 249, 249);
+            .top{
+                padding-block: 20px 30px;
+                padding-left: 10px;
+                display: flex;
+                align-items: center;
+                .text{
+                    margin-left: 20px;
+                    p{
+                        color: rgb(122, 122, 122);
+                        font-size: 14px;
+                    }
+                }
+                .userImg{
+                    border: 1px solid red;
+                }
+            }
+            .linkk{
+                padding: 15px 20px 15px 10px;
+                display: flex;
+                align-items: center;
+                font-size: 15px;
+                font-weight: 500;
+                transition: 0.2s ease-out;
+                position: relative;
+                &:last-child{
+                    border-radius: 0 0 20px 20px;
+                }
+                &::before{
+                    content: '';
+                    width: 31px;
+                    height: 30px;
+                    background-color: rgb(249, 249, 249);
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 0;
+                    translate: 0px -49.3%;
+                    border-radius: 0 10px 10px 0;
+                }
+                &:not(:last-child){
+                    border-block: 1px solid rgb(231, 231, 231);
+                }
+                .imgg{
+                    margin-right: 20px;
+                    background-color: rgb(249, 249, 249);
+                    border-radius: 50%;
+                    z-index: 10;
+                    padding-right: 5px;
+                }
+                &.active{
+                    background-color: var(--main-blue-color);
+                    color: white;
+                }
+            }
+        }
+    }
+}

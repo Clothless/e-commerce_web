@@ -209,7 +209,7 @@
                 color: var(--main-orange-color);
             }
         }
-        button {
+        .button {
             translate: 0 -17px;
             /* z-index: 10; */
             width: fit-content;

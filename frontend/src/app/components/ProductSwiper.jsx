@@ -27,7 +27,7 @@ export default function ProductSwiper({products}) {
         className="mySwiper"
       >
         {products.map((product,id)=>{
-            return <SwiperSlide key={id}><Product id={product.product_id} name={product.name} img={JSON.parse(product.images)[0]} price={product.price} description={product.description}/></SwiperSlide>
+            return <SwiperSlide key={id}><Product productLink={`/categories/${product.product_id}`} id={product.product_id} name={product.name} img={JSON.parse(product.images)[0]} price={product.price} description={product.description}/></SwiperSlide>
         })}
       </Swiper>
     )

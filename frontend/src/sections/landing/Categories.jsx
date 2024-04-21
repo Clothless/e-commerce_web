@@ -7,7 +7,6 @@ export default async function Categories({link,title,route}) {
     const res = await fetch(`http://localhost:3080${link}`);
     let categories = await res.json();
     categories = categories.filter((category)=>category.category_id !== 404)
-    console.log(categories);
   return (
     <div className="categories">
         <div className="container">

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import ClientImage from "./ClientImage";
+import Link from 'next/link'
 
-export default function Product({id, img, name, price, description}) {
+export default function Product({key, id, img, name, price, description,productLink}) {
 
   // async function makeFavorite(id){
   //   "use server";
@@ -9,7 +10,7 @@ export default function Product({id, img, name, price, description}) {
   // }
 
   return (
-    <div className="product">
+    <div className="product" key={key}>
         <div className="img">
             {/* <Image className="product_img" loader={()=>img} src={img} height={100} width={100} style={{width:"100%", height:"100%", objectFit:"contain"}}/> */}
             <ClientImage classn={"product_img"} src={img} style={{width:"100%", height:"100%", objectFit:"contain"}}/>
@@ -20,7 +21,7 @@ export default function Product({id, img, name, price, description}) {
             </div>
         </div>
         <p>{description}</p>
-        <button>More Details</button>
+        <Link href={productLink} className="button">More Details</Link>
     </div>
   )
 }

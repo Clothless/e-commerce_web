@@ -4,13 +4,11 @@ import SpecialTitle from "./SpecialTitle";
 
 export default function Filter() {
   const [toggle, setToggle] = useState(false);
-  function showOrHide(value){
-    setToggle(value)
-  }
+
   return (
-    <div className={`filter ${toggle===true?"hide":"show"}`}>
+    <div className={`filter ${toggle===false?"hide":"show"}`}>
       <div className="title">
-        <h1 onClick={()=>setToggle(!toggle)}>Filter</h1>
+        <h1 onClick={()=>setToggle(!toggle)} title="click to show it">Filter</h1>
         <hr style={{backgroundColor:"#8080800f"}}/>
       </div>
       <form action="">
