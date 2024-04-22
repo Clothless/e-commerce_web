@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 const users = require("../services/users.js");
-const passport = require("passport");
+const passport = require("../configs/passport.js");
 const auth = require("../controllers/auth.js");
 const multer = require("multer");
 const upload = multer();
@@ -31,8 +31,7 @@ router.post("/add", async function (req, res, next) {
 
 //Login success
 router.get("/login-success", async function (req, res, next) {
-  console.log(req.session);
-  res.json(req.session);
+  res.json({ message: "Login success" });
 });
 
 //Login failure
@@ -41,7 +40,13 @@ router.get("/login-failure", (req, res) => {
 });
 
 //Login a user
-router.post("/login", auth.isLogged, passport.authenticate("local", {failureRedirect: "login-failure", successRedirect: "login-success",})
+router.post(
+  "/login",
+  auth.isLogged,
+  // passport.authenticate("local", {
+  //   successRedirect: "/users/login-success",
+  //   failureRedirect: "/users/login-failure",
+  // })
 );
 
 //logout route
@@ -62,7 +67,10 @@ router.put("/edit/:id", async function (req, res, next) {
 });
 
 // Add profile image
-router.put("/addProfileImage/:id", upload.single("image"), async function (req, res, next) {
+router.put(
+  "/addProfileImage/:id",
+  upload.single("image"),
+  async function (req, res, next) {
     try {
       const { file } = req;
 
@@ -118,7 +126,13 @@ router.delete("/:id", async function (req, res, next) {
 // Get user's products
 router.get("/:id/products", async function (req, res, next) {
   try {
-    res.json(await users.getProductsByUser(req.params.id, req.query.page, req.query.listPerPage));
+    res.json(
+      await users.getProductsByUser(
+        req.params.id,
+        req.query.page,
+        req.query.listPerPage
+      )
+    );
   } catch (err) {
     console.error(`Error while getting user's products`, err.message);
     next(err);
@@ -126,11 +140,10 @@ router.get("/:id/products", async function (req, res, next) {
 });
 
 // Get the logged in user
-router.get("/profile/me",  async (req, res) => {
+router.get("/profile/me", async (req, res) => {
   console.log(req);
   res.json(req.user);
 });
-
 
 // Session endpoint
 router.get("/api/session", async (req, res) => {

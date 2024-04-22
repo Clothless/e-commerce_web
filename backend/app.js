@@ -58,7 +58,7 @@ const options = {
 
 const port = process.env.PORT;
 var corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 app.use(cors(corsOptions));
@@ -71,19 +71,20 @@ app.use(
 
 
 
-app.use(session);
+// app.use(session);
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 app.get("/", async (req, res) => {
   console.log(req.user)
-  if (req.session.viewCount) {
-    req.session.viewCount++;
-  }else{
-    req.session.viewCount = 1;
-  }
-  res.json({ message: "Page views: " + req.session.viewCount });
+  // if (req.session.viewCount) {
+  //   req.session.viewCount++;
+  // }else{
+  //   req.session.viewCount = 1;
+  // }
+  // res.json({ message: "Page views: " + req.session.viewCount });
+  res.json({ message: "Welcome to E-Commerce API" });
 });
 
 // /* Error handler middleware */
