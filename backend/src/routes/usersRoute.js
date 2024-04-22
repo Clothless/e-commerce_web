@@ -42,7 +42,16 @@ router.get("/login-failure", (req, res) => {
 //Login a user
 router.post(
   "/login",
-  auth.isLogged,
+  auth.isLogged, async function (req, res, next) {
+    try {
+      const user = await users.loginUser(req.body);
+      req.session.user = user;
+      res.json(user);
+
+    } catch (error) {
+      res.status(401).json({ message: "Invalid credentials" });
+    }
+  }
   // passport.authenticate("local", {
   //   successRedirect: "/users/login-success",
   //   failureRedirect: "/users/login-failure",
