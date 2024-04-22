@@ -328,6 +328,19 @@ async function searchPendingProductByName(name) {
 }
 
 
+// Search products in the approved products
+async function searchApprovedProductByName(name) {
+  const rows = await db.query(
+    `SELECT * FROM product WHERE pending = 0 AND name LIKE '%${name}%' ORDER BY created_at DESC`
+  );
+  const data = helper.emptyOrRows(rows);
+
+  return {
+    data,
+  };
+}
+
+
 module.exports = {
   getAllProducts,
   addProduct,
@@ -348,5 +361,6 @@ module.exports = {
   filterProducts,
   searchProductByName,
   deleteImage,
-  searchPendingProductByName
+  searchPendingProductByName,
+  searchApprovedProductByName,
 };
