@@ -7,7 +7,7 @@ const { isAuthenticated } = require("../controllers/auth.js");
 // Search route
 router.get("/search", async function (req, res, next) {
   try {
-    res.json(await products.searchProductByName(req.query.name));
+    res.json(await products.searchProductByName(req.query.page, req.query.listPerPage, req.query.name));
   } catch (err) {
     console.error(`Error while searching products `, err.message);
     next(err);
@@ -18,7 +18,7 @@ router.get("/search", async function (req, res, next) {
 // Pending Search route
 router.get("/search/pending", async function (req, res, next) {
   try {
-    res.json(await products.searchPendingProductByName(req.query.name));
+    res.json(await products.searchPendingProductByName(req.query.page, req.query.listPerPage, req.query.name));
   } catch (err) {
     console.error(`Error while searching products `, err.message);
     next(err);
@@ -29,7 +29,7 @@ router.get("/search/pending", async function (req, res, next) {
 // Pending Search route
 router.get("/search/approved", async function (req, res, next) {
   try {
-    res.json(await products.searchApprovedProductByName(req.query.name));
+    res.json(await products.searchApprovedProductByName(req.query.page, req.query.listPerPage, req.query.name));
   } catch (err) {
     console.error(`Error while searching products `, err.message);
     next(err);

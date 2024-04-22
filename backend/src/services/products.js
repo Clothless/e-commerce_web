@@ -316,9 +316,10 @@ async function searchProductByName(name) {
 }
 
 // Search for product by name in the pending
-async function searchPendingProductByName(name) {
+async function searchPendingProductByName(page = 1, listPerPage = 10, name) {
+  const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM product WHERE pending <> 0 AND name LIKE '%${name}%' ORDER BY created_at DESC`
+    `SELECT * FROM product WHERE pending <> 0 AND name LIKE '%${name}%' ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
 
@@ -329,9 +330,10 @@ async function searchPendingProductByName(name) {
 
 
 // Search products in the approved products
-async function searchApprovedProductByName(name) {
+async function searchApprovedProductByName(page = 1, listPerPage = 10, name) {
+  const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM product WHERE pending = 0 AND name LIKE '%${name}%' ORDER BY created_at DESC`
+    `SELECT * FROM product WHERE pending = 0 AND name LIKE '%${name}%' ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
 
