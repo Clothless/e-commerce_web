@@ -76,7 +76,7 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get("/", auth.isAuthenticated, async (req, res) => {
+app.get("/", async (req, res) => {
   console.log(req.user)
   if (req.session.viewCount) {
     req.session.viewCount++;

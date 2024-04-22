@@ -3,9 +3,10 @@ const helper = require("./helper.js");
 const bcrypt = require("bcrypt");
 
 // Get all moderators
-async function getAllmoderators(page = 1) {
+async function getAllmoderators(page = 1, listPerPage = 10) {
+  const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM user where role='moderator'`
+    `SELECT * FROM user where role='moderator' LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };

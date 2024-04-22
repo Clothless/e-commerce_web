@@ -12,7 +12,7 @@ require("../configs/passport.js");
 // Get all users
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await users.getAllUsers(req.query.page));
+    res.json(await users.getAllUsers(req.query.page, req.query.listPerPage));
   } catch (err) {
     console.error(`Error while getting users `, err.message);
     next(err);
@@ -123,7 +123,7 @@ router.delete("/:id", async function (req, res, next) {
 // Get user's products
 router.get("/:id/products", async function (req, res, next) {
   try {
-    res.json(await users.getProductsByUser(req.params.id));
+    res.json(await users.getProductsByUser(req.params.id, req.query.page, req.query.listPerPage));
   } catch (err) {
     console.error(`Error while getting user's products`, err.message);
     next(err);
@@ -131,7 +131,8 @@ router.get("/:id/products", async function (req, res, next) {
 });
 
 // Get the logged in user
-router.get("/profile/me", auth.isAuthenticated, async (req, res) => {
+router.get("/profile/me",  async (req, res) => {
+  console.log(req);
   res.json(req.user);
 });
 

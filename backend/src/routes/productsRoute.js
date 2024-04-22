@@ -28,7 +28,7 @@ router.get("/search/pending", async function (req, res, next) {
 // Get all products
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await products.getAllProducts(req.query.page));
+    res.json(await products.getAllProducts(req.query.page, req.query.listPerPage));
   } catch (err) {
     console.error(`Error while getting products `, err.message);
     next(err);
@@ -186,7 +186,7 @@ router.put("/approve/:id", async function(req, res, next) {
 // Get all approved products
 router.get("/approved", async function(req, res, next) {
   try {
-    res.json(await products.getApprovedProducts())
+    res.json(await products.getApprovedProducts(req.query.page, req.query.listPerPage))
   } catch (error) {
     console.error(`Error while getting approved products`, err.message);
     next(err);
@@ -197,7 +197,7 @@ router.get("/approved", async function(req, res, next) {
 // Get all pending products
 router.get("/pending", async function(req, res, next) {
   try {
-    res.json(await products.getPendingProducts())
+    res.json(await products.getPendingProducts(req.query.page, req.query.listPerPage))
   } catch (error) {
     console.error(`Error while getting pending products`, err.message);
     next(err);

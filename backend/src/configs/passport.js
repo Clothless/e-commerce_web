@@ -18,7 +18,9 @@ const verifyCallback = async (email, password, done) => {
         return done(null, false);
     }
     const user = results[0];
+    console.log("This i s the user print:", user);
     bcrypt.compare(password, user.password, (err, res) => {
+      console.log(res);
         if (res) {
         return done(null, user);
         } else {
@@ -37,6 +39,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async(id, done) => {
     const results = await connection.query(`SELECT * FROM user WHERE user_id = ${id}`);
+    console.log(results);
     if (!results.length) {
         return done(null, false);
     }

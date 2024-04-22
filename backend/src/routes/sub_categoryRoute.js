@@ -24,6 +24,7 @@ router.get('/:category_name', async function (req, res, next) {
     }
 });
 
+
 // Get sub_category by id
 router.get('/sub_id/:sub_id', async function (req, res, next) {
     try {

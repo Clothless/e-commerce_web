@@ -19,9 +19,10 @@ module.exports.isNotLogged = (req, res, next) => {
 
 module.exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
-    return next();
+    next();
+  }else{
+    return res.status(401).json({ message: "Not authenticated" });
   }
-  res.status(401).json({ message: "Not authenticated" });
 };
 
 module.exports.isAdmin = (req, res, next) => {

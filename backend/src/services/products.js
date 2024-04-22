@@ -1,9 +1,8 @@
 const db = require("./db.js");
 const helper = require("./helper.js");
-const listPerPage = require("../configs/db_connect.js").listPerPage;
 
 // Get all products
-async function getAllProducts(page = 1) {
+async function getAllProducts(page = 1, listPerPage = 10) {
   const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
     `SELECT * FROM product ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`
@@ -226,7 +225,7 @@ async function getFavoriteCount(product_id) {
 }
 
 //Get approved products only
-async function getApprovedProducts(page=1) {
+async function getApprovedProducts(page=1, listPerPage = 10) {
   const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(`SELECT * FROM product WHERE pending = 0 ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`);
   const data = helper.emptyOrRows(rows);
@@ -238,7 +237,7 @@ async function getApprovedProducts(page=1) {
 }
 
 //Get pending products only
-async function getPendingProducts(page=1) {
+async function getPendingProducts(page=1, listPerPage = 10) {
   const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(`SELECT * FROM product WHERE pending <> 0 ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`);
   const data = helper.emptyOrRows(rows);

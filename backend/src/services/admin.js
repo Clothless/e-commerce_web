@@ -3,9 +3,10 @@ const helper = require("./helper.js");
 const bcrypt = require("bcrypt");
 
 // Get all admins
-async function getAllAdmins(page = 1) {
+async function getAllAdmins(page = 1, listPerPage = 10) {
+  const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM user where role='admin'`
+    `SELECT * FROM user where role='admin' LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };

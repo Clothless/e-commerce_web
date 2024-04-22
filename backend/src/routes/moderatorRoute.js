@@ -8,7 +8,7 @@ const moderatorService = require("../services/moderator.js");
 // Get all moderators
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await moderatorService.getAllmoderators(req.query.page));
+    res.json(await moderatorService.getAllmoderators(req.query.page, req.query.listPerPage));
   } catch (err) {
     console.error(`Error while getting moderators `, err.message);
     next(err);

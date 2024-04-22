@@ -1,11 +1,10 @@
 const db = require("./db.js");
 const helper = require("./helper.js");
-const listPerPage = require("../configs/db_connect.js").listPerPage;
 const bcrypt = require("bcrypt");
 
 
 // Get all users
-async function getAllUsers(page = 1) {
+async function getAllUsers(page = 1, listPerPage = 10) {
   const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
     `SELECT * FROM user LIMIT ${offset},${listPerPage}`
@@ -118,9 +117,10 @@ async function countUsers() {
 
 
 // Get all products posted by specific user
-async function getProductsByUser(id) {
+async function getProductsByUser(id, page = 1, listPerPage = 10) {
+  const offset = helper.getOffset(page, listPerPage);
   const rows = await db.query(
-    `SELECT * FROM product WHERE posted_by=${id}`
+    `SELECT * FROM product WHERE posted_by=${id} LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   return data;

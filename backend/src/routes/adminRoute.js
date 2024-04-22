@@ -9,7 +9,7 @@ const { isAdmin } = require("../controllers/auth.js");
 // Get all admins
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await adminService.getAllAdmins(req.query.page));
+    res.json(await adminService.getAllAdmins(req.query.page, req.query.listPerPage));
   } catch (err) {
     console.error(`Error while getting admins `, err.message);
     next(err);
