@@ -177,8 +177,8 @@ router.put("/approve/:id", async function(req, res, next) {
   try {
     res.json(await products.approveProduct(req.params.id))
   } catch (error) {
-    console.error(`Error while getting approved products`, err.message);
-    next(err);
+    console.error(`Error while getting approved products`, error.message);
+    next(error);
   }
 })
 
@@ -188,8 +188,8 @@ router.get("/approved", async function(req, res, next) {
   try {
     res.json(await products.getApprovedProducts(req.query.page, req.query.listPerPage))
   } catch (error) {
-    console.error(`Error while getting approved products`, err.message);
-    next(err);
+    console.error(`Error while getting approved products`, error.message);
+    next(error);
   }
 })
 
@@ -199,8 +199,8 @@ router.get("/pending", async function(req, res, next) {
   try {
     res.json(await products.getPendingProducts(req.query.page, req.query.listPerPage))
   } catch (error) {
-    console.error(`Error while getting pending products`, err.message);
-    next(err);
+    console.error(`Error while getting pending products`, error.message);
+    next(error);
   }
 })
 

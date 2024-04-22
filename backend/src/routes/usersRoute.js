@@ -31,7 +31,8 @@ router.post("/add", async function (req, res, next) {
 
 //Login success
 router.get("/login-success", async function (req, res, next) {
-  res.json({ message: "Login success" });
+  console.log(req.session);
+  res.json(req.session);
 });
 
 //Login failure
@@ -40,13 +41,7 @@ router.get("/login-failure", (req, res) => {
 });
 
 //Login a user
-router.post(
-  "/login",
-  auth.isLogged,
-  passport.authenticate("local", {
-    failureRedirect: "login-failure",
-    successRedirect: "login-success",
-  })
+router.post("/login", auth.isLogged, passport.authenticate("local", {failureRedirect: "login-failure", successRedirect: "login-success",})
 );
 
 //logout route
@@ -134,6 +129,13 @@ router.get("/:id/products", async function (req, res, next) {
 router.get("/profile/me",  async (req, res) => {
   console.log(req);
   res.json(req.user);
+});
+
+
+// Session endpoint
+router.get("/api/session", async (req, res) => {
+  console.log(req.session);
+  res.json(req.session);
 });
 
 module.exports = router;
