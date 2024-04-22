@@ -12,7 +12,6 @@ const ImageWithDeleteButton = ({ imageUrl,productId }) => {
 
   const handleConfirmDelete = () => {
     // Add your delete logic here
-    console.log('Deleting image...');
     setShowDeletePopup(false);
   };
 

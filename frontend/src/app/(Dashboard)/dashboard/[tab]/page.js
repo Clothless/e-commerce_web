@@ -5,7 +5,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 
 
 export default async function page({params}) {
     let {tab} = params;
-    console.log(tab);
     tab = tab === "sub-categories"?"sub_categories" : tab;
     const res = await fetch(`http://localhost:3080/${tab}`)
     let data = await res.json();

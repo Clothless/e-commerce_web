@@ -23,7 +23,6 @@ export async function editUserHandler(formData){
     });
 
     const msg = await response.json();
-    console.log(msg.message);
   } catch (err) {
     console.error("Error updating user:", err);
   }

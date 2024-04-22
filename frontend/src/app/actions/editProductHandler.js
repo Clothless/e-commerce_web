@@ -11,7 +11,6 @@ export async function editProductHandler(formData){
         },
         Images: [formData.get("images")]
     }
-    console.log(formData.get("images"));
     const formmData = new FormData();
     formmData.append("product", JSON.stringify({
       name: formData.get("name"),
@@ -32,7 +31,6 @@ export async function editProductHandler(formData){
     });
 
     const msg = await response.json();
-    console.log(msg.message);
   } catch (err) {
     console.error("Error updating product:", err);
   }

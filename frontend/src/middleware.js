@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server'
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers';
+import { decrypt } from './lib/session';
 
 export async function middleware(request) {
+    const cookie = cookies().get("session")?.value;
+    console.log(cookie);
+    const session = await decrypt(cookie)
+    console.log(session);
     if(request.nextUrl.pathname.startsWith('/categories')){
         let thing = request.nextUrl.pathname.split('/categories')[1];
         if(!Number.isNaN(parseInt(thing.slice(1)))){

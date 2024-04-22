@@ -9,7 +9,7 @@ export default function PaginationC({total}) {
   const onPageChange = (page) => setCurrentPage(page);
 
   return (
-    <div className={`flex overflow-x-auto sm:justify-center ${total<=1&&"hidden"}`}>
+    <div className={`pagination flex overflow-x-auto sm:justify-center ${total<=1&&"hidden"}`}>
       <Pagination currentPage={currentPage} totalPages={total} onPageChange={onPageChange} showIcons />
     </div>
   );

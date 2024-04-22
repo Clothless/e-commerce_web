@@ -1,23 +1,33 @@
 "use client";
-export default async function FilterSide({categories, subCategories}) {
+
+import { useState } from "react";
+import { filterProducts } from "../actions/filterProducts";
+
+export default function FilterSide({categories, subCategories}) {
+    const [checkedCategories, setCheckedCategories] = useState([]);
   return (
     <div className="filterside">
-        <div className="container">
-            <div className="title">Filter <img src="/filter.png" alt="" /></div>
-            <form action="" className="filters">
+
+            <form action={filterProducts} className="filters">
                 <div className="categoriesLine part">
                     <h3>Categories</h3>
                     {categories.map((category, id) => {
                     return (
                         <div key={id} className="categoryFilter">
                             <div className="line">
-                                <input type="checkbox" name="categories[]" id="" value={category} />
+                                <input type="checkbox" name="categories[]" id="" value={category} checked={checkedCategories.includes(category)}                     onChange={() =>
+                                setCheckedCategories((prevCheckedCategories) =>
+                                    prevCheckedCategories.includes(category)
+                                    ? prevCheckedCategories.filter((c) => c !== category)
+                                    : [...prevCheckedCategories, category]
+                                )
+                                } />
                                 <label htmlFor="">{category}</label>
                             </div>
                             <div className="subCategoriesLine">
                                 {subCategories[category].map((subCategory, subId) => (
                                     <div key={subId} className="subcategoryLine">
-                                        <input type="checkbox" name={`subcategories[]`} id="" value={subCategory} />
+                                        <input type="checkbox" disabled={checkedCategories.includes(category)} name={`subcategories[]`} id="" value={subCategory} />
                                         <label htmlFor="">{subCategory}</label>
                                     </div>
                                 ))}
@@ -35,16 +45,15 @@ export default async function FilterSide({categories, subCategories}) {
                     </div>
                     <div className="line">
                         <label htmlFor="">delivery: </label>
-                        <input type="checkbox" />
+                        <input type="checkbox" name="isDeliver" />
                     </div>
                     <div className="line">
                         <label htmlFor="">Posted from: </label>
-                        <input type="date" />
+                        <input type="date" name="postedFrom"/>
                     </div>
                 </div>
                 <input type="submit" value={"apply"} />
             </form>
-        </div>
     </div>
   )
 }

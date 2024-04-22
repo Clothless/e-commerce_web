@@ -26,7 +26,6 @@ export default async function UserLayout({ children }) {
       }  
       const res = await fetch(`http://localhost:3080/auth`)
       const user = await res.json();
-      console.log(user);
   return (
     <div className="profile">
         <div className="container">

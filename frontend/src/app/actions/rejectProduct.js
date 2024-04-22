@@ -5,6 +5,5 @@ export async function rejectProduct(id){
         method:"delete"
     })
     const msg = await res.json();
-    console.log(msg);
     redirect("/moderator")
 }

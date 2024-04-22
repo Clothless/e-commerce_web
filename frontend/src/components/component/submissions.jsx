@@ -46,6 +46,11 @@ export function Submissions({data,updatePending}) {
                 </TableHeader>
                 <TableBody>
                   {
+                    data.length===0?
+                    (
+                      <h1 className="py-5 text-center w-[100%]">nothing to show</h1>
+                    )
+                    :
                     data.map((product)=>(
                       <TableRow className="odd:bg-gray-100 cursor-pointer" onClick={()=>router.push(`moderator/product/${product.product_id}`)}>
                         <TableCell className="font-semibold">{product.name}</TableCell>

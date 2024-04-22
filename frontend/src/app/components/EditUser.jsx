@@ -4,7 +4,6 @@ import { editUserHandler } from '../actions/editUserHandler';
 
 
 export default function EditUser({theeeId}) {
-    console.log(theeeId);
     const [data, setData] = useState({});
     useEffect(()=>{
         fetch(`http://localhost:3080/users/${theeeId}`,{

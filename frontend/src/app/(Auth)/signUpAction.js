@@ -20,7 +20,6 @@ export async function signup(formdata){
       formBody.push(encodedKey + "=" + encodedValue);
     }
     formBody = formBody.join("&");
-    console.log(formBody)
     
     let senddata = await fetch("http://localhost:3080/users/add",{
         method:"post",
@@ -30,7 +29,6 @@ export async function signup(formdata){
         body:formBody
     })
     let msg = await senddata.json();
-    console.log(msg);
     if(msg.message === 'User added successfully'){
         redirect('http://localhost:3000/')
     }

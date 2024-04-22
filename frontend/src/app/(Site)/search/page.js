@@ -2,7 +2,10 @@ import FilterSide from "@/app/components/FilterSide"
 import "./search.css"
 import Product from "@/app/components/Product";
 import PaginationC from "@/app/components/PaginationC";
-export default async function searchPage() {
+import FilterTitle from "@/app/components/FilterTitle";
+import { searchProduct } from "@/app/actions/searchProduct";
+export default async function searchPage({searchParams}) {
+  const {name} = searchParams;
   const res = await fetch("http://localhost:3080/categories")
   let categories = await res.json()
   categories = categories.filter((category)=>category.category_id !== 404).map((category)=>category.name);
@@ -16,17 +19,20 @@ export default async function searchPage() {
     categoryWithSubcategories[category] = subCategories.map((subCategory) => subCategory.name);
   }
 
-  const res2 = await fetch(`http://localhost:3080/products`);
+  const res2 = await fetch(`http://localhost:3080/products/search/approved?page=1&listPerPage=6${name?`&name=${name}`:""}`);
   const products = await res2.json();
 
   return (
     <div className="searchP">
         <div className="container">
+          <form action={searchProduct}>
             <span>
-                <input className="searchInp" type="text" placeholder="Search with anything" name="search"/>
+                <input className="searchInp" type="text" placeholder="Search with the name of the product" name="search"/>
                 <img src="/search.png" alt="" style={{display:"inline", height:"30px"}}/>
             </span>
+          </form>
         </div>
+        <FilterTitle/>
         <div className="layout">
             <FilterSide categories={categories} subCategories={categoryWithSubcategories}/>
             <div className="prd">
@@ -35,7 +41,7 @@ export default async function searchPage() {
                 (
                 <div className="products">
                     {products.data.map(product=>{
-                        return <Product id={product.product_id} name={product.name} img={JSON.parse(product.images)[0]} price={product.price} description={product.description}/>
+                        return <Product productLink={"thing"} id={product.product_id} name={product.name} img={JSON.parse(product.images)[0]} price={product.price} description={product.description}/>
                     })}
                 </div>
                     
@@ -44,7 +50,10 @@ export default async function searchPage() {
                 <h1 className="not-found">no item available</h1>
                 )
               }
-              <PaginationC total={100}/>
+              {/* <div className="container">
+
+              </div> */}
+                <PaginationC total={Math.round(products.data.length/6)}/>
             </div>
         </div>
     </div>

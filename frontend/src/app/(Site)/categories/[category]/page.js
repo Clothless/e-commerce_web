@@ -21,7 +21,6 @@ import Categories from "@/sections/landing/Categories";
         let sub = await res3.json()
         subs.push(sub[0].name.toLowerCase())
     }
-    console.log(subs);
     return (
         <div className="category_p" style={products.data.length === 0 ? {minHeight:"55vh"}:{minHeight:"fit-content"}}>
             <div className="container">

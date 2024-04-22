@@ -14,7 +14,6 @@ import Categories from "@/sections/landing/Categories";
     let total = await res2.json();
     // let total = 10;
     // console.log(category[0]);
-    console.log(products);
     return (
         <div className="category_p" style={products.data.length === 0 ? {minHeight:"55vh"}:{minHeight:"fit-content"}}>
             <div className="container">

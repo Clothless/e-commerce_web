@@ -5,6 +5,5 @@ export async function acceptProduct(id){
         method:"put"
     })
     const msg = await res.json();
-    console.log(msg);
     redirect("/moderator")
 }

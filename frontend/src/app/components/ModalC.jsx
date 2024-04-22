@@ -30,7 +30,6 @@ import { useState } from "react";
 import EditUser from "./EditUser";
 
 export default function ModalC({type, component,theeId}) {
-  console.log(component);
   // const [openModal, setOpenModal] = useState(false);
   const [modal, setModal] = useState(false);
 

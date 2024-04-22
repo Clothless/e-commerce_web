@@ -1,5 +1,6 @@
 "use server"
 
+import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
 export async function login(formdata){
@@ -24,8 +25,8 @@ export async function login(formdata){
         body:formBody
     })
     let user = await senddata.json()
-    console.log(user);
     if(user){
+        await createSession(user[0].user_id)
         redirect('http://localhost:3000/')
     }
 }

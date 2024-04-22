@@ -7,7 +7,6 @@ import FileInput from './FileInput';
 
 
 export default function EditProducts({theeeId}) {
-    console.log(theeeId);
     const [data, setData] = useState({});
     useEffect(()=>{
         fetch(`http://localhost:3080/products/${theeeId}`,{
