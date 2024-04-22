@@ -45,7 +45,7 @@ router.post(
   auth.isLogged, async function (req, res, next) {
     try {
       const user = await users.loginUser(req.body);
-      req.session.user = user;
+      // req.session.user = user;
       res.json(user);
 
     } catch (error) {
