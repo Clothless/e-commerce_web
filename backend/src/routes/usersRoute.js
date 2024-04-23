@@ -40,14 +40,30 @@ router.get("/login-failure", (req, res) => {
 });
 
 //Login a user
-router.post(
-  "/login",
-  auth.isLogged,
-  passport.authenticate("local", {
-    successRedirect: "/users/login-success",
-    failureRedirect: "/users/login-failure",
-  })
-);
+router.post("/login", auth.isLogged, (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      return res.status(401).json({ message: info.message });
+    }
+
+    // Authentication successful, log in the user
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+
+      // Set the session cookie in the response headers
+      const sessionCookie = req.session.id;
+      res.setHeader("Set-Cookie", `connect.sid=${sessionCookie}`);
+
+      return res.json({ message: "Login successful" });
+    });
+  })(req, res, next);
+});
 
 //logout route
 router.get("/logout", auth.isNotLogged, (req, res) => {
@@ -147,8 +163,8 @@ router.get("/profile/me", async (req, res) => {
 
 // Session endpoint
 router.get("/api/session", async (req, res) => {
-  console.log({"session": req.session, "cookie": req.headers.cookie});
-  res.json({"session": req.session, "cookie": req.headers.cookie});
+  // console.log({"session": req.session, "cookie": req.headers.cookie});
+  res.json({"name": "cookie.sid", "value": req.headers.cookie.toString().slice(12), ...req.session});
 });
 
 module.exports = router;
