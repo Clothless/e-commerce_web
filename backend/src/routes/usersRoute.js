@@ -180,4 +180,17 @@ router.get("/wilaya/:id", async function (req, res, next) {
     next(err);
   }
 });
+
+
+// Check user role
+router.get("/role/:id", async function (req, res, next) {
+  try {
+    res.json(await users.checkUserRole(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting user role`, err.message);
+    next(err);
+  }
+});
+
+
 module.exports = router;

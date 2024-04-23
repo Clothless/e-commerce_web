@@ -3,6 +3,16 @@ const helper = require("./helper.js");
 const bcrypt = require("bcrypt");
 
 
+// Check user role
+async function checkUserRole(id) {
+  const rows = await db.query(
+    `SELECT role FROM user WHERE user_id=${id}`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data[0];
+}
+
+
 // Get all users
 async function getAllUsers(page = 1, listPerPage = 10) {
   const offset = helper.getOffset(page, listPerPage);
@@ -164,7 +174,8 @@ module.exports = {
   countUsers,
   getProductsByUser,
   addProfileImage,
-  getWilayaById
+  getWilayaById,
+  checkUserRole
 };
 
 
