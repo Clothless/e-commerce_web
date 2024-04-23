@@ -60,7 +60,7 @@ router.post("/login", auth.isLogged, (req, res, next) => {
       const sessionCookie = req.session.id;
       res.setHeader("Set-Cookie", `session=${sessionCookie}`);
 
-      return res.json({ message: "Login successful" });
+      return res.json({ session: sessionCookie, user: user});
     });
   })(req, res, next);
 });
