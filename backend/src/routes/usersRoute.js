@@ -42,20 +42,11 @@ router.get("/login-failure", (req, res) => {
 //Login a user
 router.post(
   "/login",
-  auth.isLogged, async function (req, res, next) {
-    try {
-      const user = await users.loginUser(req.body);
-      // req.session.user = user;
-      res.json(user);
-
-    } catch (error) {
-      res.status(401).json({ message: "Invalid credentials" });
-    }
-  }
-  // passport.authenticate("local", {
-  //   successRedirect: "/users/login-success",
-  //   failureRedirect: "/users/login-failure",
-  // })
+  auth.isLogged,
+  passport.authenticate("local", {
+    successRedirect: "/users/login-success",
+    failureRedirect: "/users/login-failure",
+  })
 );
 
 //logout route
@@ -156,8 +147,7 @@ router.get("/profile/me", async (req, res) => {
 
 // Session endpoint
 router.get("/api/session", async (req, res) => {
-  console.log(req.session);
-  res.json(req.session);
+  res.json({sessionId: req.sessionID, session: req.session, cookie: req.cookie});
 });
 
 module.exports = router;

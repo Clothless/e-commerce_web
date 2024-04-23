@@ -335,7 +335,6 @@ async function searchPendingProductByName(page = 1, listPerPage = 10, name = "")
 
 // Search products in the approved products
 async function searchApprovedProductByName(search) {
-  console.log(search);
   const page = search.page? search.page : 1;
   const listPerPage = search.listPerPage? search.listPerPage : 10;
   const name = search.name? search.name : "";
@@ -359,7 +358,7 @@ async function searchApprovedProductByName(search) {
         ) AND`;
   }
   if (search.priceFrom && search.priceTo){
-    price = `price >= "${search.priceFrom}" AND price <= "${search.priceTo}" AND`;
+    price = `price >= ${search.priceFrom} AND price <= ${search.priceTo} AND`;
   }
   if (search.category){
     category = `category=(SELECT category_id FROM category WHERE name="${search.category}") AND`;
