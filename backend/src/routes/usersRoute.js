@@ -49,7 +49,6 @@ router.post("/login", auth.isLogged, (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: info.message });
     }
-
     // Authentication successful, log in the user
     req.logIn(user, (err) => {
       if (err) {
@@ -59,8 +58,10 @@ router.post("/login", auth.isLogged, (req, res, next) => {
       // Set the session cookie in the response headers
       const sessionCookie = req.session.id;
       res.setHeader("Set-Cookie", `session=${sessionCookie}`);
+      res.setHeader("Set-Cookie", `user=${user}`);
+      console.log(res.getHeaders());
 
-      return res.json({ session: sessionCookie, user: user});
+      return res.json({ session: sessionCookie, user: user, });
     });
   })(req, res, next);
 });
@@ -163,8 +164,20 @@ router.get("/profile/me", async (req, res) => {
 
 // Session endpoint
 router.get("/api/session", async (req, res) => {
-  // console.log({"session": req.session, "cookie": req.headers.cookie});
+  console.log({"session": req.session, "cookie": req.headers});
+  if (req.session && req.user){
+    return res.json({ session: req.session.id, user: user, });
+  }
   res.json({"name": "cookie.sid", "value": req.headers, ...req.session});
 });
 
+// get wilaya by code
+router.get("/wilaya/:id", async function (req, res, next) {
+  try {
+    res.json(await users.getWilayaById(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting wilaya`, err.message);
+    next(err);
+  }
+});
 module.exports = router;

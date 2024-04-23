@@ -143,6 +143,14 @@ async function addProfileImage(user_id, image) {
 }
 
 
+// Get wilaya by id
+async function getWilayaById(id) {
+  const rows = await db.query(
+    `SELECT * FROM algeria_cities WHERE wilaya_code=${id}`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data[0];
+}
 
 
 module.exports = {
@@ -155,7 +163,8 @@ module.exports = {
   loginUser,
   countUsers,
   getProductsByUser,
-  addProfileImage
+  addProfileImage,
+  getWilayaById
 };
 
 
