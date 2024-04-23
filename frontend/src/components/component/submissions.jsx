@@ -13,6 +13,7 @@ import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation";
 import { acceptProduct } from "@/app/actions/acceptProduct";
+import { searchPending } from "@/app/actions/searchPending";
 
 export function Submissions({data,updatePending}) {
   const router = useRouter()
@@ -27,10 +28,12 @@ export function Submissions({data,updatePending}) {
           <div
             className="grid items-center gap-4 px-4 py-3 rounded-lg bg-gray-100 dark:bg-gray-800">
             <SearchIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-            <Input
-              className="w-full appearance-none bg-transparent border-0 box-border outline-none"
-              placeholder="Search product submissions..."
-              type="search" />
+            <form action={searchPending}>
+              <Input
+                className="w-full appearance-none bg-transparent border-0 box-border outline-none"
+                placeholder="Search product submissions..."
+                type="search" name="searchPending"/>
+            </form>
           </div>
           <Card>
             <CardContent className="p-0">

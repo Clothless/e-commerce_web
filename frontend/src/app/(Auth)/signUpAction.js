@@ -30,7 +30,7 @@ export async function signup(formdata){
     })
     let msg = await senddata.json();
     if(msg.message === 'User added successfully'){
-        redirect('http://localhost:3000/')
+        redirect('http://localhost:3000/login')
     }
     // console.log(senddata.ok);
 }

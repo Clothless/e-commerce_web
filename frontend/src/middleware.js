@@ -4,12 +4,22 @@ import { cookies } from 'next/headers';
 import { decrypt } from './lib/session';
 
 export async function middleware(request) {
-    const cookie = cookies().get("session")?.value;
-    console.log(cookie);
-    const session = await decrypt(cookie)
-    console.log(session);
-    if(request.nextUrl.pathname.startsWith('/categories')){
-        let thing = request.nextUrl.pathname.split('/categories')[1];
+    const path = request.nextUrl.pathname;
+  const cookie = cookies().get("session")?.value;
+  if(path.startsWith('/user/profile')){
+        if(!cookie){
+            return NextResponse.redirect(new URL('/login', request.nextUrl))
+        }else{
+            const session = await decrypt(cookie)
+            if(path.startsWith('/user/profile') && !session.sessionId){
+              const response = NextResponse.redirect(new URL('/login', request.nextUrl))
+              response.cookies.set({userId: session.sessionId})
+              return response
+            }
+        }
+    }
+    if(path.startsWith('/categories')){
+        let thing = path.split('/categories')[1];
         if(!Number.isNaN(parseInt(thing.slice(1)))){
             const res = await fetch(`http://localhost:3080/products/${parseInt(thing.slice(1))}`)
             const product = await res.json();
