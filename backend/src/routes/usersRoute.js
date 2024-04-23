@@ -58,7 +58,7 @@ router.post("/login", auth.isLogged, (req, res, next) => {
 
       // Set the session cookie in the response headers
       const sessionCookie = req.session.id;
-      res.setHeader("Set-Cookie", `connect.sid=${sessionCookie}`);
+      res.setHeader("Set-Cookie", `session=${sessionCookie}`);
 
       return res.json({ message: "Login successful" });
     });
@@ -164,7 +164,7 @@ router.get("/profile/me", async (req, res) => {
 // Session endpoint
 router.get("/api/session", async (req, res) => {
   // console.log({"session": req.session, "cookie": req.headers.cookie});
-  res.json({"name": "cookie.sid", "value": req.headers.cookie.toString().slice(12), ...req.session});
+  res.json({"name": "cookie.sid", "value": req.headers, ...req.session});
 });
 
 module.exports = router;
