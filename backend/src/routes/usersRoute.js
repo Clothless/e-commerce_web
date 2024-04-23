@@ -147,7 +147,8 @@ router.get("/profile/me", async (req, res) => {
 
 // Session endpoint
 router.get("/api/session", async (req, res) => {
-  res.json({sessionId: req.sessionID, session: req.session, cookie: req.cookie});
+  console.log({"session": req.session, "cookie": req.headers.cookie});
+  res.json({"session": req.session, "cookie": req.headers.cookie});
 });
 
 module.exports = router;
