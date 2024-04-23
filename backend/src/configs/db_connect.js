@@ -12,6 +12,7 @@ const connection = {
     password: process.env.PASSWORD,
     host: process.env.HOST,
     database: process.env.DB_NAME,
+    connectionLimit: 40,
     connectTimeout: 60000,
   },
   listPerPage: 10
