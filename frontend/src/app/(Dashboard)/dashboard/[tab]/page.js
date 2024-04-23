@@ -9,6 +9,8 @@ export default async function page({params}) {
     const res = await fetch(`http://localhost:3080/${tab}`)
     let data = await res.json();
     data = tab === "products" ? data.data : data;
+    data = tab === "categories" ? data.filter((value)=> value.category_id !== 404) : data;
+    data = tab === "sub_categories" ? data.filter((value)=> value.category_id !== 404) : data;
     let headers = data.length === 0 ? [] : Object.keys(data[0])
     return (
     // <table className="order-table">

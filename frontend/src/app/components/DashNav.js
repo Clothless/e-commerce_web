@@ -6,7 +6,7 @@ export default function DashNav() {
     const pathname = usePathname();
   return (
     <nav>
-    <ClientImage classn={"logo"} src={"/logo.svg"} style={{}}/>
+    <Link href={'/'}><ClientImage classn={"logo"} src={"/logo.svg"} style={{}}/></Link>
     <div className={`line ${pathname === "/dashboard/products" ? "active" : ""}`}>
         <ClientImage classn={"package"} src={"/package.svg"} style={{height:"20px", width:"20px"}}/>
         <Link className="link" rel="stylesheet" href="/dashboard/products">Products</Link>

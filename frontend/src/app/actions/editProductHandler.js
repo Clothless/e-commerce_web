@@ -19,7 +19,7 @@ export async function editProductHandler(formData){
       category:1
     }))
     formmData.append("images", [formData.get("images")])
-    // console.log(rawData);
+    console.log(rawData);
   try {
     const response = await fetch(`http://localhost:3080/products/edit/${id}`, {
       method: "put",

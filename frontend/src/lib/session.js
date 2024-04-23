@@ -4,8 +4,6 @@ import { cookies } from 'next/headers'
 
 
 const secretKey = "secret"
-console.log("hola");
-console.log(secretKey);
 const encodedKey = new TextEncoder().encode(secretKey)
  
 export async function encrypt(payload) {

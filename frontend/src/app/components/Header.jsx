@@ -5,6 +5,8 @@ import Link from "next/link";
 import { NestedDropdown } from "mui-nested-menu";
 import { useState } from "react";
 import Footer from "./Footer";
+import ClientImage from "./ClientImage";
+import { logout } from "../actions/logout";
 
 function CatDropdown({label, content}) {
   const menuItemsData = {
@@ -21,11 +23,12 @@ function CatDropdown({label, content}) {
   )
 }
 
-export default function Header({children, categories}) {
+export default function Header({children, categories,userId,image,role}) {
   const [isOpen, setIsOpen] = useState(false);
   const categoriesList = [...categories.map(category => {
     return {label:<Link href={`/categories/${category.name.toLowerCase()}`}>{category.name}</Link>}
   })]
+
   return (
     <>
     <header className="mainHeader">
@@ -39,13 +42,26 @@ export default function Header({children, categories}) {
               <Link className="link" title="contact" href="#contact">Contact</Link>
               <span>
                 <input type="text" placeholder="Search Product" name="searchField"/>
-                <img src="/search.png" alt="" style={{display:"inline", height:"30px"}}/>
+                <img src={"/search.png"} alt="" style={{display:"inline", height:"30px"}}/>
               </span>
-              <Dropdown label="" dismissOnClick={false} renderTrigger={() => <Image className="userImg" src={"/Account.svg"} width={10} height={10} style={{height:"30px", cursor:"pointer"}}/>}>
-                <Dropdown.Item>Dashboard</Dropdown.Item>
-                <Dropdown.Item>Settings</Dropdown.Item>
-                <Dropdown.Item>Earnings</Dropdown.Item>
-                <Dropdown.Item>Sign out</Dropdown.Item>
+              <Dropdown label="" dismissOnClick={false} renderTrigger={() => <Image className="userImg" loader={()=>image?image:`/Account.svg`} src={image?image:`/Account.svg`} height={10} width={10} style={{height:"30px", cursor:"pointer",borderRadius:"50%",position:"relative"}}/>}>
+              {/* <Image className={classn} loader={()=>src} src={src} height={100} width={100} style={style} {...props}/> */}
+                <Dropdown.Item><Link href={`/user/profile/${userId?userId:""}`}>Profile</Link></Dropdown.Item>
+                {
+                  role === "moderator"
+                  &&(
+                    <Dropdown.Item><Link href={"/moderator"}>Panel</Link></Dropdown.Item>
+                  )
+                }
+                {
+                  role === "admin"
+                  &&(
+                    <Dropdown.Item><Link href={"/dashboard/products"}>Dashboard</Link></Dropdown.Item>
+                  )
+                }
+                <Dropdown.Item onClick={async()=>{
+                  await logout();
+                }}>Sign out</Dropdown.Item>
               </Dropdown>
               <div className="login">
                 <button>Sign in</button>

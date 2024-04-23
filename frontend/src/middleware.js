@@ -2,10 +2,48 @@ import { NextResponse } from 'next/server'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers';
 import { decrypt } from './lib/session';
+import { data } from 'autoprefixer';
 
 export async function middleware(request) {
     const path = request.nextUrl.pathname;
   const cookie = cookies().get("session")?.value;
+  if(path.startsWith('/moderator')){
+      if(!cookie){
+          return NextResponse.redirect(new URL('/login', request.nextUrl))
+      }else{
+          const session = await decrypt(cookie)
+          const res = await fetch(`http://localhost:3080/users/role/${session.sessionId}`)
+          const user = await res.json();
+          console.log(user);
+          if(path.startsWith('/moderator') && user.role!=="moderator"){
+            // return NextResponse.json({error:"Access Forbidden"},{status:403})
+            return new NextResponse(
+                `
+                    <h1>Access Forbidden</h1>
+                `,
+                {status:403, headers:{'content-type':'text/html'}}
+            )
+          }
+      }
+  }
+  if(path.startsWith('/dashboard')){
+    if(!cookie){
+        return NextResponse.redirect(new URL('/login', request.nextUrl))
+    }else{
+        const session = await decrypt(cookie)
+        const res = await fetch(`http://localhost:3080/users/role/${session.sessionId}`)
+        const user = await res.json();
+        if(path.startsWith('/dashboard') && user.role!=="admin"){
+          // return NextResponse.json({error:"Access Forbidden"},{status:403})
+          return new NextResponse(
+              `
+                  <h1>Access Forbidden</h1>
+              `,
+              {status:403, headers:{'content-type':'text/html'}}
+          )
+        }
+    }
+    }
   if(path.startsWith('/user/profile')){
         if(!cookie){
             return NextResponse.redirect(new URL('/login', request.nextUrl))
