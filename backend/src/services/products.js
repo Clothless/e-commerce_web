@@ -269,12 +269,16 @@ async function approveProduct(id) {
 // Filter products by date, wilaya, price, category, sub_category
 async function filterProducts(filter) {
   let date = "";
+  let shipping = "";
   let wilaya = "";
   let price = "";
   let category = "";
   let sub_category = "";
   if (filter.from && filter.to){
     date = `created_at BETWEEN "${filter.from}" AND "${filter.to}" AND`;
+  }
+  if (filter.shipping){
+    shipping = `shipping = ${filter.shipping} AND`;
   }
   if (filter.wilaya){
     wilaya = `posted_by IN
@@ -293,7 +297,7 @@ async function filterProducts(filter) {
   }
   
   const rows = await db.query(
-    `SELECT * FROM product WHERE ${date} ${wilaya} ${price} ${category} ${sub_category} product_id > 0 ORDER BY created_at DESC`
+    `SELECT * FROM product WHERE ${date} ${wilaya} ${price} ${category} ${sub_category} ${shipping} product_id > 0 ORDER BY created_at DESC`
   );
   const data = helper.emptyOrRows(rows);
 
@@ -330,10 +334,41 @@ async function searchPendingProductByName(page = 1, listPerPage = 10, name = "")
 
 
 // Search products in the approved products
-async function searchApprovedProductByName(page = 1, listPerPage = 10, name = "") {
+async function searchApprovedProductByName(search) {
+  console.log(search);
+  const page = search.page? search.page : 1;
+  const listPerPage = search.listPerPage? search.listPerPage : 10;
+  const name = search.name? search.name : "";
   const offset = helper.getOffset(page, listPerPage);
+  let date = "";
+  let shipping = "";
+  let wilaya = "";
+  let price = "";
+  let category = "";
+  let sub_category = "";
+  if (search.from && search.to){
+    date = `created_at BETWEEN "${search.from}" AND "${search.to}" AND`;
+  }
+  if (search.shipping){
+    shipping = `shipping = ${search.shipping} AND`;
+  }
+  if (search.wilaya){
+    wilaya = `posted_by IN
+        (SELECT user_id FROM user WHERE wilaya IN
+            (SELECT wilaya_code FROM algeria_cities WHERE wilaya_name="${search.wilaya}")
+        ) AND`;
+  }
+  if (search.priceFrom && search.priceTo){
+    price = `price >= "${search.priceFrom}" AND price <= "${search.priceTo}" AND`;
+  }
+  if (search.category){
+    category = `category=(SELECT category_id FROM category WHERE name="${search.category}") AND`;
+  }
+  if (search.sub_category){
+    sub_category = `sub_category=(SELECT sub_id FROM sub_category WHERE name="${search.sub_category}") AND`;
+  }
   const rows = await db.query(
-    `SELECT * FROM product WHERE pending = 0 AND name LIKE '%${name}%' ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`
+    `SELECT * FROM product WHERE pending = 0 AND name LIKE '%${name}%' AND ${date} ${wilaya} ${price} ${category} ${sub_category} ${shipping} product_id > 0 ORDER BY created_at DESC LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
 

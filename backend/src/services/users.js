@@ -96,8 +96,6 @@ async function loginUser(user) {
   if (!checkUser.length) {
     return { message: "User does not exist" };
   }
-  console.log(checkUser);
-  console.log(checkUser[0]);
   const hashedPassword = checkUser[0].password;
   const match = await bcrypt.compare(user.password, hashedPassword);
   if (!match) {

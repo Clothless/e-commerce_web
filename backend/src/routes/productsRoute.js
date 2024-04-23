@@ -26,10 +26,10 @@ router.get("/search/pending", async function (req, res, next) {
 });
 
 
-// Pending Search route
+// Approved Search route
 router.get("/search/approved", async function (req, res, next) {
   try {
-    res.json(await products.searchApprovedProductByName(req.query.page, req.query.listPerPage, req.query.name));
+    res.json(await products.searchApprovedProductByName(req.query));
   } catch (err) {
     console.error(`Error while searching products `, err.message);
     next(err);
@@ -259,6 +259,18 @@ router.delete('/favorite/:id', isAuthenticated, async function(req, res, next) {
   }
 });
 
+
+// Filter products
+router.get("/filter", async function (req, res, next) {
+  try {
+    res.json(await products.filterProducts(req.query));
+  } catch (err) {
+    console.error(`Error while filtering products `, err.message);
+    next(err);
+  }
+});
+
+
 // Get specific product
 router.get("/:id", async function (req, res, next) {
   try {
@@ -270,15 +282,6 @@ router.get("/:id", async function (req, res, next) {
 });
 
 
-// Filter products
-router.post("/filter", async function (req, res, next) {
-  try {
-    res.json(await products.filterProducts(req.query));
-  } catch (err) {
-    console.error(`Error while filtering products `, err.message);
-    next(err);
-  }
-});
 
 
 
