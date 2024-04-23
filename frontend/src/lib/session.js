@@ -3,7 +3,7 @@ import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 
 
-const secretKey = "mechisecret"
+const secretKey = "secret"
 console.log("hola");
 console.log(secretKey);
 const encodedKey = new TextEncoder().encode(secretKey)
@@ -17,22 +17,15 @@ export async function encrypt(payload) {
 }
  
 export async function decrypt(session) {
-  try {
-    const { payload } = await jwtVerify(session, encodedKey, {
-      algorithms: ['HS256'],
-      issuer: 'urn:example:issuer',
-      audience: 'urn:example:audience',
-    })
-    return payload
-  } catch (error) {
-    console.error(error)
-  }
+  const { payload } = await jwtVerify(session, encodedKey, {
+    algorithms: ['HS256']
+  })
+  return payload
 }
 
-export async function createSession(user_id) {
+export async function createSession(sessionId) {
     const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-    const session = await encrypt({ user_id, expiresAt })
-   
+    const session = await encrypt({ sessionId, expiresAt })
     cookies().set('session', session, {
       httpOnly: true,
       secure: true,
@@ -45,3 +38,9 @@ export async function createSession(user_id) {
 export function deleteSession() {
     cookies().delete('session')
 }
+
+// export async function getSession(){
+//   const session = cookies().get("session")?.value;
+//   if(!session) return null;
+//   return await decrypt(session)
+// }

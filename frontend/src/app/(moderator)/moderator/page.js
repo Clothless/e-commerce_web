@@ -8,15 +8,19 @@ import ClientImage from "@/app/components/ClientImage";
 
 import { revalidateTag } from 'next/cache'
 
-export default async function page() {
+export default async function page({searchParams}) {
+    const {name} = searchParams
+    console.log(name);
     // const [data, setData] = useState([]);
     // useEffect(()=>{
     //     fetch("http://localhost:3080/products/pending")
     //     .then(res=>res.json())
     //     .then(d=> setData(d.data))
     // },[])
-    const res = await fetch("http://localhost:3080/products/pending",{next:{tags:['pending']}})
+    const res = await fetch(`http://localhost:3080/products/search/pending?name=${name?name:""}`,{next:{tags:['pending']}})
+    console.log(`http://localhost:3080/products/search/pending?name=${name}`);
     const data = await res.json()
+
 
     async function updatePending(value){
         "use server"

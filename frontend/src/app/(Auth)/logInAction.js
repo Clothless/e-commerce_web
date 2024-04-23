@@ -2,6 +2,8 @@
 
 import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers"
 
 export async function login(formdata){
     const data = {
@@ -25,8 +27,23 @@ export async function login(formdata){
         body:formBody
     })
     let user = await senddata.json()
-    if(user){
-        await createSession(user[0].user_id)
+    if(user.user){
+        // const temp = senddata.headers.get("Set-Cookie");
+        // console.log(temp.slice(42));
+        // cookies().set({
+        //     name: "connect.sid",
+        //     ...decodeURIComponent(decodeURIComponent(temp.slice(53))),
+            
+        // })
+        // const res = await fetch(`http://localhost:3080/users/api/session`)
+        // const session = await res.json()
+        // console.log(res.headers.get("set-cookie"));
+        // console.log(session);
+        // console.log(decodeURIComponent(res.headers.get("set-cookie")));
+        await createSession(user.user.user_id)
+        // const response =  NextResponse.redirect(new URL('http://localhost:3000/'))
+        // response.cookies.set("session", decodeURIComponent(res.headers.get("set-cookie")))
+        // return response;
         redirect('http://localhost:3000/')
     }
 }

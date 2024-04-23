@@ -28,12 +28,13 @@ export async function filterProducts(formData){
     if(postedFrom){
         query.push(`from=${postedFrom}`)
     }
-    const res = await fetch(`http://localhost:3080/products/filter`,{
-        method:'post',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          },
-        body:query.join("&")
-    })
-    const data = await res.json()
+    redirect(`/search?name=&${query.join("&")}`)
+    // const res = await fetch(`http://localhost:3080/products/filter`,{
+    //     method:'post',
+    //     headers: {
+    //         "Content-Type": "application/x-www-form-urlencoded"
+    //       },
+    //     body:query.join("&")
+    // })
+    // const data = await res.json()
 }

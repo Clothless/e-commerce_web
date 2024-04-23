@@ -5,7 +5,8 @@ import PaginationC from "@/app/components/PaginationC";
 import FilterTitle from "@/app/components/FilterTitle";
 import { searchProduct } from "@/app/actions/searchProduct";
 export default async function searchPage({searchParams}) {
-  const {name} = searchParams;
+  const {name,...queries} = searchParams;
+  console.log(queries);
   const res = await fetch("http://localhost:3080/categories")
   let categories = await res.json()
   categories = categories.filter((category)=>category.category_id !== 404).map((category)=>category.name);
@@ -19,7 +20,9 @@ export default async function searchPage({searchParams}) {
     categoryWithSubcategories[category] = subCategories.map((subCategory) => subCategory.name);
   }
 
-  const res2 = await fetch(`http://localhost:3080/products/search/approved?page=1&listPerPage=6${name?`&name=${name}`:""}`);
+  const res2 = await fetch(`http://localhost:3080/products/search/approved?page=1&listPerPage=6${queries?`&name=${name}&${Object.entries(queries) .map(([key, value]) => `${key}=${value}`) .join('&')}`:""}`);
+  console.log(`http://localhost:3080/products/search/approved?page=1&listPerPage=6${name&&queries?`&name=${name}&${Object.entries(queries) .map(([key, value]) => `${key}=${value}`) .join('&')}`:name&&(!queries)?`&name=${name}`:""}`);
+  console.log(name);
   const products = await res2.json();
 
   return (
