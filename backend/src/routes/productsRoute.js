@@ -99,6 +99,7 @@ router.get("/wilaya/:wilaya", async function (req, res, next) {
 
 // Add a product
 router.post("/add", upload.array("images"), async function (req, res, next) {
+  console.log(req.body);
   try {
     res.json(await products.addProduct(req.body));
   } catch (err) {
