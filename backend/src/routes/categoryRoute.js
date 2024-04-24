@@ -28,6 +28,15 @@ router.get('/', async function(req, res, next) {
 });
 
 
+// Get category by sub category id
+router.get('/sub_category/:id', async function(req, res, next) {
+  try {
+    res.json(await products.getCategoryBySubCategory(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting category `, err.message);
+    next(err);
+  }
+});
 
 
 // add a category

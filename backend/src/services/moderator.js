@@ -58,11 +58,10 @@ async function addmoderator(moderator) {
 
 // Update existing moderator
 async function updatemoderator(id, moderator) {
-  const hashedPassword = await bcrypt.hash(moderator.password, 10);
   const result = await db.query(
     `UPDATE user 
     SET first_name='${moderator.first_name}', last_name='${moderator.last_name}',
-    email='${moderator.email}', password='${hashedPassword}', role='${moderator.role}'
+    email='${moderator.email}', role='${moderator.role}'
     WHERE user_id=${id}`
   );
 
