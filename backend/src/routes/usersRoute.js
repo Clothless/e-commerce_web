@@ -42,9 +42,9 @@ router.get("/login-failure", (req, res) => {
 //Login a user
 router.post("/login", auth.isLogged, async(req, res, next) => {
   try {
-    res.json(await users.loginUser(req.body));
+    res.json({user: (await users.loginUser(req.body))[0]});
   } catch (error) {
-    next(err)
+    next(err);
   }
 });
 
@@ -56,7 +56,7 @@ router.get("/logout", auth.isNotLogged, (req, res) => {
 });
 
 // Update a user
-router.put("/edit/:id", async (req, res, next) => {
+router.put("/edit/:id", async function (req, res, next) {
   try {
     res.json(await users.updateUser(req.params.id, req.body));
   } catch (err) {
