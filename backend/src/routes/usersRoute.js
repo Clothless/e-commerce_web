@@ -12,7 +12,7 @@ require("../configs/passport.js");
 // Get all users
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await users.getAllUsers(req.query.page, req.query.listPerPage));
+    res.json(await users.getAllUsers(req.query));
   } catch (err) {
     console.error(`Error while getting users `, err.message);
     next(err);

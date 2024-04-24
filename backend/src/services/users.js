@@ -14,10 +14,21 @@ async function checkUserRole(id) {
 
 
 // Get all users
-async function getAllUsers(page = 1, listPerPage = 10) {
+async function getAllUsers(search) {
+  const name = search.name ? search.name : "";
+  const page = search.page ? search.page : 1;
+  const listPerPage = search.listPerPage ? search.listPerPage : 10;
   const offset = helper.getOffset(page, listPerPage);
+  if (name) {
+    const rows = await db.query(
+      `SELECT * FROM user WHERE first_name like '%${name}%' or last_name like '%${name}%' or email like '%${name}%' LIMIT ${offset},${listPerPage}`
+    );
+    const data = helper.emptyOrRows(rows);
+    const meta = { page };
+    return data;
+  }
   const rows = await db.query(
-    `SELECT * FROM user LIMIT ${offset},${listPerPage}`
+    `SELECT * FROM user WHERE name like  LIMIT ${offset},${listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
   const meta = { page };
