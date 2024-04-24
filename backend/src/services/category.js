@@ -83,11 +83,25 @@ async function countProductsInCategory(category_name) {
   return count;
 }
 
+
+// Get category by sub category id
+async function getCategoryBySubCategory(sub_id) {
+  const rows = await db.query(
+    `SELECT * FROM category WHERE category_id=(
+      SELECT category_id FROM sub_category WHERE sub_id="${sub_id}"
+    )`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data;
+}
+
+
 module.exports = {
   getAllCategories,
   addCategory,
   updateCategory,
   deleteCategory,
   countProductsInCategory,
-  getCategory
+  getCategory,
+  getCategoryBySubCategory
 };

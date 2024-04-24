@@ -1,6 +1,7 @@
 const {Router} = require('express');
 const router = Router();
 const products = require('../services/sub_category.js');
+const category = require('../services/category.js');
 
 
 // Get all sub_categories
@@ -76,6 +77,17 @@ router.get('/count/:sub_category', async function (req, res, next) {
         res.json(await products.countProducts(req.params.sub_category));
     } catch (err) {
         console.error(`Error while getting product count`, err.message);
+        next(err);
+    }
+});
+
+
+// Get category by sub category id
+router.get('/category/:sub_id', async function (req, res, next) {
+    try {
+        res.json(await category.getCategoryBySubCategory(req.params.sub_id));
+    } catch (err) {
+        console.error(`Error while getting category`, err.message);
         next(err);
     }
 });
