@@ -100,29 +100,7 @@ router.get("/wilaya/:wilaya", async function (req, res, next) {
 // Add a product
 router.post("/add", upload.array("images"), async function (req, res, next) {
   try {
-    const { files } = req;
-
-    
-    if (files.length === 0) {
-      return res.status(400).json({ message: "No image data provided" });
-    }
-    
-    const urls = [];
-    for (const file of files) {
-      const options = {
-        apiKey: process.env.IMGBB_KEY,
-        base64string: file.buffer.toString("base64"),
-      };
-      const result = await imgbbUploader(options);
-      urls.push(result.url);
-    }
-    
-    req.body.images = urls;
-
-
-
-    // res.json(await products.addProduct(req.body));
-
+    res.json(await products.addProduct(req.body));
   } catch (err) {
     console.error(`Error while adding product`, err.message);
     next(err);
