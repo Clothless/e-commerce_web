@@ -16,6 +16,7 @@ dotenv.config({
 router.post("/upload", upload.array('images'), async (req, res, next) => {
   try {
     const { files } = req;
+    console.log(req.files);
 
     if (files.length === 0) {
       return res.status(400).json({ message: "No image data provided" });
