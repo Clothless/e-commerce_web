@@ -82,7 +82,7 @@ async function getProductById(id) {
 async function addProduct(product) {
   const result = await db.query(
     `INSERT INTO product 
-    (name, description, price, posted_by, category, sub_category images, shipping) 
+    (name, description, price, posted_by, category, sub_category, images, shipping) 
     VALUES 
     ('${product.name}', '${product.description}', '${product.price}', '${product.posted_by}', '${product.category}', '${product.sub_category}', '${product.images}', '${product.shipping}'w )`
   );
