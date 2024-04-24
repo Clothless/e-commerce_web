@@ -122,12 +122,7 @@ app.use("/auth", authenticated);
 
 
 
-// this is just to debug, to print some info about the session
-app.use( async(req, res, next) => {
-  console.log('req.session', req.session);
-  console.log('req.user', req.user);
-  next();
-});
+
 
 
 

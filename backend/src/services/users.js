@@ -74,7 +74,7 @@ async function updateUser(id, user) {
     `UPDATE user 
     SET first_name='${user.first_name}', last_name='${user.last_name}',
     address='${user.address}',
-    phone_number='${user.phone_number}', email='${user.email}', password='${user.password}'
+    phone_number='${user.phone_number}', email='${user.email}', password='${user.password}', wilaya=${user.wilaya}
     WHERE user_id=${id}`
   );
 
