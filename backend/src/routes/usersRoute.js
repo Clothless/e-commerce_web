@@ -56,7 +56,7 @@ router.get("/logout", auth.isNotLogged, (req, res) => {
 });
 
 // Update a user
-router.put("/edit/:id", async function (req, res, next) {
+router.put("/edit/:id", async (req, res, next) => {
   try {
     res.json(await users.updateUser(req.params.id, req.body));
   } catch (err) {
