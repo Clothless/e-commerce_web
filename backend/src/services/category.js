@@ -96,6 +96,23 @@ async function getCategoryBySubCategory(sub_id) {
 }
 
 
+// Get categories and sub category of each one
+async function getCategoriesWithSubCategories() {
+  const rows = await db.query(
+    `SELECT
+    c.category_id, c.name AS category_name, c.image,
+    JSON_ARRAYAGG(JSON_OBJECT("sub_id", sc.sub_id, "name", sc.name, "image", sc.image)) AS subcategories
+  FROM
+    category c
+  LEFT JOIN
+    sub_category sc ON sc.category_id = c.category_id
+  GROUP BY
+    c.category_id;`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data;
+}
+
 module.exports = {
   getAllCategories,
   addCategory,
@@ -103,5 +120,6 @@ module.exports = {
   deleteCategory,
   countProductsInCategory,
   getCategory,
-  getCategoryBySubCategory
+  getCategoryBySubCategory,
+  getCategoriesWithSubCategories
 };

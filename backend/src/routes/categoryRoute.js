@@ -5,6 +5,17 @@ const products = require('../services/category.js');
 
 
 
+// Get all categories and sub category of each one
+router.get('/all', async function(req, res, next) {
+  try {
+    res.json(await products.getCategoriesWithSubCategories());
+  } catch (err) {
+    console.error(`Error while getting categories `, err.message);
+    next(err);
+  }
+});
+
+
 
 // get all categories
 router.get('/', async function(req, res, next) {
@@ -71,6 +82,7 @@ router.delete('/:id', async function(req, res, next) {
     next(err);
   }
 });
+
 
 
 module.exports = router;
