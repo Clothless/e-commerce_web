@@ -61,7 +61,7 @@ async function updatemoderator(id, moderator) {
   const result = await db.query(
     `UPDATE user 
     SET first_name='${moderator.first_name}', last_name='${moderator.last_name}',
-    email='${moderator.email}', role='${moderator.role}'
+    email='${moderator.email}', role='${moderator.role}', address='${moderator.address}', phone_number='${moderator.phone_number}'
     WHERE user_id=${id}`
   );
 

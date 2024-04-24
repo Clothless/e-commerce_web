@@ -58,11 +58,10 @@ async function addAdmin(admin) {
 
 // Update existing admin
 async function updateAdmin(id, admin) {
-  const hashedPassword = await bcrypt.hash(admin.password, 10);
   const result = await db.query(
     `UPDATE user 
     SET first_name='${admin.first_name}', last_name='${admin.last_name}',
-    email='${admin.email}', password='${hashedPassword}', role='${admin.role}'
+    email='${admin.email}', role='${admin.role}', address='${admin.address}', phone_number='${admin.phone_number}'
     WHERE user_id=${id}`
   );
 
