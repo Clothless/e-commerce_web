@@ -84,7 +84,7 @@ async function addProduct(product) {
     `INSERT INTO product 
     (name, description, price, posted_by, category, sub_category, images, shipping) 
     VALUES 
-    ('${product.name}', '${product.description}', '${product.price}', '${product.posted_by}', '${product.category}', '${product.sub_category}', '${product.images}', '${product.shipping}'w )`
+    ('${product.name}', '${product.description}', '${product.price}', '${product.posted_by}', '${product.category}', '${product.sub_category}', '${product.images}', '${product.shipping}' )`
   );
 
   let message = "Error in adding product";
