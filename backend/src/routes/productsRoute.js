@@ -2,6 +2,11 @@ const { Router } = require("express");
 const router = Router();
 const products = require("../services/products.js");
 const { isAuthenticated } = require("../controllers/auth.js");
+const multer = require("multer");
+const upload = multer();
+const imgbbUploader = require("imgbb-uploader");
+
+
 
 
 // Search route
@@ -36,6 +41,7 @@ router.get("/search/approved", async function (req, res, next) {
   }
 });
 
+
 // Get all products
 router.get("/", async function (req, res, next) {
   try {
@@ -46,6 +52,7 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+
 // get number of products
 router.get("/count", async function (req, res, next) {
   try {
@@ -55,6 +62,7 @@ router.get("/count", async function (req, res, next) {
     next(err);
   }
 });
+
 
 // Get products by category
 router.get("/category/:category", async function (req, res, next) {
@@ -89,10 +97,6 @@ router.get("/wilaya/:wilaya", async function (req, res, next) {
 });
 
 
-const multer = require("multer");
-const upload = multer();
-const imgbbUploader = require("imgbb-uploader");
-
 // Add a product
 router.post("/add", upload.array("images"), async function (req, res, next) {
   try {
@@ -117,7 +121,8 @@ router.post("/add", upload.array("images"), async function (req, res, next) {
 
 
 
-    res.json(await products.addProduct(req.body));
+    // res.json(await products.addProduct(req.body));
+
   } catch (err) {
     console.error(`Error while adding product`, err.message);
     next(err);
@@ -130,7 +135,6 @@ router.put("/edit/:id", upload.array("images"), async function (req, res, next) 
   try {
     const { files } = req;
     const urls = [];
-    console.log(req.body);
     for (const file of files) {
       const options = {
         apiKey: process.env.IMGBB_KEY,
@@ -160,17 +164,6 @@ router.delete("/deleteImage/:id", async function (req, res, next) {
   }
 });
 
-
-
-// Update a product
-// router.put("/edit/:id", async function (req, res, next) {
-//   try {
-//     res.json(await products.updateProduct(req.params.id, req.body));
-//   } catch (err) {
-//     console.error(`Error while updating product`, err.message);
-//     next(err);
-//   }
-// });
 
 // Delete a product
 router.delete("/:id", async function (req, res, next) {
@@ -216,7 +209,6 @@ router.get("/pending", async function(req, res, next) {
 })
 
 
-
 // Get user favorite products
 router.get('/favorite', isAuthenticated, async function(req, res, next) {
   try {
@@ -248,6 +240,7 @@ router.post('/favorite/:id', isAuthenticated, async function(req, res, next) {
     next(err);
   }
 });
+
 
 // remove product from user favorite list
 router.delete('/favorite/:id', isAuthenticated, async function(req, res, next) {

@@ -59,7 +59,6 @@ router.post("/login", auth.isLogged, (req, res, next) => {
       const sessionCookie = req.session.id;
       res.setHeader("Set-Cookie", `session=${sessionCookie}`);
       res.setHeader("Set-Cookie", `user=${user}`);
-      console.log(res.getHeaders());
 
       return res.json({ session: sessionCookie, user: user, });
     });
@@ -158,7 +157,6 @@ router.get("/:id/products", async function (req, res, next) {
 
 // Get the logged in user
 router.get("/profile/me", async (req, res) => {
-  console.log(req);
   res.json(req.user);
 });
 
