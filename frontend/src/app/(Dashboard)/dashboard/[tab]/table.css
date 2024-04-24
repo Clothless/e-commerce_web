@@ -125,16 +125,34 @@
     .btns {
       margin-top: 20px;
       input{
-        border-radius: 7px;
+        /* border-radius: 7px;
         width: 100px;
         padding-block: 10px;
         font-weight: bold;
         font-size: 16px;
         cursor: pointer;
         border: 2px solid var(--second-orange-color);
-        color: white;
-        background-color: var(--second-orange-color);
+        color: white;*/
+        background-color: var(--main-orange-color);
         margin: 0 auto;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.125rem; /* 0.5 * 0.25rem = 0.125rem */
+        text-align: center;
+        font-weight: 500; /* font-medium */
+        position: relative;
+        z-index: 10; /* focus:z-10 */
+        outline: none; /* focus:outline-none */
+        color: white;
+        border: 1px solid transparent;
+        border-radius: 0.5rem;
+        padding-inline: 1rem;
+        padding-block: 8px;
+        cursor: pointer;
+        font-size: 15px; /* 14px */
+        line-height: 1.25rem; /* 20px */
       }
     }
   }

@@ -10,7 +10,6 @@ import { revalidateTag } from 'next/cache'
 
 export default async function page({searchParams}) {
     const {name} = searchParams
-    console.log(name);
     // const [data, setData] = useState([]);
     // useEffect(()=>{
     //     fetch("http://localhost:3080/products/pending")
@@ -36,7 +35,7 @@ export default async function page({searchParams}) {
                 
                 <div className="headerContent">
                     <Link href={"/"}><ClientImage src={"/logo.svg"}/></Link>
-                    <button className="logout">Logout</button>
+                    {/* <button className="logout">Logout</button> */}
                 </div>
             </div>
         </header>

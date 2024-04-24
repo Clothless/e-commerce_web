@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import EditUser from './EditUser';
 import EditProducts from './EditProducts';
+import EditCategory from './EditCategory';
 
 const DropdownMenu = ({ EditModal, DeleteModal }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -169,6 +170,10 @@ const ActionsC = ({tab,theId,header}) => {
           tab === "products"
           ?
           (<EditProducts theeeId={theId}/>)
+          :
+          tab === "categories"
+          ?
+          (<EditCategory theeeId={theId}/>)
           :
           <h1>hello</h1>
         }
