@@ -99,18 +99,12 @@ async function addProduct(product) {
 
 // Update existing product
 async function updateProduct(id, product) {
-  const productData = await getProductById(id);
-  const images = JSON.parse(productData.product[0].images);
-  const imagesJs = images.concat((product.images));
-  const imagesJson = JSON.stringify(imagesJs); // Convert images array to JSON string
-
-
+  const temp = parseInt(id, 10);
   const result = await db.query(
     `UPDATE product 
-    SET name='${product.product.name}', description='${product.product.description}',
-    price=${product.product.price},
-    category='${product.product.category}', images='${imagesJson}'
-    WHERE product_id=${id}`
+    SET name='${product.name}', description='${product.description}',
+    price=${product.price}, images='${product.images}', shipping='${product.shipping}'
+    WHERE product_id=${temp}`
   );
 
   let message = "Error in updating product";

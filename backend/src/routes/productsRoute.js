@@ -133,19 +133,6 @@ router.post("/add", upload.array("images"), async function (req, res, next) {
 // Update Product
 router.put("/edit/:id", upload.array("images"), async function (req, res, next) {
   try {
-    const { files } = req;
-    const urls = [];
-    for (const file of files) {
-      const options = {
-        apiKey: process.env.IMGBB_KEY,
-        base64string: file.buffer.toString("base64"),
-      };
-      const result = await imgbbUploader(options);
-      urls.push(result.url);
-    }
-    // Turn req.body into json
-    req.body.product = JSON.parse(req.body.product);
-    req.body.images = urls;
     res.json(await products.updateProduct(req.params.id, req.body));
   } catch (err) {
     console.error(`Error while updating product`, err.message);
