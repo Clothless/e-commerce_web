@@ -40,29 +40,12 @@ router.get("/login-failure", (req, res) => {
 });
 
 //Login a user
-router.post("/login", auth.isLogged, (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (!user) {
-      return res.status(401).json({ message: info.message });
-    }
-    // Authentication successful, log in the user
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-
-      // Set the session cookie in the response headers
-      const sessionCookie = req.session.id;
-      res.setHeader("Set-Cookie", `session=${sessionCookie}`);
-      res.setHeader("Set-Cookie", `user=${user}`);
-
-      return res.json({ session: sessionCookie, user: user, });
-    });
-  })(req, res, next);
+router.post("/login", auth.isLogged, async(req, res, next) => {
+  try {
+    res.json(await users.loginUser(req.body));
+  } catch (error) {
+    next(err)
+  }
 });
 
 //logout route
