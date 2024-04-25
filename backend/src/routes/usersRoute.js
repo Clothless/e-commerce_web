@@ -9,6 +9,17 @@ const imgbbUploader = require("imgbb-uploader");
 
 require("../configs/passport.js");
 
+// Get user favorite products
+router.get("/:id/favorite", async function (req, res, next) {
+  try {
+    res.json(await users.getFavoriteProducts(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting user's favorite products`, err.message);
+    next(err);
+  }
+}
+);
+
 // Get all users
 router.get("/", async function (req, res, next) {
   try {

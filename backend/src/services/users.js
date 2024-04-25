@@ -164,6 +164,16 @@ async function addProfileImage(user_id, image) {
 }
 
 
+// Get users favorite products
+async function getFavoriteProducts(user_id) {
+  const rows = await db.query(
+    `SELECT * from product WHERE product_id IN (SELECT product_id FROM favorite_products WHERE user_id=${user_id})`
+  );
+  const data = helper.emptyOrRows(rows);
+  return data;
+}
+
+
 // Get wilaya by id
 async function getWilayaById(id) {
   const rows = await db.query(
@@ -186,7 +196,8 @@ module.exports = {
   getProductsByUser,
   addProfileImage,
   getWilayaById,
-  checkUserRole
+  checkUserRole,
+  getFavoriteProducts
 };
 
 
