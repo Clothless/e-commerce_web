@@ -198,7 +198,7 @@ router.get('/favorite/count/:id', async function(req, res, next) {
 
 
 // add product to user favorite list
-router.post('/favorite/:id', isAuthenticated, async function(req, res, next) {
+router.post('/favorite/:id', async function(req, res, next) {
   try {
     res.json(await products.addFavoriteProduct(req.query.user_id, req.params.id));
   } catch (err) {
