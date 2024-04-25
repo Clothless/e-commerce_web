@@ -6,10 +6,10 @@ import ImageWithDeleteButton from './ImageWithDeleteButton';
 import FileInput from './FileInput';
 
 
-export default function EditProducts({theeeId}) {
+export default function EditProducts({theeeId,images}) {
     const [data, setData] = useState({});
     useEffect(()=>{
-        fetch(`http://localhost:3080/products/${theeeId}`,{
+        fetch(`http://localhost:3080/products/${theeeId}`,{next:{tags:['products']}},{
             headers:{
                 "Access-Control-Allow-Origin" : "*", 
                 "Access-Control-Allow-Credentials" : true 
@@ -62,6 +62,7 @@ export default function EditProducts({theeeId}) {
                 })
             )}
             <input type="hidden" name='productId' value={data["product_id"]} />
+            <input type="hidden" name='previousImages' value={JSON.stringify(images)} />
             <div className="btns">
                 <input type="submit" value={"Edit"} />
                 {/* <button onClick={()=>handleClose(false)}>closeeeee</button> */}

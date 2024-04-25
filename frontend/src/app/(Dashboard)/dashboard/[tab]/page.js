@@ -48,10 +48,10 @@ export default async function page({params}) {
           {data.map((order, index) => (
               <TableRow key={index} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 {headers.map((header, headerIndex) => (
-                  <TableCell className="text-nowrap py-2" key={headerIndex}>{order[header]===""?"N/A":order[header]}</TableCell>
+                  <TableCell className="text-nowrap py-2" key={headerIndex}>{order[header]===""?"N/A":header==="created_at"?order[header].replace("T"," | ").split("Z").join(" ").slice(0,-5):order[header]}</TableCell>
                 ))}
                 <TableCell>
-                  <ActionsC tab={tab} theId={order[headers[0]]} header={`Edit ${headers[0].at(0).toUpperCase()+headers[0].slice(1).split("_")[0]}`}/>
+                  <ActionsC images={(tab === "products")&&JSON.parse(order[headers[5]])} tab={tab} theId={order[headers[0]]} header={`Edit ${headers[0].at(0).toUpperCase()+headers[0].slice(1).split("_")[0]}`}/>
                 </TableCell>
               </TableRow>
           ))}

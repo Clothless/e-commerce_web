@@ -5,6 +5,7 @@ import ClientImage from "@/app/components/ClientImage";
 import UserSide from "@/app/components/UserSide";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
+import { Alert } from "flowbite-react";
 
 export default async function UserLayout({ children }) {
     // const {id} = params
@@ -28,15 +29,21 @@ export default async function UserLayout({ children }) {
     //     password: 'password123',
     //     wilaya: '46'
     //   }  
-    const res0 = await fetch(`http://localhost:3080/users/${session.sessionId}`)
+    const res0 = await fetch(`http://localhost:3080/users/${session.sessionId}`,{next:{tags:['userProfile']}})
     const user0 = await res0.json();
-    console.log(user0);
-      const res = await fetch(`http://localhost:3080/auth`)
-      const user = await res.json();
   return (
     <div className="profile">
         <div className="container">
             <SpecialTitle title={"Profile"}/>
+            {
+              (!user0[0].address || !user0[0].phone_number || !user0[0].wilaya)
+              &&
+              (
+              <Alert color="warning" rounded className="mb-5">
+                <span className="font-medium">Info alert!</span> Your informations are incomplete, thus you cannot post products. Please complete your informations.
+              </Alert>
+              )
+            }
             <div className="content">
                 <UserSide userid={user0[0].user_id} img={user0[0].image?user0[0].image:'/userr.png'} username={user0[0].first_name+" "+user0[0].last_name}/>
                 {children}

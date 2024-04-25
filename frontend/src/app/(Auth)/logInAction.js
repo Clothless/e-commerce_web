@@ -27,6 +27,7 @@ export async function login(formdata){
         body:formBody
     })
     let user = await senddata.json()
+    console.log(user);
     if(user.user){
         // const temp = senddata.headers.get("Set-Cookie");
         // console.log(temp.slice(42));

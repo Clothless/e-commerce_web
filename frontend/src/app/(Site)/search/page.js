@@ -4,6 +4,8 @@ import Product from "@/app/components/Product";
 import PaginationC from "@/app/components/PaginationC";
 import FilterTitle from "@/app/components/FilterTitle";
 import { searchProduct } from "@/app/actions/searchProduct";
+import { cookies } from "next/headers";
+import { decrypt } from "@/lib/session";
 export default async function searchPage({searchParams}) {
   const {name,...queries} = searchParams;
   console.log(queries);
@@ -25,6 +27,14 @@ export default async function searchPage({searchParams}) {
   console.log(name);
   const products = await res2.json();
 
+  const cookie = cookies().get('session')?.value;
+  let session = null;
+  if(cookie){
+    session = await decrypt(cookie)
+  }else{
+    session = ""
+  }
+
   return (
     <div className="searchP">
         <div className="container">
@@ -44,7 +54,7 @@ export default async function searchPage({searchParams}) {
                 (
                 <div className="products">
                     {products.data.map(product=>{
-                        return <Product productLink={"thing"} id={product.product_id} name={product.name} img={JSON.parse(product.images)[0]} price={product.price} description={product.description}/>
+                        return <Product userId={session.sessionId} productLink={"thing"} id={product.product_id} name={product.name} img={JSON.parse(product.images)[0]} price={product.price} description={product.description}/>
                     })}
                 </div>
                     

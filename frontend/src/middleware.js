@@ -44,12 +44,12 @@ export async function middleware(request) {
         }
     }
     }
-  if(path.startsWith('/user/profile')){
+  if(path.startsWith('/user/profile')||path.startsWith("/categories/favorites")){
         if(!cookie){
             return NextResponse.redirect(new URL('/login', request.nextUrl))
         }else{
             const session = await decrypt(cookie)
-            if(path.startsWith('/user/profile') && !session.sessionId){
+            if((path.startsWith('/user/profile')||path.startsWith("/categories/favorites")) && !session.sessionId){
               const response = NextResponse.redirect(new URL('/login', request.nextUrl))
               response.cookies.set({userId: session.sessionId})
               return response

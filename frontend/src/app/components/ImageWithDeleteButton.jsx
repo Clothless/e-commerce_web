@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Image from 'next/image'
 import { deleteImage } from '../actions/deleteImage';
 
-const ImageWithDeleteButton = ({ imageUrl,productId }) => {
+const ImageWithDeleteButton = ({ imageUrl,daId }) => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
 
   const handleDeleteClick = () => {
@@ -65,7 +65,7 @@ const ImageWithDeleteButton = ({ imageUrl,productId }) => {
             <div style={{ marginTop: '20px',flexDirection:"row" }}>
               <button onClick={async()=>{
                 handleConfirmDelete();
-                const res = await deleteImage(imageUrl,productId)
+                const res = await deleteImage(imageUrl,daId)
               }} style={{ fontWeight:"500",color:"white",borderRadius:"7px",marginRight: '10px',backgroundColor:"#e82e2e",padding:"5px 10px" }}>
                 Confirm
               </button>

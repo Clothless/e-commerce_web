@@ -13,6 +13,7 @@
         grid-template-columns: 300px 1fr;
         column-gap: 25px;
         .side {
+            height: fit-content;
             border-radius: 20px;
             background-color: rgb(249, 249, 249);
             .top{
@@ -101,6 +102,44 @@
                     }
                 }
             }
+            .infos{
+                margin-block: 30px 40px;
+                margin-inline: 20px;
+                div {
+                    display: flex;
+                    flex-direction: column;
+                }
+                > div {
+                    margin-bottom: 20px;
+                }
+                label {
+                    font-weight: 600;
+                    font-size: 15px;
+                    margin-bottom: 10px;
+                    text-wrap: balance;
+                }
+                input {
+                    max-width: 400px;
+                    border-radius: 7px;
+                    font-size: 1.03rem;
+                    color: #7b7b7b;
+                    &[type="submit"]{
+                        width: 100%;
+                        padding-block: 10px;
+                        color: white;
+                        font-weight: bold;
+                        font-size: 16px;
+                        border: none;
+                        background-color: var(--main-orange-color);
+                        cursor: pointer;
+                    }
+                    &:not([type="submit"]){
+                        border-radius: 7px;
+                        border: 1px solid #e4e4e7;
+                        padding: 10px;
+                    }
+                }
+            }
         }
     }
 }
@@ -127,5 +166,46 @@
     }
     #wilaya{
         background-color: white;
+    }
+}
+.editP{
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+    > div {
+        margin-bottom: 20px;
+    }
+    label {
+        font-weight: 600;
+        font-size: 15px;
+        margin-bottom: 10px;
+        text-wrap: balance;
+    }
+    input {
+        max-width: 400px;
+        border-radius: 7px;
+        font-size: 1.03rem;
+        color: #7b7b7b;
+        &[type="submit"]{
+            width: 100%;
+            padding-block: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            background-color: var(--main-orange-color);
+            cursor: pointer;
+        }
+        &:not([type="submit"]){
+            border-radius: 7px;
+            border: 1px solid #e4e4e7;
+            padding: 10px;
+        }
+    }
+    .imagesUpload{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px,1fr));
+        gap: 10px;
     }
 }

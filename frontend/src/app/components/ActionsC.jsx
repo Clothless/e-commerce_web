@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import EditUser from './EditUser';
 import EditProducts from './EditProducts';
 import EditCategory from './EditCategory';
+import EditSubCategory from './EditSubCategory';
+import EditModerator from './EditModerator';
+import EditAdmin from './EditAdmin';
 
 const DropdownMenu = ({ EditModal, DeleteModal }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +78,7 @@ const DropdownMenu = ({ EditModal, DeleteModal }) => {
   );
 };
 
-const Modal = ({ isOpen, onClose, children, width = 'max-w-md',header }) => {
+const Modal = ({ isOpen, onClose, children, width = 'max-w-md',header,tab}) => {
   const modalContentRef = useRef(null);
   const [modalHeight, setModalHeight] = useState('h-full');
 
@@ -99,7 +102,7 @@ const Modal = ({ isOpen, onClose, children, width = 'max-w-md',header }) => {
         >
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-xl font-bold">{header}</h2>
+              <h2 className="text-xl font-bold">{tab === "moderators"?"Edit Moderator" : tab === "admins"?"Edit Admin" : header}</h2>
               <button
                 className="text-gray-500 hover:text-gray-700 focus:outline-none"
                 onClick={onClose}
@@ -127,7 +130,7 @@ const Modal = ({ isOpen, onClose, children, width = 'max-w-md',header }) => {
   );
 };
 
-const ActionsC = ({tab,theId,header}) => {
+const ActionsC = ({tab,theId,header,images}) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
@@ -161,7 +164,7 @@ const ActionsC = ({tab,theId,header}) => {
         }}
       />
 
-      <Modal isOpen={editModalOpen} onClose={handleEditModalClose} header={header}>
+      <Modal isOpen={editModalOpen} onClose={handleEditModalClose} header={header} tab={tab}>
         {
           tab === "users"
           ?
@@ -169,11 +172,23 @@ const ActionsC = ({tab,theId,header}) => {
           :
           tab === "products"
           ?
-          (<EditProducts theeeId={theId}/>)
+          (<EditProducts theeeId={theId} images={images}/>)
           :
           tab === "categories"
           ?
           (<EditCategory theeeId={theId}/>)
+          :
+          tab === "sub_categories"
+          ?
+          (<EditSubCategory theeeId={theId}/>)
+          :
+          tab === "moderators"
+          ?
+          (<EditModerator theeeId={theId}/>)
+          :
+          tab === "admins"
+          ?
+          (<EditAdmin theeeId={theId}/>)
           :
           <h1>hello</h1>
         }
